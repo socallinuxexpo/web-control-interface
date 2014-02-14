@@ -1,0 +1,24 @@
+[
+{
+    "name": "Command 1",
+    "args": [
+            {"label":"Empty","values":[]},
+            {"label":"1,2,3 and 4","values":[1,2,3,4]},
+            {"label":"'cat','mouse','turkey'","values":["cat","mouse","turkey"]},
+            {"label":"Empty-2"}
+            ]
+},
+{
+    "name": "No Args-1",
+    "args": []
+},
+{
+    "name": "No Args-2"
+},
+{
+    "name": "Command 4",
+    "args": [
+            {"label":"'Copy Cat','Danger Dog'","values":["Copy Cat","Danger Dog"]}
+            ]
+}
+]
