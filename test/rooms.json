@@ -1,8 +1,8 @@
 [
-{"name":"MyTestRoom","webhost":"http://127.0.0.1/test-super/test.html","camera":"http://10.0.0.1"},
-{"name":"Something","webhost":"http://127.0.0.1/test-super/test.html","camera":"http://10.0.0.1"},
-{"name":"Annother Room","webhost":"http://127.0.0.1/test-super/test.html","camera":"http://10.0.0.1"},
-{"name":"ROOM!!!!!!!!!!","webhost":"http://127.0.0.1/test-super/test.html","camera":"http://10.0.0.1"},
-{"name":"C'est La Vie","webhost":"http://127.0.0.1/test-super/test.html","camera":"http://10.0.0.1"},
+{"name":"MyTestRoom","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"Something","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"Annother Room","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"ROOM!!!!!!!!!!","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"C'est La Vie","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
 {"name":"Google","webhost":"http://www.google.com/","camera":"http://10.0.0.1"}
 ]

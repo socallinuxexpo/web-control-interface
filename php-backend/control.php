@@ -1,6 +1,6 @@
 <?php
     require_once('config.php');
-    $_POST = $_GET;
+    //$_POST = $_GET;
     //If no command sent, list available commands.
     if (!isset($_POST["command"]))
     {
@@ -81,7 +81,7 @@
             $pid = shell_exec($var);
             return $pid;
         }
-        $var = 'DISPLAY=:0 HOME=/home/scaleav/ sudo -u scaleav '.$command.' 2> /home/scaleav/web-aux/shell-errors.err';
+        $var = 'DISPLAY=:0 HOME=/home/scaleav/ sudo -u scaleav '.$command.' 2>&1';
         echo "{message:'[INFO] while running: ".shell_exec($var)."'}";
         return -3;
     }

@@ -1,8 +1,8 @@
 <?php
     //Configuration settings
     $CONFIG = array(
-            "ROOM-LIST" => "https://127.0.0.1/rooms.txt",
-            "SIGN-URL" => "https://127.0.0.1/sign.html"
+            "ROOM-LIST" => "https://127.0.0.1/test/rooms.json",
+            "SIGN-URL" => "https://127.0.0.1/test/sign.html"
         );
     //Read in configured list and update configuration.
     try
@@ -24,8 +24,10 @@
     };
     $values = function() {
         $ret = array();
+        $val = array();
         foreach(getRooms() as $room)
-            $ret[] = $room["name"];
+            $val[] = $room["name"];
+        $ret[] = array("label" => "Select Room:", "values" => $val);
         return $ret; 
     };
     // Available commands:  COMMAND => (unix-command,number of args needed,function to map args to cmd-line args)

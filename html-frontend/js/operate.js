@@ -18,7 +18,7 @@ function setup() {
 		url: Config.URL,
 		success: init,
 		error: onError,
-		type:"POST",
+		type:"GET",
 		dataType: "json",
 	});
 }
