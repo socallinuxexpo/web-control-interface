@@ -11,16 +11,23 @@
     }
     catch (Exception $e)
     {
-        echo "{error:'[ERROR] Failed to read room list:'.$e->getMessage().'.'}";
+        echo '{"error":"[ERROR] Failed to read room list:'.$e->getMessage().'."}';
         exit;
     }
     /**
      * Map rooms to their urls.
      */
     $map = function($args) {
+        global $CONFIG;
         if (count($args) != 1)
             throw new Exception("Not enough arguments.");
-        return $CONFIG["ROOMS"][$args[0]];
+        //Find matching room
+        foreach ($CONFIG["ROOMS"] as $room)
+        {
+            if (strcmp($room["name"],$args[0]) == 0)
+                return $room["camera"];
+        }
+        throw new Exception("Cannot find room.");
     };
     $values = function() {
         $ret = array();
@@ -33,7 +40,7 @@
     // Available commands:  COMMAND => (unix-command,number of args needed,function to map args to cmd-line args)
     $COMMANDS = array(
              "SIGN" => array("firefox ".$CONFIG["SIGN-URL"],0,null,null),
-             "STREAM" => array("cvlc",1,$map,$values),
+             "STREAM" => array("vlc",1,$map,$values),
              "SWITCH" => array("./switch",0,null,null)
         );
 

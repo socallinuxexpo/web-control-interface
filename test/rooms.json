@@ -1,8 +1,8 @@
 [
-{"name":"MyTestRoom","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"Something","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"Annother Room","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"ROOM!!!!!!!!!!","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"C'est La Vie","webhost":"http://127.0.0.1/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"Google","webhost":"http://www.google.com/","camera":"http://10.0.0.1"}
+{"name":"MyTestRoom","webhost":"https://10.0.0.134/html-frontend/operate.html","camera":"/home/scaleav/code/web-control-interface/test/BigBuckBunny_320x180.mp4"},
+{"name":"Something","webhost":"https://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"Annother Room","webhost":"https://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"ROOM!!!!!!!!!!","webhost":"https://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"C'est La Vie","webhost":"http://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
+{"name":"Google","webhost":"https://www.google.com/","camera":"http://10.0.0.1"}
 ]

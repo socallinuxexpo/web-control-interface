@@ -12,7 +12,7 @@ function setup() {
 		return;
 	}
 	//Valid, so request commands available
-	var header = $("h1");
+	var header = $("h2");
 	header.text(header.text()+" "+name);
 	$.ajax({
 		url: Config.URL,
@@ -76,7 +76,7 @@ function sendCommand() {
 		data:data,
 		beforeSend: commandRunning,
 		success: commandComplete,
-		error: onError,
+		error: commandError,
 		type: "POST",
 		dataType: "json",
 	});	
@@ -85,14 +85,31 @@ function sendCommand() {
  * Functions to perform when a command is running.
  */
 function commandRunning() {
-	//Disable commands
-	$(".control").attr("disabled","disabled").addClass("ui-state-disabled");
-	$(".ctrlbutton").button("disable");
+    //Disable commands
+    $(".control").attr("disabled","disabled").addClass("ui-state-disabled");
+    $(".ctrlbutton").button("disable");
+}
+/**
+ * A command errors out.
+ */
+function commandError(jqxhr,text,error) {
+    onError(jqxhr,text,error);
+    $(".control").removeAttr("disabled").removeClass("ui-state-disabled");
+    $(".ctrlbutton").button("enable");
 }
 /**
  * Functions to perform when a command completes.
  */
-function commandComplete() {
+function commandComplete(data,text,jqxhr) {
+        //Errors sent
+        if ("error" in data)
+            onError(jqxhr,"Error running",data.error);
+        //Messages printing
+        if ("messages" in data)
+        {
+            for (var i = 0; i < data.messages.length; i++)
+                $("#messages").prepend(data.messages[i]+"<br />");
+        }
 	$(".control").removeAttr("disabled").removeClass("ui-state-disabled");
 	$(".ctrlbutton").button("enable");
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SCALE AV Control Interface: </title>
+        <title>Linux Audiovisual Regulation System (LARS)</title>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.10.4.custom/css/lars/jquery-ui-1.10.4.custom.css" />
         <script src="js/jquery-1.10.2.js"></script>
@@ -11,21 +11,24 @@
         <script src="js/operate.js"></script>
     </head>
     <body>
-        <h1 class="ui-accordion-header-active ui-state-active ui-corner-all rounded-fix-padding">SCALE AV Control Interface</h1>
+        <h1 class="ui-accordion-header-active ui-state-active ui-corner-all rounded-fix-padding">Linux Audiovisual Regulation System (LARS) Operations</h1>
+        <div class="ui-widget-content ui-corner-all rounded-fix-padding-both">
+            <h2>Host control system: </h2>
+            System for controling a LARS host system.
+        </div>
         <div id="floating-content">
             <div id="content">
                 <h3>Projector Controls</h3>
                 <div id="system-controls"></div>
                 <h3>Messages</h3>
-                <div>[INFO] Messages go here.</div>
+                <div id="messages">[INFO] Starting LARS system.</div>
                 <h3 class="ui-state-error">Errors</h3>
-                <div></div>
+                <div id="error"></div>
                 <h3>Help</h3>
                 <div id="help-">
                 This is the SCALE AV help section.  It will be replaced by help content at some point in the future.
                 <small>SCALE AV ~ Unparalleled Technical Skills Creating Unparalleled Experience</small></div>
             </div>
         </div>
-        <div id="error"></div>
     </body>
 </html>

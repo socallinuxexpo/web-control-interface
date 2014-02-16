@@ -42,5 +42,5 @@ function isValidRoomName(room)
  */
 function onError(jqxhr,text,error)
 {
-	$("div#error").append("<h4>"+text+"</h4>\n"+error);
+	$("div#error").append("[ERROR]<em>"+text+"</em>:"+error);
 }

@@ -1,6 +1,7 @@
 <?php
     require_once('config.php');
-    //$_POST = $_GET;
+    $messages = array();
+    #$_POST = $_GET;
     //If no command sent, list available commands.
     if (!isset($_POST["command"]))
     {
@@ -12,7 +13,7 @@
     $command = preg_replace("/[^-a-zA-Z]/","",$_POST["command"]);
     if (!isset($COMMANDS[$command]))
     {
-        echo "{error: '[ERROR] Invalid command:".$command.".'}";
+        echo '{"error": "[ERROR] Invalid command:'.$command.'."}';
         exit;
     }
     $args = array();
@@ -23,13 +24,15 @@
         //Check arguments
         if (!isset($_POST[$index]))
         {
-            echo "{error: '[ERROR] Not enough arguments'}";
+            echo '{"error": "[ERROR] Not enough arguments"}';
             exit;
         }
         $args[] = preg_replace("/[^-a-zA-Z]/","",$_POST[$index]);
     }
-    $parm = ($COMMANDS[$command][2] != null)?call_user_func($COMMANDS[$command][2],$args) :
-            (count($args) > 0)?$args[0]:"";
+    $tmp = null;
+    if ($COMMANDS[$command][2] != null)
+        $tmp = call_user_func($COMMANDS[$command][2],$args);
+    $parm = ($tmp != null)?$tmp:"";
     $run = $COMMANDS[$command][0]." ".$parm;
     //Run, testing for errors.
     $pid = -1;
@@ -37,31 +40,33 @@
     {
         session_start();
         if (isset($_SESSION["PID"]) && intval($_SESSION["PID"]) > 0) {
-            echo "{message:'[INFO] Killing pid: ".$_SESSION["PID"]."'}";
-            kill($_SESSION["PID"]);
+            $messages[] = "[INFO] Killing pid: ".$_SESSION["PID"].".";
+            kill($_SESSION["PID"],$messages);
             unset($_SESSION["PID"]);
             sleep(1);
         }
         session_write_close();
-        $pid = run($run);
+        $pid = run($run,$messages);
         if (intval($pid) > 0) {
             session_start();
             $_SESSION["PID"] = $pid;
             session_write_close();
-            echo "{message:'[INFO] Ran ".$COMMANDS[$command][0]." with pid: $pid'}";
+            $messages[] = "[INFO] Ran ".$COMMANDS[$command][0]." with pid: $pid";
         }
     }
     catch (Exception $e)
     {
-        echo "{error:'[ERROR] Failed to run program.'.$e->getMessage().'.'}";
+        echo '{"error":"[ERROR] Failed to run program.'.$e->getMessage().'." "messages":'.json_encode($messages).'}';
         exit;
     }
+    echo '{"messages":'.json_encode($messages).'}';
     /**
      * KILL a pid
      */
-    function kill($pid) {
+    function kill($pid,&$messages) {
+        
         $var = "sudo -u scaleav kill -KILL $pid 2>&1";
-        echo "{message:'[INFO] While killing: ".shell_exec($var)."'}";
+        $messages[] = "[INFO] While killing: ".shell_exec($var).".";
         sleep(1);
     }
 
@@ -69,7 +74,7 @@
      * Run command in background. Ignore output.
      * @return - pid
      */
-    function run($command) 
+    function run($command,&$messages) 
     {
         $command = trim($command);
         $pid = pcntl_fork();
@@ -81,8 +86,8 @@
             $pid = shell_exec($var);
             return $pid;
         }
-        $var = 'DISPLAY=:0 HOME=/home/scaleav/ sudo -u scaleav '.$command.' 2>&1';
-        echo "{message:'[INFO] while running: ".shell_exec($var)."'}";
+        $var = 'DISPLAY=:0 HOME=/home/scaleav/ sudo -u scaleav '.$command.' 2>&1 1> /home/scaleav/logs/log.lo';
+        $messages[] = "[INFO] while running: ".shell_exec($var).".";
         return -3;
     }
  
