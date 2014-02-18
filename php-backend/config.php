@@ -39,9 +39,9 @@
     };
     // Available commands:  COMMAND => (unix-command,number of args needed,function to map args to cmd-line args)
     $COMMANDS = array(
-             "SIGN" => array("firefox ".$CONFIG["SIGN-URL"],0,null,null),
-             "STREAM" => array("vlc",1,$map,$values),
-             "SWITCH" => array("./switch",0,null,null)
+             "SIGN" => array("firefox ".$CONFIG["SIGN-URL"],0,null,null,true),
+             "STREAM" => array("vlc",1,$map,$values,true),
+             "SWITCH" => array("../kvm-switch/switch",0,null,null,false)
         );
 
 

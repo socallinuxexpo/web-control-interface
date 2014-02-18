@@ -1,19 +1,17 @@
-Artifacts from a running system.
-1. default - sites configuration
-2. info.php - test php site
-3. php.ini - unchanged php init file
-4. www.conf - php www configuration, must change to unix socket or weep
-5. htpasswd - password file with one user 's' w/ password '1'
-6. sources.list.append - lines to append to your sources file
-7. setup.hist - commands run.
-
-Good luck you jerk. (Yes this is a note from me to myself.) YEAH!
-
-
-
-!!!!!!!
-
-
-
-1!!@';lerjklwebp''
-gdskmxk 
+#Install crap
+sudo apt-get install vim
+sudo vi /etc/apt/sources.list # Add in this ppa for nginx
+sudo apt-get install nginx
+sudo apt-get install php5-fpm
+sudo apt-get install apache2-utils
+#Copy over sys configs
+sudo cp <base>/web-aux/php.ini  /etc/php5/fpm/php.ini
+sudo vim /etc/php5/fpm/pool.d/www.conf #Switch to unix socket
+sudo cp <base>/web-aux/defaults /etc/nginx/sites-available/default 
+#Setup php pcntl or use the supplied .so
+?
+#Password login file
+sudo htpasswd -c <base>/web-aux/htpasswd
+#Restart
+sudo service php5-fpm restart #restart out server
+sudo service nginx restart #Restart or weep

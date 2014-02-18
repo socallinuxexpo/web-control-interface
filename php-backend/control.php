@@ -17,8 +17,9 @@
         exit;
     }
     $args = array();
+    $runnable = $COMMANDS[$command];
     //Loop through count of arguments reading: arg0 ... argn 
-    for($i = 0; $i < $COMMANDS[$command][1]; $i++)
+    for($i = 0; $i < $runnable[1]; $i++)
     {
         $index = "arg".strval($i);
         //Check arguments
@@ -29,29 +30,36 @@
         }
         $args[] = preg_replace("/[^-a-zA-Z]/","",$_POST[$index]);
     }
-    $tmp = null;
-    if ($COMMANDS[$command][2] != null)
-        $tmp = call_user_func($COMMANDS[$command][2],$args);
-    $parm = ($tmp != null)?$tmp:"";
-    $run = $COMMANDS[$command][0]." ".$parm;
-    //Run, testing for errors.
-    $pid = -1;
     try
     {
-        session_start();
-        if (isset($_SESSION["PID"]) && intval($_SESSION["PID"]) > 0) {
-            $messages[] = "[INFO] Killing pid: ".$_SESSION["PID"].".";
-            kill($_SESSION["PID"],$messages);
-            unset($_SESSION["PID"]);
-            sleep(1);
+        $tmp = null;
+        if ($runnable[2] != null)
+            $tmp = call_user_func($runnable[2],$args);
+        $parm = ($tmp != null)?$tmp:"";
+        $run = $runnable[0]." ".$parm;
+        //Run, testing for errors.
+        $pid = -1;
+        if (!$runnable[4])
+        {
+            $var = 'DISPLAY=:0 HOME=/home/scaleav/ sudo -u scaleav '.$runnable[0];
+            $messages[] = "[INFO] while running: ".shell_exec($var).".";
         }
-        session_write_close();
-        $pid = run($run,$messages);
-        if (intval($pid) > 0) {
+        else {
             session_start();
-            $_SESSION["PID"] = $pid;
+            if (isset($_SESSION["PID"]) && intval($_SESSION["PID"]) > 0) {
+                $messages[] = "[INFO] Killing pid: ".$_SESSION["PID"].".";
+                kill($_SESSION["PID"],$messages);
+                unset($_SESSION["PID"]);
+                sleep(1);
+            }
             session_write_close();
-            $messages[] = "[INFO] Ran ".$COMMANDS[$command][0]." with pid: $pid";
+            $pid = run($run,$messages);
+            if (intval($pid) > 0) {
+                session_start();
+                $_SESSION["PID"] = $pid;
+                session_write_close();
+                $messages[] = "[INFO] Ran ".$COMMANDS[$command][0]." with pid: $pid";
+            }
         }
     }
     catch (Exception $e)
