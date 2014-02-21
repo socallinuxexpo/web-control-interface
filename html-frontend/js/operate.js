@@ -4,6 +4,8 @@ $(document).ready(setup);
  * Launch initial requests to build webpage.
  */
 function setup() {
+        CAM_IP = window.location.hostname;
+        vidsetup();
 	//Get requested room, and fail if not valid
 	var name = decodeURIComponent(window.location.search).replace("?","");
 	if (!isValidRoomName(name))

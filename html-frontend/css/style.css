@@ -11,3 +11,20 @@ body
 {
 	 padding: 10px;
 }
+.vidcontrol-container
+{
+	display: inline-block;
+	vertical-align: top;
+	/*width: 75%;*/
+}
+#system-controls
+{
+	display: inline-block;
+	vertical-align: top;
+/*	width: 20%;*/
+}
+/*.control-element
+{
+	display: inline-block;
+	vertical-align: top;
+}*/

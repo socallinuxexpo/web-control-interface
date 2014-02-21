@@ -61,7 +61,7 @@
     $COMMANDS = array(
              "SIGN" => array("chromium-browser --incognito --kiosk ".$CONFIG["SIGN-URL"],1,$map_sign,$values_sign,true,"chromium-browser"),
              "STREAM" => array("cvlc --width=1024 --height=760 ",1,$map_stream,$values_stream,true,"vlc"),
-             "SWITCH" => array("../kvm-switch/switch",0,null,null,false,"")
+             "SwitchKVM" => array("../kvm-switch/switch",0,null,null,false,"")
         );
 
 

@@ -1,27 +1,94 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Linux Audiovisual Regulation System (LARS)</title>
+        <title>Linux Audiovisual Regulation System (LCARS)</title>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.10.4.custom/css/lars/jquery-ui-1.10.4.custom.css" />
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+.
+        <link href="vidcontrol/vjs/video-js.css" rel="stylesheet" />
+        <script src="vidcontrol/vjs/video.js"></script>
+        <script type="text/javascript" src="vidcontrol/jwplayer/jwplayer.js"></script>
+        <link rel="stylesheet" href="vidcontrol/style.css">
+        <script type="text/javascript">
+          var CAM_IP = "BLAH";
+          var PAN_INCREMENT = 5;
+          var TILT_INCREMENT = 5;
+          var lastValues = [0,0,0];
+          var PAN_ID = 0;
+          var TILT_ID = 1;
+          var ZOOM_ID = 2;
+          var PAN_MIN = 0;
+          var PAN_MAX = 360;
+          var TILT_MIN = 0;
+          var TILT_MAX = 45;
+        </script>
+        <script type="text/javascript" src="vidcontrol/vidbox.js"></script>
+        
         <script src="js/config.js"></script>
         <script src="js/lib.js"></script>
         <script src="js/operate.js"></script>
     </head>
     <body>
-        <h1 class="ui-accordion-header-active ui-state-active ui-corner-all rounded-fix-padding">Linux Audiovisual Regulation System (LARS) Operations</h1>
+        <h1 class="ui-accordion-header-active ui-state-active ui-corner-all rounded-fix-padding">Linux Computer Audiovisual Regulation System (LCARS) Operations</h1>
         <div class="ui-widget-content ui-corner-all rounded-fix-padding-both">
             <h2>Host control system: </h2>
-            System for controling a LARS host system.
+            System for controling a LCARS host system.
         </div>
-        <div id="floating-content">
+        <div id="floating-content" class="control-element">
             <div id="content">
                 <h3>Projector Controls</h3>
-                <div id="system-controls"></div>
+                <div>
+<!-- ********************************************************************************************* -->
+<div class="vidcontrol-container control-element ui-corner-all ui-widget-content">
+
+<img class="vidpreview" src="/x/1/cgi-bin/video.cgi?msubmenu=mjpg&resolution=7" />
+
+<div class="vidoverlay">
+  <div class="slider-pan"></div>
+  <div class="slider-tilt"></div>
+<form class="dpad">
+<table>
+  <tr>
+    <td><br /></td>
+    <td><input class="up_btn" type="button" value="Up"/></td>
+    <td><br /></td>
+  </tr>
+  <tr>
+    <td><input class="left_btn" type="button" value="Left"/></td>
+    <td><br /></td>
+    <td><input class="right_btn" type="button" value="Right"/></td>
+  </tr>
+  <tr>
+    <td><br /></td>
+    <td><input class="down_btn" type="button" value="Down"/></td>
+    <td><br /></td>
+  </tr>
+</table>
+</form>
+</div>
+
+<form class="spinners">
+<table>
+  <tr>
+    <td>Pan: <input type="text" id="pan_1" class="pan" size="5" /></td>
+    <td>Tilt: <input type="text" id="tilt_1" class="tilt" size="5" /></td>
+    <td>Zoom: <input type="text" id="zoom_1" class="zoom" size="5" /></td>
+  </tr>
+  <!--<tr>
+    <td><input type="button" onclick="getptz('1')" value="getPTZ"/></td>
+    <td><input type="button" onclick="getptz('1')" value="Up"/></td>
+    <td><input type="button" onclick="getptz('1')" value="getPTZ"/></td>
+  </tr>-->
+</table>
+</form>
+</div>
+<!-- ********************************************************************************************* -->
+                    <div id="system-controls"></div>
+                </div>
                 <h3>Messages</h3>
-                <div id="messages">[INFO] Starting LARS system.</div>
+                <div id="messages">[INFO] Starting LCARS system.</div>
                 <h3 class="ui-state-error">Errors</h3>
                 <div id="error"></div>
                 <h3>Help</h3>
