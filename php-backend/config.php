@@ -41,18 +41,30 @@
         }
         throw new Exception("Cannot find room.");
      };
-     $room_values = function() {
+     $values_stream = function() {
         $ret = array();
         $val = array();
-        foreach(getRooms() as $room)
+        foreach(getRooms() as $room) {
+            if(strlen($room["camera"]) > 0) {
+                $val[] = $room["name"];
+            }
+        }
+        $ret[] = array("label" => "Select Room:", "values" => $val);
+        return $ret; 
+    };
+     $values_sign = function() {
+        $ret = array();
+        $val = array();
+        foreach(getRooms() as $room) {
             $val[] = $room["name"];
+        }
         $ret[] = array("label" => "Select Room:", "values" => $val);
         return $ret; 
     };
     // Available commands:  COMMAND => (unix-command,number of args needed,function to map args to cmd-line args)
     $COMMANDS = array(
-             "SIGN" => array("chromium-browser --incognito --kiosk ".$CONFIG["SIGN-URL"],1,$map_sign,$room_values,true,"chromium-browser"),
-             "STREAM" => array("cvlc --width=1024 --height=760 ",1,$map_stream,$room_values,true,"vlc"),
+             "SIGN" => array("chromium-browser --incognito --kiosk ".$CONFIG["SIGN-URL"],1,$map_sign,$values_sign,true,"chromium-browser"),
+             "STREAM" => array("cvlc --width=1024 --height=760 ",1,$map_stream,$values_stream,true,"vlc"),
              "SWITCH" => array("../kvm-switch/switch",0,null,null,false,"")
         );
 
