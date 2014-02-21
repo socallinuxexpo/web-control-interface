@@ -127,7 +127,14 @@ function addCommand(command)
 		var arg = command.args[i];
 		//Add in text field if no "possible values" otherwise a drop-down
 		var item = null;
-		if (!("values" in arg) || arg.values.length == 0)
+		if ("hidden" in arg) {
+			item = $("<input type=\"hidden\"></input>");
+			item.attr("id","arg"+count.toString());
+			item.addClass("arg").addClass("control");
+			room_name = decodeURIComponent(window.location.search).replace("?","");
+			item.val(room_name);
+                }
+		else if (!("values" in arg) || arg.values.length == 0)
 		{
 			item = $("<input type=\"text\"></input>");
 			item.attr("id","arg"+count.toString());

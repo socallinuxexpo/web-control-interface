@@ -49,16 +49,12 @@
                 $val[] = $room["name"];
             }
         }
-        $ret[] = array("label" => "Select Room:", "values" => $val);
+        $ret[] = array("label" => "Select Room", "values" => $val);
         return $ret; 
     };
      $values_sign = function() {
         $ret = array();
-        $val = array();
-        foreach(getRooms() as $room) {
-            $val[] = $room["name"];
-        }
-        $ret[] = array("label" => "Select Room:", "values" => $val);
+        $ret[] = array("label" => "Enable Room's Schedule Sign", "hidden" => "true");
         return $ret; 
     };
     // Available commands:  COMMAND => (unix-command,number of args needed,function to map args to cmd-line args)
