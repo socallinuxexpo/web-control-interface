@@ -36,7 +36,7 @@
         if ($runnable[2] != null)
             $tmp = call_user_func($runnable[2],$args);
         $parm = ($tmp != null)?$tmp:"";
-        $run = $runnable[0]." ".$parm;
+        $run = $runnable[0].$parm;
         $kill_grep = $runnable[5];
         //Run, testing for errors.
         $pid = -1;
@@ -62,7 +62,7 @@
                 session_start();
                 $_SESSION["PID"] = $pid;
                 session_write_close();
-                $messages[] = "[INFO] Ran ".$COMMANDS[$command][0]." with pid: $pid";
+                $messages[] = "[INFO] Ran '".$run."' with pid: $pid";
             }
         }
     }
