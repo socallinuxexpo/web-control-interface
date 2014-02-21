@@ -37,23 +37,27 @@
             $tmp = call_user_func($runnable[2],$args);
         $parm = ($tmp != null)?$tmp:"";
         $run = $runnable[0]." ".$parm;
+        $kill_grep = $runnable[5];
         //Run, testing for errors.
         $pid = -1;
         if (!$runnable[4])
         {
-            $var = 'DISPLAY=:0 HOME=/home/scaleav/ sudo -u scaleav '.$runnable[0];
+            $var = 'DISPLAY=:1 HOME=/home/ubuntu/ sudo -u ubuntu '.$runnable[0];
+	    $messages[] = "[INFO] Ran: " . $var;
             $messages[] = "[INFO] while running: ".shell_exec($var).".";
         }
         else {
             session_start();
             if (isset($_SESSION["PID"]) && intval($_SESSION["PID"]) > 0) {
-                $messages[] = "[INFO] Killing pid: ".$_SESSION["PID"].".";
-                kill($_SESSION["PID"],$messages);
+		foreach(explode(" ", $_SESSION["PID"]) as $pid) {
+                    $messages[] = "[INFO] Killing pid: ".$pid.".";
+                    kill($pid, $messages);
+		}
                 unset($_SESSION["PID"]);
                 sleep(1);
             }
             session_write_close();
-            $pid = run($run,$messages);
+            $pid = run($run,$kill_grep,$messages);
             if (intval($pid) > 0) {
                 session_start();
                 $_SESSION["PID"] = $pid;
@@ -73,8 +77,15 @@
      */
     function kill($pid,&$messages) {
         
-        $var = "sudo -u scaleav kill -KILL $pid 2>&1";
-        $messages[] = "[INFO] While killing: ".shell_exec($var).".";
+        #$var = "sudo -u ubuntu kill -KILL $pid 2>&1";
+	
+        $kill_cmd1 = "kill -KILL $pid 2>&1";
+	$messages[] = "[INFO] Running kill: " . $kill_cmd1;
+        $messages[] = "[INFO] While killing: ".shell_exec($kill_cmd1).".";
+
+        $kill_cmd2 = "sudo -u ubuntu kill -KILL $pid 2>&1";
+	$messages[] = "[INFO] Running kill: " . $kill_cmd2;
+        $messages[] = "[INFO] While killing: ".shell_exec($kill_cmd2).".";
         sleep(1);
     }
 
@@ -82,19 +93,20 @@
      * Run command in background. Ignore output.
      * @return - pid
      */
-    function run($command,&$messages) 
+    function run($command,$kill_grep,&$messages) 
     {
         $command = trim($command);
         $pid = pcntl_fork();
         if ($pid == -1)
             throw Exception("Failed to fork process.");
         else if ($pid) {
-            sleep(1);
-            $var = "ps -fu scaleav | grep '$command' | grep -v grep | awk '{print $2}'";
+            sleep(2);
+            $var = "pgrep -f '$kill_grep' | xargs";
+            $messages[] = "[INFO] Grepping processes: " . $var;
             $pid = shell_exec($var);
             return $pid;
         }
-        $var = 'DISPLAY=:0 HOME=/home/scaleav/ sudo -u scaleav '.$command.' 2>&1 1> /home/scaleav/logs/log.lo';
+        $var = 'DISPLAY=:1 HOME=/home/ubuntu/ sudo -u ubuntu '.$command.' 2>&1 1> /home/ubuntu/logs/log.lo';
         $messages[] = "[INFO] while running: ".shell_exec($var).".";
         return -3;
     }

@@ -1,8 +1,8 @@
 <?php
     //Configuration settings
     $CONFIG = array(
-            "ROOM-LIST" => "https://127.0.0.1/test/rooms.json",
-            "SIGN-URL" => "https://127.0.0.1/test/sign.html"
+            "ROOM-LIST" => "../test/rooms.json",
+            "SIGN-URL" => "http://signs.expo.socallinuxexpo.org/signs/index.php?room=",
         );
     //Read in configured list and update configuration.
     try
@@ -17,7 +17,7 @@
     /**
      * Map rooms to their urls.
      */
-    $map = function($args) {
+    $map_stream = function($args) {
         global $CONFIG;
         if (count($args) != 1)
             throw new Exception("Not enough arguments.");
@@ -29,7 +29,19 @@
         }
         throw new Exception("Cannot find room.");
     };
-    $values = function() {
+    $map_sign = function($args) {
+        global $CONFIG;
+        if (count($args) != 1)
+            throw new Exception("Not enough arguments.");
+        //Find matching room
+        foreach ($CONFIG["ROOMS"] as $room)
+        {
+            if (strcmp($room["name"],$args[0]) == 0)
+                return $room["name"];
+        }
+        throw new Exception("Cannot find room.");
+     };
+     $room_values = function() {
         $ret = array();
         $val = array();
         foreach(getRooms() as $room)
@@ -39,9 +51,9 @@
     };
     // Available commands:  COMMAND => (unix-command,number of args needed,function to map args to cmd-line args)
     $COMMANDS = array(
-             "SIGN" => array("firefox ".$CONFIG["SIGN-URL"],0,null,null,true),
-             "STREAM" => array("vlc",1,$map,$values,true),
-             "SWITCH" => array("../kvm-switch/switch",0,null,null,false)
+             "SIGN" => array("chromium-browser --incognito --kiosk ".$CONFIG["SIGN-URL"],1,$map_sign,$room_values,true,"chromium-browser"),
+             "STREAM" => array("cvlc --width=1024 --height=760 ",1,$map_stream,$room_values,true,"vlc"),
+             "SWITCH" => array("../kvm-switch/switch",0,null,null,false,"")
         );
 
 
