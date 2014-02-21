@@ -1,8 +1,14 @@
 [
-{"name":"UseThisDoran","webhost":"https://192.168.0.108/html-frontend/operate.html","camera":"/home/scaleav/code/web-control-interface/test/BigBuckBunny_320x180.mp4"},
-{"name":"Something","webhost":"https://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"Annother Room","webhost":"https://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"ROOM!!!!!!!!!!","webhost":"https://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"C'est La Vie","webhost":"http://10.0.0.134/html-frontend/operate.html","camera":"http://10.0.0.1"},
-{"name":"Google","webhost":"https://www.google.com/","camera":"http://10.0.0.1"}
+{"name":"test","webhost":"https://172.16.10.249/html-frontend/operate.html","camera":"/home/ubuntu/web-control-interface/test/BigBuckBunny_320x180.mp4"},
+{"name":"lajolla","webhost":"https://lajolla-slide/html-frontend/operate.html","camera":"http://lajolla-cam"},
+{"name":"carmel","webhost":"https://carmel-slide/html-frontend/operate.html","camera":"http://carmel-cam"},
+{"name":"laa","webhost":"https://laa-slide/html-frontend/operate.html","camera":"http://laa-cam"},
+{"name":"lab","webhost":"https://lab-slide/html-frontend/operate.html","camera":"http://lab-cam"},
+{"name":"lac","webhost":"https://lac-slide/html-frontend/operate.html","camera":"http://lac-cam"},
+{"name":"centuryab","webhost":"https://centuryab-slide/html-frontend/operate.html","camera":"http://centuryab-cam"},
+{"name":"marina","webhost":"https://marina-slide/html-frontend/operate.html","camera":"http://marina-cam"},
+{"name":"belair","webhost":"https://belair-slide/html-frontend/operate.html","camera":"http://belair-cam"},
+{"name":"overflow1","webhost":"https://overflow1/html-frontend/operate.html","camera":"http://127.0.0.1"},
+{"name":"overflow2","webhost":"https://overflow2/html-frontend/operate.html","camera":"http://127.0.0.1"},
+{"name":"overflow3","webhost":"https://overflow3/html-frontend/operate.html","camera":"http://127.0.0.1"}
 ]
