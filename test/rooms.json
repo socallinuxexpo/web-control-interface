@@ -6,6 +6,7 @@
 {"name":"LosAngelesB","webhost":"https://lab-slide/html-frontend/operate.html","camera":"rtsp://lab-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
 {"name":"LosAngelesC","webhost":"https://lac-slide/html-frontend/operate.html","camera":"rtsp://lac-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
 {"name":"CenturyAB","webhost":"https://centuryab-slide/html-frontend/operate.html","camera":"rtsp://centuryab-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
+{"name":"CenturyCD","webhost":"https://centurycd-slide/html-frontend/operate.html","camera":"rtsp://centurycd-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
 {"name":"Marina","webhost":"https://marina-slide/html-frontend/operate.html","camera":"rtsp://marina-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
 {"name":"BelAir","webhost":"https://belair-slide/html-frontend/operate.html","camera":"rtsp://belair-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
 {"name":"SanLorenzoA","webhost":"https://sand/html-frontend/operate.html","camera":""},
