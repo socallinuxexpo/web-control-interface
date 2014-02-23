@@ -1,5 +1,5 @@
 #!/bin/bash
-for xx in $(cat ../config/computer_list.txt ) ; do
+for slidehost in $(cat ../system-configs/computer_list.txt ) ; do
 	#echo "Supposedly waking $xx"
-	ssh ubuntu@$xx "export DISPLAY=:1 ; xset -dpms ; xset s off ; xset s noblank"
+	ssh ubuntu@$slidehost "export DISPLAY=:1 ; xset -dpms ; xset s off ; xset s noblank"
 done

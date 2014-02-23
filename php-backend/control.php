@@ -1,101 +1,66 @@
 <?php
     require_once('config.php');
-    $messages = array();
     #$_POST = $_GET;
-    //If no command sent, list available commands.
+    //If no command sent, list available commands, and exit.
     if (!isset($_POST["command"]))
     {
-        $commands = getCommands();
-        echo json_encode($commands);
+        echo json_encode($CONFIG["COMMANDS"]);
         exit;
     }
+    // Set up the global logger.
+    global $LOGGER;
+    $LOGGER = KLogger::instance($CONFIG["LOGDIR"]);
+
     //Grab commands and if a possible command, error.
-    $command = preg_replace("/[^-a-zA-Z]/","",$_POST["command"]);
-    if (!isset($COMMANDS[$command]))
+    $command = preg_replace("/[^-a-zA-Z ]/","",$_POST["command"]);
+    if (!isset($CONFIG["COMMAND"][$command]))
     {
-        echo '{"error": "[ERROR] Invalid command:'.$command.'."}';
-        exit;
+        exitError("Invalid command: '$command'.");
     }
+  
     $args = array();
-    $runnable = $COMMANDS[$command];
+    $runnable = $CONFIG["COMMANDS"][$command];
     //Loop through count of arguments reading: arg0 ... argn 
-    for($i = 0; $i < $runnable[1]; $i++)
+    for($i = 0; $i < count($runnable["types"]); $i++)
     {
         $index = "arg".strval($i);
         //Check arguments
         if (!isset($_POST[$index]))
         {
-            echo '{"error": "[ERROR] Not enough arguments"}';
-            exit;
+            exitError("Argument '$i' undefined for '$command'.");
         }
-        $args[] = preg_replace("/[^-a-zA-Z]/","",$_POST[$index]);
+        $args[] = preg_replace("/[;><!]/","",$_POST[$index]);
     }
+    //Build command to run
+    $params = implode(" ",$args);
+    $run = $runnable["command"]." ".$parms;
     try
     {
-        $tmp = null;
-        if ($runnable[2] != null)
-            $tmp = call_user_func($runnable[2],$args);
-        $parm = ($tmp != null)?$tmp:"";
-        $run = $runnable[0].$parm;
-        $kill_grep = $runnable[5];
-        //Run, testing for errors.
-        $pid = -1;
-        if (!$runnable[4])
-        {
-            $var = 'DISPLAY=:1 HOME=/home/ubuntu/ sudo -u ubuntu '.$runnable[0];
-	    $messages[] = "[INFO] Ran: " . $var;
-            $messages[] = "[INFO] while running: ".shell_exec($var).".";
-        }
-        else {
-#            session_start();
-            kill_hack();
-            #if (isset($_SESSION["PID"]) && intval($_SESSION["PID"]) > 0) {
-#		foreach(explode(" ", $_SESSION["PID"]) as $pid) {
-#                    $messages[] = "[INFO] Killing pid: ".$pid.".";
-#                    kill($pid, $messages);
-#		}
-#                unset($_SESSION["PID"]);
-#                sleep(1);
-#            }
-#            session_write_close();
-            $pid = run($run,$kill_grep,$messages);
-            if (intval($pid) > 0) {
-                session_start();
-                $_SESSION["PID"] = $pid;
-                session_write_close();
-                $messages[] = "[INFO] Ran '".$run."' with pid: $pid";
-            }
-        }
-    }
-    catch (Exception $e)
+        $pid = run($run);
+    }catch ($exception)
     {
-        echo '{"error":"[ERROR] Failed to run program.'.$e->getMessage().'." "messages":'.json_encode($messages).'}';
-        exit;
+        exitError("Exception while running. ".$exception->getMessage());
     }
-    echo '{"messages":'.json_encode($messages).'}';
     
-    function kill_hack()
+    /**
+     * Exit on error.  Print messagae.
+     * $message - Message to append before exiting.
+     */
+    function exitError($message)
     {
-        $kill_cmd2 = "sudo -u ubuntu pkill '(vlc)|(chromium)' 2>&1";
-	$messages[] = "[INFO] Running kill: " . $kill_cmd2;
-        $messages[] = "[INFO] While killing: ".shell_exec($kill_cmd2).".";
+        global $LOGGER;
+        $LOGGER->logFatal($message);
+        exitMessage();
     }
 
     /**
-     * KILL a pid
+     * Print messages in JSON format and exit.
      */
-    function kill($pid,&$messages) {
-        
-        #$var = "sudo -u ubuntu pkill -KILL $pid 2>&1";
-	
-        $kill_cmd1 = "kill -KILL $pid 2>&1";
-	$messages[] = "[INFO] Running kill: " . $kill_cmd1;
-        $messages[] = "[INFO] While killing: ".shell_exec($kill_cmd1).".";
-
-        $kill_cmd2 = "sudo -u ubuntu kill -KILL $pid 2>&1";
-	$messages[] = "[INFO] Running kill: " . $kill_cmd2;
-        $messages[] = "[INFO] While killing: ".shell_exec($kill_cmd2).".";
-        sleep(1);
+    function exitMessage()
+    {
+        global $LOGGER;
+        echo json_encode($LOGGER->getMessages() as $line);
+        exit;
     }
 
     /**
@@ -104,32 +69,17 @@
      */
     function run($command,$kill_grep,&$messages) 
     {
+        global $CONFIG; 
         $command = trim($command);
         $pid = pcntl_fork();
         if ($pid == -1)
+        {
             throw Exception("Failed to fork process.");
-        else if ($pid) {
-            sleep(2);
-            $var = "pgrep -f '$kill_grep' | xargs";
-            $messages[] = "[INFO] Grepping processes: " . $var;
-            $pid = shell_exec($var);
-            return $pid;
         }
-        $var = 'DISPLAY=:1 HOME=/home/ubuntu/ sudo -u ubuntu '.$command.' 2>&1 1> /home/ubuntu/logs/log.lo';
-        $messages[] = "[INFO] while running: ".shell_exec($var).".";
+        $display = $CONFIG["DISPLAY"];
+        $home = $CONFIG["HOME"];
+        $user = $CONFIG["USER"]; 
+        $var = "DISPLAY=$display HOME=$home sudo -u $user $command 2>&1 1>> ../logs/backend-php.log";
         return -3;
-    }
- 
-    /**
-     * List all commands.
-     * @return - map of array to number of args.
-     */
-    function getCommands()
-    {
-        global $COMMANDS;
-        $ret = array();
-        foreach ( $COMMANDS as $key => $val )
-            $ret[] = array("name" => $key, "args" => ($val[3] != null)?call_user_func($val[3]):array());
-        return $ret;
     }
 ?>
