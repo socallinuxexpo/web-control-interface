@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This script should be called with the complete URL of the stream source
+if (( $# != 1 ))
+then
+    echo "Error:  invalid number of arguments provided"
+    exit 1
+fi
+
+# Abort if the DISPLAY variable is not properly set
+if [[ "$DISPLAY" == "" ]]
+then
+    echo "Error:  DISPLAY not defined"
+    exit 2
+fi
+./stop-stream
+sleep 2
+cvlc $1 &
