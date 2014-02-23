@@ -9,7 +9,7 @@
 {"name":"CenturyCD","webhost":"https://centurycd-slide/html-frontend/operate.html","camera":"rtsp://centurycd-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
 {"name":"Marina","webhost":"https://marina-slide/html-frontend/operate.html","camera":"rtsp://marina-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
 {"name":"BelAir","webhost":"https://belair-slide/html-frontend/operate.html","camera":"rtsp://belair-cam.expo.socallinuxexpo.org:554/profile3/media.smp"},
-{"name":"SanLorenzoA","webhost":"https://sand/html-frontend/operate.html","camera":""},
-{"name":"SanLorenzoB","webhost":"https://sane/html-frontend/operate.html","camera":""},
-{"name":"SanLorenzoF","webhost":"https://sanf/html-frontend/operate.html","camera":""}
+{"name":"SanLorenzoD","webhost":"https://sand/html-frontend/operate.html","camera":""},
+{"name":"SanLorenzoE","webhost":"https://sane/html-frontend/operate.html","camera":""},
+{"name":"BelAir","webhost":"https://belair/html-frontend/operate.html","camera":""}
 ]
