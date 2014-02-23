@@ -47,16 +47,17 @@
             $messages[] = "[INFO] while running: ".shell_exec($var).".";
         }
         else {
-            session_start();
-            if (isset($_SESSION["PID"]) && intval($_SESSION["PID"]) > 0) {
-		foreach(explode(" ", $_SESSION["PID"]) as $pid) {
-                    $messages[] = "[INFO] Killing pid: ".$pid.".";
-                    kill($pid, $messages);
-		}
-                unset($_SESSION["PID"]);
-                sleep(1);
-            }
-            session_write_close();
+#            session_start();
+            kill_hack();
+            #if (isset($_SESSION["PID"]) && intval($_SESSION["PID"]) > 0) {
+#		foreach(explode(" ", $_SESSION["PID"]) as $pid) {
+#                    $messages[] = "[INFO] Killing pid: ".$pid.".";
+#                    kill($pid, $messages);
+#		}
+#                unset($_SESSION["PID"]);
+#                sleep(1);
+#            }
+#            session_write_close();
             $pid = run($run,$kill_grep,$messages);
             if (intval($pid) > 0) {
                 session_start();
@@ -72,12 +73,20 @@
         exit;
     }
     echo '{"messages":'.json_encode($messages).'}';
+    
+    function kill_hack()
+    {
+        $kill_cmd2 = "sudo -u ubuntu pkill '(vlc)|(chromium)' 2>&1";
+	$messages[] = "[INFO] Running kill: " . $kill_cmd2;
+        $messages[] = "[INFO] While killing: ".shell_exec($kill_cmd2).".";
+    }
+
     /**
      * KILL a pid
      */
     function kill($pid,&$messages) {
         
-        #$var = "sudo -u ubuntu kill -KILL $pid 2>&1";
+        #$var = "sudo -u ubuntu pkill -KILL $pid 2>&1";
 	
         $kill_cmd1 = "kill -KILL $pid 2>&1";
 	$messages[] = "[INFO] Running kill: " . $kill_cmd1;
