@@ -11,13 +11,17 @@
 		"USER" =>    "ubuntu",
 		"DISPLAY" => ":1",
 		// Commands available - 
-		$COMMANDS = array(
+		"COMMANDS" => array(
 			"Restart Signs" => 
 				array("command" => "../bin/start-signs"),
-			"Stream Overflow" => 
+			"Stream To Overflow" => 
 				array("command" => "../bin/start-stream", "types" => array("ROOM-URL")),
-			"Switch KVM Switch" => 
-				array("command "=> "../kvm-switch/switch")
+			"Stop Stream" => 
+				array("command" => "../bin/stop-stream"),
+			"Switch KVM" => 
+				array("command" => "../bin/switch"),
+			"Wakeup X11" => 
+				array("command" => "../bin/wakeup")
 		)
 	);
 	$CONFIG["HOME"] = "/home/".$CONFIG["USER"];
