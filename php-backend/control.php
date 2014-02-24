@@ -2,7 +2,7 @@
     require_once('config.php');
     require_once('KLogger.php');
     //Uncomment to allow for debugging with url query strings.
-    $_POST = $_GET;
+    #$_POST = $_GET;
 
 
     main();
