@@ -15,16 +15,45 @@ body
 {
 	display: inline-block;
 	vertical-align: top;
-	/*width: 75%;*/
 }
 #system-controls
 {
 	display: inline-block;
 	vertical-align: top;
-/*	width: 20%;*/
 }
-/*.control-element
+img.vidpreview
 {
-	display: inline-block;
-	vertical-align: top;
-}*/
+    width: 640px;
+    height: 500px;
+    margin-bottom: -500px;
+}
+div.vidoverlay
+{
+    width: 640px;
+    height: 500px;
+    position: relative;
+}
+div.slider-pan
+{
+    position: absolute;
+    width: 590px;
+    bottom: 20px;
+    left: 25px;
+    z-index: 5;
+}
+div.slider-tilt
+{
+    position: absolute;
+    height: 400px;
+    top: 50px;
+    right: 15px;
+}
+.vidcontrol-container table
+{
+    width: 640px;
+    height: 100px;
+}
+form.dpad input
+{
+    width: 4em;
+}

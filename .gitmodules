@@ -1,3 +1,0 @@
-[submodule "html-frontend/vidcontrol"]
-	path = html-frontend/vidcontrol
-	url = git@github.com:scale-av/vidcontrol.git
