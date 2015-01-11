@@ -21,12 +21,11 @@ function getptz(cam){
     }
   });
 }
-function setptz(cam,type,direction,amount=null){
+function setptz(cam,type,direction,amount){
   value = parseInt($("#" + type + "_" + cam).val(), 10)
   //value = parseInt(document.forms[0].elements[type+"_"+cam].value)
   oldVal = value
-
-if(amount == null){
+if(amount === undefined){
 	  if(type == 'pan'){
 	    amount = PAN_INCREMENT
 	  }

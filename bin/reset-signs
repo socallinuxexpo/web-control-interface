@@ -8,7 +8,7 @@ CONFIG_DESTINATION='$HOME'
 CONFIG_DIR='.config/chromium'
 
 # Kill any existing browser processes
-./stop-signs
+$(dirname $0)/stop-signs
 sleep 2
 
 # Remove and restore chromium configuration if it has been customized
@@ -19,5 +19,5 @@ then
 fi
 
 # Start the signs again
-./start-signs
+$(dirname $0)/start-signs
 

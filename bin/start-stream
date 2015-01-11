@@ -13,6 +13,6 @@ then
     echo "Error:  DISPLAY not defined"
     exit 2
 fi
-./stop-stream
+$(dirname $0)/stop-stream
 sleep 2
 cvlc $1 &

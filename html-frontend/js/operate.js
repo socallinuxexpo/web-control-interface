@@ -19,7 +19,8 @@ function setup() {
 	$.ajax({
 		url: Config.URL,
 		success: init,
-		error: onError,
+		crossDomain: true,
+                error: onError,
 		type:"GET",
 		dataType: "json",
 	});

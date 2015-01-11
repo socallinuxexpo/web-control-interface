@@ -4,7 +4,7 @@
  */
 function getRooms()
 {
-	var rooms = [];
+	var rooms = [{"name":"test"}];
 	$.ajax({
 		dataType: "json",
 		url: Config.ROOM_URL,

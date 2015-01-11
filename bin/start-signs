@@ -1,5 +1,5 @@
 #!/bin/bash
-./stop-signs
+$(dirname $0)/stop-signs
 sleep 2
 DISPLAY=:1
 export DISPLAY
