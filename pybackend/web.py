@@ -33,11 +33,11 @@ def setup():
         clazz = classGenerator(Pin,keys["url"].title().replace("-",""),port=CONFIG["PORT"],pin=keys["pin"],ro=("ro" in keys and keys["ro"]))
         api.add_resource(clazz,"/pins/"+keys["url"]) 
     api.add_resource(Config,"/config") 
+setup()
 #import subprocess
 #@app.route("/")
 #def doit():
 #   subprocess.Popen(["ls"])
 #   return "" 
 if __name__ == "__main__":
-   setup()
    app.run(debug=True)
