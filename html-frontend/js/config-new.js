@@ -1,4 +1,3 @@
-var CONFIG = {
-    "url" : "/control",
-    "config" : "config"
-}
+var CONFIG = { }
+CONFIG["url"] = "/control"
+CONFIG["config-url"] = CONFIG["url"] + "/config"
