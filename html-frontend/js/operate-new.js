@@ -7,7 +7,7 @@ function setup() {
     var url = CONFIG.url + "/" + CONFIG.config;
     $.ajax(
         {
-            url: url,
+            url: CONFIG["config-url"],
             success: load,
             error: function() {
                        error("Failed to load configuration from: "+url);
@@ -28,7 +28,7 @@ function load(cfg) {
     for (var command in cfg["COMMANDS"]) {
         var tmp = cfg["COMMANDS"][command];
         tmp.name = command;
-        addCommand(tmp); 
+        add(tmp); 
     }
     for (pin in cfg["PINS"])
         console.log(pin);
