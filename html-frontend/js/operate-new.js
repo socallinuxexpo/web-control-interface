@@ -4,7 +4,6 @@ $(document).ready(setup);
  * Setup the page by reading configuration
  */
 function setup() {
-    var url = CONFIG.url + "/" + CONFIG.config;
     $.ajax(
         {
             url: CONFIG["config-url"],
@@ -32,10 +31,14 @@ function load(cfg) {
     }
     for (pin in cfg["PINS"])
         console.log(pin);
+    $('input:text, input:password').addClass("ui-widget-content");
+    $("div#content").accordion();
 }
 
 function add(command) {
     //Add in button to submit command
+    var div = $("<div></div>");
+    div.attr("id",command.name.replace(" ","_"));
     var button = $("<button></button>");
     button.attr("id",command.name.replace(" ","_"));
     button.addClass("control");
@@ -43,10 +46,10 @@ function add(command) {
     button.val(command.name);
     button.text(command.name);
     button.click(sendCommand);
+    var tmp = $("div#system-controls");
     div.append(button.button());
     //Add in new control div
-    var tmp = $("div#system-controls");
-    
+    tmp.append(div); 
 }
 
 /**
