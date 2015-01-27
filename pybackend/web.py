@@ -27,7 +27,7 @@ def setup():
     Sets up the URLs for Restful
     '''
     for name,keys in CONFIG["COMMANDS"].items():
-        clazz = classGenerator(ShellCommand,keys["url"].title().replace("-",""),cmd=keys["cmd"],args=keys["args"])
+        clazz = classGenerator(ShellCommand,keys["url"].title().replace("-",""),cmd=keys["cmd"],args=([] if not "args" in keys else keys["args"]))
         api.add_resource(clazz, "/commands/"+keys["url"]) 
     for name,keys in CONFIG["PINS"].items():
         clazz = classGenerator(Pin,keys["url"].title().replace("-",""),port=CONFIG["PORT"],pin=keys["pin"],ro=("ro" in keys and keys["ro"]))
