@@ -12,16 +12,42 @@ function setup() {
             url: CONFIG["config-url"],
             success: load,
             error: function() {
-                       error("Failed to load configuration from: "+url);
+                       error("Failed to load configuration from: "+CONFIG["config-url"]);
                    },
             dataType: "json"
         }); 
 }
 /**
+ * Returns a function that will read a pin and update
+ * a given div.
+ * @param span - span id to update
+ * @param pin - pin to read
+ * @return function to call and read pin
+ **/
+function getReadFunction(span,pin,fun) {
+    var ret = function() {
+        var url = CONFIG["pins-url"]+"/"+pin;
+        $.ajax(
+            {
+                url: url,
+                success: function(resp) {
+                        $("#"+span).text(resp.value?"On":"Off");
+                        $("#"+span).css("background-color",(resp.value?"green":"red"));
+                    },
+                error: function() {
+                    error("Failed read pin at: "+url);
+                },
+	        dataType: "json"
+            });
+        window.requestAnimationFrame(ret);
+    }
+    return ret;
+}
+/**
  * Display error message in the error div
  */
 function error(msg) {
-    $("div#error").append("[ERROR] "+msg);
+    $("div#error").append("[ERROR] "+msg+"<br/>");
 }
 /**
  * Loads page given configuration
@@ -41,7 +67,7 @@ function load(cfg) {
     $("div#content").accordion();
 }
 /**
- * Add in a dive representing the given control
+ * Add in a div representing the given control
  * @param spec - an object representing the configuration for this command
  * @param section - id of the div to put this control into
  */
@@ -57,22 +83,23 @@ function add(spec,section) {
     // Switch based on spec type
     switch (spec.type) {
         case "read":
-            html = $("<label>"+spec.name+"</label><span id='data'>&nbsp;</span>");
-            div.addClass("control").addClass("ui-widget-content").addClass("rounded-fix-padding");
+            html = $("<label>"+spec.name+":</label>");
+            var span = $("<span></span>").addClass("ui-corner-all");
+            span.attr("id",id+"-span");
+            html.append(span);
+            window.requestAnimationFrame(getReadFunction(id+"-span",spec.url));
             break;
         case "select":
         case "button":
         default:
-            html = $("<button></button>");
-            html.addClass("ctrlbutton");
+            html = $("<button></button>").button();
+            html.addClass("ctrlbutton").addClass("control");
             html.click(sendCommand);
-            html = html.button();
+            html.attr("id",id);
+            html.val(spec.name);
+            html.text(spec.name);
             break;    
     }
-    html.attr("id",id);
-    html.val(spec.name);
-    html.text(spec.name);
-    html.addClass("control");
     div.append(html);
     //Add in button to submit command
     $("div#"+section).append(div);
