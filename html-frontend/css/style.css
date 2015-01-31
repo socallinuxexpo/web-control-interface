@@ -53,7 +53,7 @@ div.slider-tilt
     width: 640px;
     height: 100px;
 }
-form.dpad input
+#dpad button
 {
-    width: 4em;
+    width: 100%;
 }

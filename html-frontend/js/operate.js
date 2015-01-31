@@ -4,6 +4,9 @@ $(document).ready(setup);
  * Setup the page by reading configuration
  */
 function setup() {
+    $("#dpad button").button();
+    $("#dpad").dialog({resizable: false});
+    $(".ui-dialog-titlebar-close").css("display", "none")
     $.ajax(
         {
             url: CONFIG["config-url"],
