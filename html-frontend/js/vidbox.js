@@ -1,3 +1,15 @@
+var CAM_IP = "BLAH";
+var PAN_INCREMENT = 5;
+var TILT_INCREMENT = 5;
+var lastValues = [0,0,0];
+var PAN_ID = 0;
+var TILT_ID = 1;
+var ZOOM_ID = 2;
+var PAN_MIN = 0;
+var PAN_MAX = 360;
+var TILT_MIN = 0;
+var TILT_MAX = 45;
+
 function logArrayElements(element, index, array) {
   parts=element.split(":")
   return parts
