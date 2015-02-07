@@ -1,33 +1,38 @@
+server {
+       listen         80;
+       server_name    localhost;
+       return         301 https://$server_name$request_uri;
+}
 #ScaleAV Site running on 443
 server {
 	listen   443;
-
+        server_name    localhost;
 	root /http/web-control-interface;
         #error_page 404 /errors/404.html
-	# Make site accessible from http://localhost/
-	server_name default_server;
+        
         #Basic auth for all things
 	auth_basic "Please authenticate:";
         auth_basic_user_file /http/web-control-interface/auth/htpasswd;
 
-	#error_page 404 error/404.html;
 	ssl on;
 	ssl_certificate /http/web-control-interface/auth/cert.pem;
 	ssl_certificate_key /http/web-control-interface/auth/key.pem;
-
 	ssl_session_timeout 5m;
 
 	ssl_protocols SSLv3 TLSv1;
 	ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
 	ssl_prefer_server_ciphers on;
 
+        location = / {
+            return 301 /html-frontend/operate.html;
+        }
 
 	location ~ ^/control {
-		rewrite /control/(.+) /$1 break;
-                include uwsgi_params;
-		uwsgi_param SCRIPT_NAME /;
-		uwsgi_modifier1 30;
-		uwsgi_pass unix:/tmp/uwsgi.sock;
+            rewrite /control/(.+) /$1 break;
+            include uwsgi_params;
+            uwsgi_param SCRIPT_NAME /;
+            uwsgi_modifier1 30;
+            uwsgi_pass unix:/tmp/uwsgi.sock;
 	}
 
 }
