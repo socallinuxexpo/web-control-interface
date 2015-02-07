@@ -24,8 +24,9 @@ class Pin(restful.Resource):
         '''
         Read a pin
         '''
-        self.port.write("gpio read "+str(pin)+"\r")
-        tmp = self.port.read(25)
+        tmp="on"
+        #self.port.write("gpio read "+str(pin)+"\r")
+        #tmp = self.port.read(25)
         return {"value":tmp == "on"}
     def put(self):
         '''

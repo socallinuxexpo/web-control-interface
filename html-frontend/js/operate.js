@@ -4,9 +4,32 @@ $(document).ready(setup);
  * Setup the page by reading configuration
  */
 function setup() {
+    //Setup the directional pad
     $("#dpad button").button();
     $("#dpad").dialog({resizable: false});
     $(".ui-dialog-titlebar-close").css("display", "none")
+    //Setup room navigation
+    var set = $("#room-navigation").buttonset();
+    for (var room in CONFIG["rooms"])
+    {
+        //Build a button with a nice label
+        var button = $("<input id='nav-radio-"+room+"' type='radio' name='room-nav' value='"+room+"' /><label for='nav-radio-"+room+"'>"+room+"</label>");
+        //Note: Javascript variables are function scoped always, so the variable is overwritten
+        //      with each loop. Thus we need an extra function call to prevent our variables from
+        //      being clobbered within the closure.
+        var closure = function(url) {
+            return function() {
+                window.location.href=url;
+            };}(CONFIG["rooms"][room]);
+        button.click(closure);
+        set.append(button);
+        if (CONFIG["rooms"][room].indexOf(window.location.hostname) != -1)
+        {
+            button.attr("checked","true");
+        }
+    }
+    $("#room-navigation").buttonset("refresh");
+    //Load configuration and setup page
     $.ajax(
         {
             url: CONFIG["config-url"],
@@ -39,7 +62,6 @@ function getReadFunction(span,pin,fun) {
                 },
 	        dataType: "json"
             });
-        window.requestAnimationFrame(ret);
     }
     return ret;
 }
@@ -87,7 +109,7 @@ function add(spec,section) {
             var span = $("<span></span>").addClass("ui-corner-all");
             span.attr("id",id+"-span");
             html.append(span);
-            window.requestAnimationFrame(getReadFunction(id+"-span",spec.url));
+            setInterval(getReadFunction(id+"-span",spec.url),500);
             break;
         case "select":
         case "button":
