@@ -1,46 +1,13 @@
 /**
- * Get room configuration
- * @returns - a list of room objects of form {name:"Room Name",webhost:<slide comp url>,camera:<camera url>}
+ * Display error message in the error div
  */
-function getRooms()
-{
-	var rooms = [{"name":"test"}];
-	$.ajax({
-		dataType: "json",
-		url: Config.ROOM_URL,
-		async:false,
-		success: function(data) 
-				 { 
-					 for (var i = 0; i < data.length; i++)
-						 rooms.push(data[i]); 
-				 },
-		error: onError,
-		});
-	return rooms;
+function error(msg) {
+    $("div#error").append("[ERROR] "+msg+"<br/>");
 }
 /**
- * Check if a given name is a valid room name.
- * @param room - name of room
- * @returns {Boolean} - is it valid (in the list) or not
+ * Display a message
  */
-function isValidRoomName(room)
-{
-	var rooms = getRooms();
-	for (var i = 0; i < rooms.length;i++)
-	{
-		if (rooms[i].name == room)
-			return true;
-	}
-	return false;
+function message(msg) {
+    $("div#message").append("[LOG] "+msg+"<br />");
 }
 
-/**
- * Display an error.
- * @param jqxhr - jqxhr request.
- * @param text - title of error.
- * @param error - error message.
- */
-function onError(jqxhr,text,error)
-{
-	$("div#error").append("[ERROR]<em>"+text+"</em>:"+error);
-}

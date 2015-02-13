@@ -9,9 +9,9 @@ CONFIG = {
     "COMMANDS" : {
         "Restart Signs" : {"url":"restart-signs","cmd" : "../bin/reset-signs","type":"button","args":[{"name":"room-url","label":"Room URL","hidden":True}]},
         "Start Stream"  : {"url":"start-stream" ,"cmd" : "../bin/start-stream","type":"select","args" : [{"name":"camera-url","label":"Camera URL"}]},
-        "Stop Stream"   : {"url":"stop-stream"  ,"cmd" : "../bin/stop-stream","type":"button"},
-        "Start Recording":{"url":"record-start","cmd": "../bin/start-record","type":"buuton"},
-        "Stop Recording" :{"url":"record-start","cmd": "../bin/stop-record","type":"buuton"}
+        "Stop Stream"   : {"url":"stop-stream"  ,"cmd" : "../bin/stop-stream" ,"type":"button"},
+        "Start Recording":{"url":"record-start", "cmd" : "../bin/start-record","type":"buuton"},
+        "Stop Recording" :{"url":"record-stop",  "cmd" : "../bin/stop-record" ,"type":"buuton"}
     },
     "PINS" : {
         "Scan Left Adjust" : {"url":"scan-left", "pin":1,"type":"button","args":[{"name":"cycle","hidden":True}]},
