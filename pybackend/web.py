@@ -36,6 +36,6 @@ def setup():
         api.add_resource(clazz,"/pins/"+keys["url"]) 
     api.add_resource(Config,"/config") 
 #APP
+setup()
 if __name__ == "__main__":
-       setup()
        app.run(debug=True)
