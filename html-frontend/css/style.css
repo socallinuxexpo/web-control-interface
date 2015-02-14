@@ -57,3 +57,8 @@ div.slider-tilt
 {
     width: 100%;
 }
+
+table th.boolean-table {
+    text-align: center;
+    colspan: 2;
+}

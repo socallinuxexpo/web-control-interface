@@ -47,17 +47,19 @@ function setup() {
  * @param pin - pin to read
  * @return function to call and read pin
  **/
-function getReadFunction(span,pin,fun) {
+function getReadFunction(ra, rb,pin,fun) {
     var ret = function() {
         var url = CONFIG["pins-url"]+"/"+pin;
         $.ajax(
         {
             url: url,
             success: function(resp) {
-                $("#"+span).text(resp.value?"On":"Off");
-                $("#"+span).css("background-color",(resp.value?"green":"red"));
+                ra.prop("checked", resp.value);
+                rb.prop("checked", !resp.value);
             },
             error: function() {
+                ra.prop("checked", false);
+                rb.prop("checked", false);
                 error("Failed read pin at: "+url);
             },
             dataType: "json"
@@ -99,11 +101,17 @@ function add(spec,section) {
     // Switch based on spec type
     switch (spec.type) {
         case "read":
-            html = $("<label>"+spec.name+":</label>");
-            var span = $("<span></span>").addClass("ui-corner-all");
-            span.attr("id",id+"-span");
-            html.append(span);
-            setInterval(getReadFunction(id+"-span",spec.url),500);
+            html = $("<div id='"+spec.name+"'></div>");
+            var ra = $("<input type='radio' name='"+spec.name+"' id='"+spec.name+"-a'>");
+            var rb = $("<input type='radio' name='"+spec.name+"' id='"+spec.name+"-b'>");
+            var la = $("<label for='"+spec.name+"-a'>Side A</label>");
+            var lb = $("<label for='"+spec.name+"-b'>Side B</label>");
+            var ll = $("<label>"+spec.name+":</label>");
+            html.append(ll).append("<br/>").append(ra).append(la).append(rb).append(lb);
+            var fun = getReadFunction(ra,rb,spec.url); 
+            ra.on("click",fun);
+            rb.on("click",fun);
+            setInterval(fun,500);
             break;
         case "select":
         case "button":
@@ -116,9 +124,17 @@ function add(spec,section) {
             html.text(spec.name);
             break;    
     }
+    spec.group = "group1";
+    var res = $("div#" + spec.group);
+    if (res.length == 0)
+    {
+       res = $("<div id='" + spec.group + "'></div>");
+       res.addClass("control-element").addClass("ui-corner-all").addClass("ui-widget-content");
+    }
     div.append(html);
+    res.append(div);
     //Add in button to submit command
-    $("div#"+section).append(div);
+    $("div#"+section).append(res);
 }
 /**
  */
