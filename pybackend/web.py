@@ -6,6 +6,8 @@ from config import Config
 from shell import ShellCommand
 from pin import Pin
 
+import traceback
+
 app = Flask(__name__)
 api = restful.Api(app)
 
@@ -30,14 +32,10 @@ def setup():
         clazz = classGenerator(ShellCommand,keys["url"].title().replace("-",""),cmd=keys["cmd"],args=([] if not "args" in keys else keys["args"]))
         api.add_resource(clazz, "/commands/"+keys["url"]) 
     for name,keys in CONFIG["PINS"].items():
-        clazz = classGenerator(Pin,keys["url"].title().replace("-",""),port=CONFIG["PORT"],pin=keys["pin"],ro=("ro" in keys and keys["ro"]))
+        clazz = classGenerator(Pin,keys["url"].title().replace("-",""),port=CONFIG["PORT"],pin=keys["pin"],ro=("type" in keys and keys["type"] == "read"))
         api.add_resource(clazz,"/pins/"+keys["url"]) 
     api.add_resource(Config,"/config") 
-setup()
-#import subprocess
-#@app.route("/")
-#def doit():
-#   subprocess.Popen(["ls"])
-#   return "" 
+#APP
 if __name__ == "__main__":
-   app.run(debug=True)
+       setup()
+       app.run(debug=True)
