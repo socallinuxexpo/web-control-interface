@@ -124,7 +124,6 @@ function add(spec,section) {
             html.text(spec.name);
             break;    
     }
-    spec.group = "group1";
     var res = $("div#" + spec.group);
     if (res.length == 0)
     {
