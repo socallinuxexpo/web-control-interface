@@ -127,7 +127,7 @@ function add(spec,section) {
     var res = $("div#" + spec.group);
     if (res.length == 0)
     {
-       res = $("<div id='" + spec.group + "'></div>");
+       res = $("<div id='" + spec.group + "' class='controls-group'></div>");
        res.addClass("control-element").addClass("ui-corner-all").addClass("ui-widget-content");
     }
     div.append(html);
