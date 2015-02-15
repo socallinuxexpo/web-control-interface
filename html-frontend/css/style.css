@@ -18,8 +18,7 @@ body
 }
 #system-controls
 {
-	display: inline-block;
-	vertical-align: top;
+    margin: 5px 0px;
 }
 img.vidpreview
 {
@@ -71,4 +70,18 @@ div.controls-group {
     float: left;
     margin: 0px 2px;
     padding: 10px;
+}
+
+div#system-controls h4 {
+    text-align: center;
+    margin: 0em 0em .5em 0em;;
+}
+
+div#buttons .ui-button {
+   margin: 0em;
+   padding: 0em .2em;
+}
+
+div#error {
+   height: 20em;
 }
