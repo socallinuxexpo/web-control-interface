@@ -27,27 +27,33 @@ class Pin(restful.Resource):
         '''
         Read a pin
         '''
-        with serial.Serial(self.device, 19200, timeout=1) as self.port:
-            self.port.read(1000)
-            self.port.write(("gpio read "+str(self.pin)+"\r").encode())
-            tmp = self.port.read(250).decode()
+        try:
+            with serial.Serial(self.device, 19200, timeout=1) as self.port:
+                self.port.read(1000)
+                self.port.write(("gpio read "+str(self.pin)+"\r").encode())
+                tmp = self.port.read(250).decode()
+        except Exception as e:
+            return {"error":"Exception occurred: "+str(e)}
         return {"value":tmp[13] == "1"}
     def put(self):
         '''
         Set a pin to value
         '''
-        with serial.Serial(self.device, 19200, timeout=1) as self.port:
-            if self.ro:
-                return {"error":"Wrting to read only pin"}
-            args = self.parser.parse_args()
-            if args["set"] == "on":
-                self.output(True)
-            elif args["set"] == "off":
-                self.output(False)
-            elif args["set"] == "cycle":
-                self.output(True)
-                time.sleep(0.25)
-                self.output(False)
+        try:
+            with serial.Serial(self.device, 19200, timeout=1) as self.port:
+                if self.ro:
+                    return {"error":"Wrting to read only pin"}
+                args = self.parser.parse_args()
+                if args["set"] == "on":
+                    self.output(True)
+                elif args["set"] == "off":
+                    self.output(False)
+                elif args["set"] == "cycle":
+                    self.output(True)
+                    time.sleep(0.25)
+                    self.output(False)
+        except Exception as e:
+            return {"error":"Exception Occured: "+str(e)}
     def output(self,value):
         '''
         Output a value to the pin

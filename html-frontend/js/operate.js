@@ -29,16 +29,9 @@ function setup() {
         }
     }
     $("#room-navigation").buttonset("refresh");
-    //Load configuration and setup page
-    $.ajax(
-        {
-            url: CONFIG["config-url"],
-            success: load,
-            error: function() {
-                    error("Failed to load configuration from: "+CONFIG["config-url"]);
-                },
-            dataType: "json"
-        }); 
+    ajax(CONFIG["url"]+"/config",load)
+
+
 }
 /**
  * Returns a function that will read a pin and update
@@ -50,20 +43,16 @@ function setup() {
 function getReadFunction(ra, rb,pin,fun) {
     var ret = function() {
         var url = CONFIG["pins-url"]+"/"+pin;
-        $.ajax(
-        {
-            url: url,
-            success: function(resp) {
+        ajax(url,
+            function(resp) {
                 ra.prop("checked", resp.value);
                 rb.prop("checked", !resp.value);
             },
-            error: function() {
+            function() {
                 ra.prop("checked", false);
                 rb.prop("checked", false);
                 error("Failed read pin at: "+url);
-            },
-            dataType: "json"
-        });
+            });
     };
     return ret;
 }
@@ -71,15 +60,9 @@ function getReadFunction(ra, rb,pin,fun) {
  * Loads page given configuration
  */
 function load(cfg) {
-    for (var command in cfg["COMMANDS"]) {
-        var tmp = cfg["COMMANDS"][command];
-        tmp.name = command;
-        add(tmp,"system-controls"); 
-    }
-    for (var pin in cfg["PINS"]) {
-        var tmp = cfg["PINS"][pin];
-        tmp.name = pin;
-        add(tmp,"io-pins");
+    var cmds = [].concat(cfg["COMMANDS"]).concat(cfg["PINS"]);
+    for (var i =0; i < cmds.length; i++) {
+        add(cmds[i],"system-controls"); 
     }
     $('input:text, input:password').addClass("ui-widget-content");
     $("div#content").accordion();
@@ -90,18 +73,19 @@ function load(cfg) {
  * @param section - id of the div to put this control into
  */
 function add(spec,section) {
-    var id = spec.name.replace(" ","_");
+    var id = getValidId(spec.name);
     var html = null;
     // Div to put our command
     var div = $("<div></div>");
-    div.attr("id",id);
     // Add any argument controls
     if ("args" in spec)
         addArguments(div,spec.args);
     // Switch based on spec type
     switch (spec.type) {
         case "read":
-            html = $("<div id='"+spec.name+"'></div>");
+            div = readable(spec);
+            /*$("<div></div>").attr("id",id);
+            container = $("<div id='"+spec.name+"'></div>");
             var ra = $("<input type='radio' name='"+spec.name+"' id='"+spec.name+"-a'>");
             var rb = $("<input type='radio' name='"+spec.name+"' id='"+spec.name+"-b'>");
             var la = $("<label for='"+spec.name+"-a'>Side A</label>");
@@ -111,17 +95,11 @@ function add(spec,section) {
             var fun = getReadFunction(ra,rb,spec.url); 
             ra.on("click",fun);
             rb.on("click",fun);
-            setInterval(fun,500);
+            setInterval(fun,500);*/
             break;
         case "select":
         case "button":
         default:
-            html = $("<button></button>").button();
-            html.addClass("ctrlbutton").addClass("control");
-            html.click(send);
-            html.attr("id",id);
-            html.val(spec.name);
-            html.text(spec.name);
             break;    
     }
     var res = $("div#" + spec.group);
@@ -136,11 +114,14 @@ function add(spec,section) {
     $("div#"+section).append(res);
 }
 /**
+ * Returns possible values for an argument based upon its name.
+ * @param name - name of argument
+ * @return - possible values for argument
  */
-function expand(name) {
+function options(name) {
     switch(name) {
         case "room-url":
-            return [decodeURIComponent(window.location.search).replace("?","")];
+            return [decodeURIComponent(window.location.search)];
         case "camera-url":
             return ["camera1","camera2","camera3"];
         default:
@@ -154,15 +135,15 @@ function addArguments(div,args) {
     for (var i = 0; i < args.length; i++)
     {
         var arg = args[i];
-        var values = expand(arg.name);
+        var values = options(arg.name);
         
         var item = null;
         if ("hidden" in arg) {
-            item = $("<input type=\"hidden\"></input>");
+            item = $("<input type='hidden' class='arg' name='"+arg.name+"'></input>");
             item.val(values[0]);
         }
         else {
-            item = $("<select></select>");
+            item = $("<select class='arg' name='"+arg.name+"'></select>");
             item.addClass("ui-widget-content").addClass("rounded-fix-padding");
             for (var j = 0; j < values.length; j++)
             {
@@ -172,13 +153,10 @@ function addArguments(div,args) {
                 item.append(opt);
             }
         }
-        item.attr("id","arg"+i.toString());
-        item.addClass("arg").addClass("control");
         //Add label, and arg selection
         if ("label" in arg)
         {
-        	var label = $("<label></label>");
-        	label.text(arg.label+":");
+        	var label = $("<label>"+arg.label+":</label>");
         	div.append(label);
         }
         div.append(item.addClass("ui-corner-all"));
@@ -191,15 +169,7 @@ function send(url) {
     //TODO: Make data object
     var data = {};
     //Call web command with args
-    $.ajax({
-        url: Config.URL +"/"+url,
-        data:data,
-        beforeSend: running,
-        success: complete,
-        error: failed,
-        type: "PUT",
-        dataType: "json",
-    });    
+    ajax(Config.URL +"/"+url,complete,failed,"PUT",data,running);
 }
 /**
  * Functions to perform when a command is running.
