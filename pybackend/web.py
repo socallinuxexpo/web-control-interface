@@ -36,6 +36,12 @@ def setup():
         api.add_resource(clazz,"/pins/"+keys["url"]) 
     api.add_resource(Config,"/config") 
 #APP
+
+import logging
+from logging import FileHandler
+flog = FileHandler("/tmp/python.log")
+flog.setLevel(logging.WARNING)
+app.logger.addHandler(flog)
 setup()
 if __name__ == "__main__":
-       app.run(debug=True)
+    app.run(debug=True)
