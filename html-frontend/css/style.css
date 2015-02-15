@@ -62,3 +62,13 @@ table th.boolean-table {
     text-align: center;
     colspan: 2;
 }
+
+div#io-pins {
+    margin: 5px 0px;
+}
+
+div.controls-group {
+    float: left;
+    margin: 0px 2px;
+    padding: 10px;
+}
