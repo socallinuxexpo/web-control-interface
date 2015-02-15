@@ -32,12 +32,15 @@ function select(spec,send) {
 function controlable(spec,cont,send) {
     var id = getValidId(spec.name);
     // Add any argument controls
-    if ("args" in spec)
+    if ("args" in spec) {
         args(cont,spec.args);
+    }
     var html = $("<button></button>").button().addClass("ctrlButton").addClass("control");
     html.addClass("ctrlbutton").addClass("control").attr("id",id).click(send);
     html.val(spec.name);
     html.text(spec.name);
+    html.data("url",spec.url);
+    html.data("args",spec.args);
     return cont.append(html);
 }
 /**
@@ -55,7 +58,7 @@ function readable(spec) {
     var lb = $("<label>Side B</label>").attr("for",id+"-b");
     var ll = $("<label></label>").text(spec.name);
     cont.append(ll).append("<br/>").append(ra).append(la).append(rb).append(lb);
-    var url = CONFIG["pins-url"]+"/"+spec.url;
+    var url = CONFIG.url+spec.url;
     var fun = getReadFunction(url,ra,rb); 
     ra.on("click",function(){});
     rb.on("click",function(){});
@@ -106,7 +109,6 @@ function group(group,cont) {
  * Add argument selections to controls
  * @param cont - container to add to
  * @param args - args specification
- * @return container
  */
 function args(cont,args) {
     for (var i = 0; i < args.length; i++)

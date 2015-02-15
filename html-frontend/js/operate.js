@@ -10,26 +10,31 @@ function setup() {
     $(".ui-dialog-titlebar-close").css("display", "none")
     //Setup room navigation
     var set = $("#room-navigation").buttonset();
-    for (var room in CONFIG["rooms"])
+    for (var i =0; i < CONFIG["rooms"].length; i++)
     {
+        var room = CONFIG["rooms"][i];
         //Build a button with a nice label
-        var button = $("<input id='nav-radio-"+room+"' type='radio' name='room-nav' value='"+room+"' /><label for='nav-radio-"+room+"'>"+room+"</label>");
+        var button = $("<input/>").attr("id","nav-radio-"+room.name).attr("type","radio").attr("name","room-nav").attr("value",room.name);
+        var label = $("<label></label>").attr("for","nav-radio-"+room.name).text(room.name);
         //Note: Javascript variables are function scoped always, so the variable is overwritten
         //      with each loop. Thus we need an extra function call to prevent our variables from
         //      being clobbered within the closure.
         var closure = function(url) {
             return function() {
                 window.location.href=url;
-            };}(CONFIG["rooms"][room]);
+            };}(room.url);
         button.click(closure);
         set.append(button);
-        if (CONFIG["rooms"][room].indexOf(window.location.hostname) != -1)
+        set.append(label);
+        if (room.url.indexOf(window.location.hostname) != -1)
         {
             button.attr("checked","true");
         }
     }
     $("#room-navigation").buttonset("refresh");
-    ajax(CONFIG["url"]+"/config",load)
+    ajax(CONFIG["config-url"],load,function() {
+        $("div#controls-content").accordion()
+    });
     $('input:text, input:password').addClass("ui-widget-content");
     $("div#messages-content").accordion();
 }
@@ -78,24 +83,31 @@ function add(spec,section) {
 /**
  * Send a command to the control interface.
  */
-function send(url) {
-    //TODO: Make data object
+function send() {
     var data = {};
+    var params = $(this).data("args");
+    var url = $(this).data("url");
+    for (var i = 0; i < params.length; i++)
+    {
+        var name=params[i].name;
+        var value = $("#"+getValidId(name)+".arg").val();
+        data[name] = value;
+    }
     //Call web command with args
-    ajax(Config.URL +"/"+url,complete,failed,"PUT",data,running);
+    ajax(CONFIG.url+url,complete,failed,"PUT",data,running);
 }
 /**
  * Functions to perform when a command is running.
  */
 function running() {
-    disableContols(true);
+    disableControls(true);
 }
 /**
 * A command errors out.
 */
-function failed(jqxhr,text,error) {
-    error(error);
-    disableContols(false);
+function failed(jqxhr,text,err) {
+    error(err);
+    disableControls(false);
 }
 /**
  * Functions to perform when a command is running.
@@ -110,12 +122,12 @@ function complete(data,text,jqxhr) {
         for (var i = 0; i < data.messages.length; i++)
             message(data.messages[i]);
     }
-    disableContols(false);
+    disableControls(false);
 }
 /**
  * Disable/enable controls
  */
-function disableControl(disable) {
+function disableControls(disable) {
     if (disable) {
         $(".control").attr("disabled","disabled").addClass("ui-state-disabled");
         $(".ctrlbutton").button("disable");

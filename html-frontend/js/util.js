@@ -20,7 +20,7 @@ function getValidId(id) {
 }
 
 
-function ajax(loc,suc,err,tpe,run) {
+function ajax(loc,suc,err,tpe,data,run) {
     //Defaults
     if (err === undefined)
         err = function(){};
@@ -28,15 +28,19 @@ function ajax(loc,suc,err,tpe,run) {
         tpe = "GET";
     if (run === undefined)
         run = function(){};
+    if (data === undefined)
+        data = {};
     //Load configuration and setup page
     $.ajax(
         {
             url: loc,
             success: function(resp) {
-                    if ("error" in resp)
+                    if ("error" in resp) {
+                        err(resp);
                         error(resp["error"]);
-                    else 
+                    } else { 
                         suc(resp);
+                    }
                 },
             error: function(resp) {
                     error("Error loading: "+loc);
@@ -44,6 +48,7 @@ function ajax(loc,suc,err,tpe,run) {
                 },
             beforeSend: run,
             type: tpe,
+            data: data,
             dataType: "json"
         }); 
 

@@ -10,7 +10,7 @@ class ShellCommand(restful.Resource):
         '''
         self.parser = reqparse.RequestParser()
         for arg in self.args:
-            self.parser.add_argument(arg, type=str, help="Command line argument '"+arg+"'")
+            self.parser.add_argument(arg, type=str, help="Command line argument '"+arg.name+"'")
     def setArgs(self,cmd,args=[]):
         '''
         Sets args from baseclass

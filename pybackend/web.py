@@ -30,10 +30,10 @@ def setup():
     '''
     for keys in CONFIG["COMMANDS"]:
         clazz = classGenerator(ShellCommand,keys["url"].title().replace("-",""),cmd=keys["cmd"],args=([] if not "args" in keys else keys["args"]))
-        api.add_resource(clazz, "/commands/"+keys["url"]) 
+        api.add_resource(clazz,keys["url"]) 
     for keys in CONFIG["PINS"]:
         clazz = classGenerator(Pin,keys["url"].title().replace("-",""),port=CONFIG["PORT"],pin=keys["pin"],ro=("type" in keys and keys["type"] == "read"))
-        api.add_resource(clazz,"/pins/"+keys["url"]) 
+        api.add_resource(clazz,keys["url"]) 
     api.add_resource(Config,"/config") 
 #APP
 
