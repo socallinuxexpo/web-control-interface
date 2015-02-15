@@ -74,44 +74,25 @@ function load(cfg) {
  */
 function add(spec,section) {
     var id = getValidId(spec.name);
-    var html = null;
-    // Div to put our command
-    var div = $("<div></div>");
-    // Add any argument controls
-    if ("args" in spec)
-        addArguments(div,spec.args);
+    var cont = null;
     // Switch based on spec type
     switch (spec.type) {
         case "read":
-            div = readable(spec);
-            /*$("<div></div>").attr("id",id);
-            container = $("<div id='"+spec.name+"'></div>");
-            var ra = $("<input type='radio' name='"+spec.name+"' id='"+spec.name+"-a'>");
-            var rb = $("<input type='radio' name='"+spec.name+"' id='"+spec.name+"-b'>");
-            var la = $("<label for='"+spec.name+"-a'>Side A</label>");
-            var lb = $("<label for='"+spec.name+"-b'>Side B</label>");
-            var ll = $("<label>"+spec.name+":</label>");
-            html.append(ll).append("<br/>").append(ra).append(la).append(rb).append(lb);
-            var fun = getReadFunction(ra,rb,spec.url); 
-            ra.on("click",fun);
-            rb.on("click",fun);
-            setInterval(fun,500);*/
+            cont = readable(spec);
             break;
         case "select":
+            cont = select(spec,send);
+            break;
         case "button":
+            cont = button(spec,send);
+            break;
         default:
+            error("Invalid control format:"+spec.type);
             break;    
     }
-    var res = $("div#" + spec.group);
-    if (res.length == 0)
-    {
-       res = $("<div id='" + spec.group + "' class='controls-group'></div>");
-       res.addClass("control-element").addClass("ui-corner-all").addClass("ui-widget-content");
-    }
-    div.append(html);
-    res.append(div);
+    var grp = group(spec.group,cont);    
     //Add in button to submit command
-    $("div#"+section).append(res);
+    $("div#"+section).append(grp);
 }
 /**
  * Returns possible values for an argument based upon its name.

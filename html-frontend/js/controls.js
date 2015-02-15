@@ -5,10 +5,11 @@
  * @return container holding button, or updated container
  */
 function button(spec,send) {
-    var cont = $("#"+sepc.group+" #buttons");
+    var cont = $("#"+getValidId(spec.group)+" #buttons");
     if (cont.length == 0)
         cont = $("<div></div>").attr("id","buttons");
-    return controlable(spec,cont,send)
+        cont.buttonset();
+    return controlable(spec,cont,send).buttonset("refresh");
 }
 /**
  * Creates a button for use with a select dropdown.
@@ -30,6 +31,9 @@ function select(spec,send) {
  */
 function controlable(spec,cont,send) {
     var id = getValidId(spec.name);
+    // Add any argument controls
+    if ("args" in spec)
+        addArguments(cont,spec.args);
     var html = $("<button></button>").button().addClass("ctrlButton").addClass("control");
     html.addClass("ctrlbutton").addClass("control").attr("id",id).click(send);
     html.val(spec.name);
@@ -56,4 +60,20 @@ function readable(spec) {
     rb.on("click",function(){});
     setInterval(fun,500);
     return cont;
+}
+/**
+ * Groups controls by name.  If group exists, append control.
+ * @param group - group name
+ * @param cont - container to add to this group
+ * @return group div
+ */
+function group(group,cont) {
+    var id = getValidId(group);
+    var res = $("div#" + id);
+    if (res.length == 0)
+    {
+       res = $("<div></div>").attr("id",id).addClass("controls-group");
+       res.addClass("control-element").addClass("ui-corner-all").addClass("ui-widget-content");
+    }
+    return res.append(cont);
 }
