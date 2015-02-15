@@ -35,6 +35,8 @@ function ajax(loc,suc,err,tpe,data,run) {
         {
             url: loc,
             success: function(resp) {
+                    if (resp == null)
+                        resp = {};
                     if ("error" in resp) {
                         err(resp);
                         error(resp["error"]);

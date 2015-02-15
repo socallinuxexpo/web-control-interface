@@ -33,7 +33,7 @@ function controlable(spec,cont,send) {
     var id = getValidId(spec.name);
     // Add any argument controls
     if ("args" in spec) {
-        args(cont,spec.args);
+        args(cont,id,spec.args);
     }
     var html = $("<button></button>").button().addClass("ctrlButton").addClass("control");
     html.addClass("ctrlbutton").addClass("control").attr("id",id).click(send);
@@ -62,7 +62,7 @@ function readable(spec) {
     var fun = getReadFunction(url,ra,rb); 
     ra.on("click",function(){});
     rb.on("click",function(){});
-    setInterval(fun,500);
+    setInterval(fun,5000);
     return cont;
 }
 /**
@@ -110,26 +110,28 @@ function group(group,cont) {
  * @param cont - container to add to
  * @param args - args specification
  */
-function args(cont,args) {
+function args(cont,cid,args) {
     for (var i = 0; i < args.length; i++)
     {
         var arg = args[i];
-        var values = options(arg.name);
+        var name = arg.name;
+        var id = cid +"-arg-"+name;
+        var values = options(name,arg.value);
         var item = null;
         //Hidden args have no input
         if ("hidden" in arg) {
-            item = $("<input type='hidden' class='arg' name='"+arg.name+"'></input>");
+            item = $("<input></input>").attr("name",name).attr("type","hidden").addClass("arg").attr("id",id);
             item.val(values[0]);
         }
         else {
-            item = $("<select></select>").addClass("arg").attr("name",arg.name).attr("id",getValidId(arg.name));
+            item = $("<select></select>").addClass("arg").attr("name",name).attr("id",id);
             item.addClass("ui-widget-content").addClass("rounded-fix-padding");
             for (var j = 0; j < values.length; j++)
             {
-                var opt = $("<option></option>").val(values[j]).text(values[j]);
+                var opt = $("<option></option>").val(values[j].value).text(values[j].name);
                 item.append(opt);
             }
-            var label = $("<label></label>").text(arg.label+":").attr("for",getValidId(arg.name));
+            var label = $("<label></label>").text(arg.label+":").attr("for",id);
             cont.append(label);
         }
         cont.append(item.addClass("ui-corner-all"));
@@ -140,13 +142,13 @@ function args(cont,args) {
  * @param name - name of argument
  * @return - possible values for argument
  */
-function options(name) {
+function options(name,value) {
     switch(name) {
         case "room-url":
-            return [decodeURIComponent(window.location.search)];
+            return [window.location.hostname];
         case "camera-url":
-            return ["camera1","camera2","camera3"];
+            return CONFIG["camera-values"];
         default:
-            return [name];
+            return [(value===undefined)?name:value];
     }
 }

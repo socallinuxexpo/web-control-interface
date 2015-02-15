@@ -4,6 +4,8 @@ import serial
 import uuid 
 import time
 
+from config import CONFIG
+
 class Pin(restful.Resource):
     '''
     Represents a serial io pin
@@ -50,7 +52,7 @@ class Pin(restful.Resource):
                     self.output(False)
                 elif args["set"] == "cycle":
                     self.output(True)
-                    time.sleep(0.25)
+                    time.sleep(CONFIG["CYCLE-TIME"])
                     self.output(False)
         except Exception as e:
             return {"error":"Exception Occured: "+str(e)}

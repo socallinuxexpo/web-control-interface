@@ -1,7 +1,10 @@
+import os
 import subprocess
 import uuid
 from flask.ext.restful import reqparse
 from flask.ext import restful
+
+from config import CONFIG
 
 class ShellCommand(restful.Resource):
     def __init__(self):
@@ -10,7 +13,7 @@ class ShellCommand(restful.Resource):
         '''
         self.parser = reqparse.RequestParser()
         for arg in self.args:
-            self.parser.add_argument(arg, type=str, help="Command line argument '"+arg.name+"'")
+            self.parser.add_argument(arg["name"], type=str, help="Command line argument '"+arg["name"]+"'")
     def setArgs(self,cmd,args=[]):
         '''
         Sets args from baseclass
@@ -26,16 +29,20 @@ class ShellCommand(restful.Resource):
         for name,value in self.parser.parse_args().items():
             args.append(value)
         print("Executing:",args)
-        proc = subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         ret = {}
         try:
-            sto,ste = proc.communicate(timeout=10)
+            env = os.environ.copy()
+            env["DISPLAY"] = CONFIG["DISPLAY"]
+            proc = subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env)
+            sto,ste = proc.communicate(timeout=100)
             ret["sto"] = sto.decode()
             ret["ste"] = ste.decode()
-        except TimeoutExpired:
+            if proc.returncode != 0:
+                ret["error"] = "Program returned error: "+str(proc.returncode)
+            ret["ret"] = proc.returncode
+        except subprocess.TimeoutExpired as t:
             ret["error"] = "Timeout reached"
-        if proc.returncode != 0:
-           ret["error"] = "Program returned error: "+str(proc.returncode)
-        ret["ret"] = proc.returncode
+        except Exception as e:
+            ret["error"] = "Exception occured: "+str(e)
         return ret
 

@@ -85,12 +85,13 @@ function add(spec,section) {
  */
 function send() {
     var data = {};
+    var id = $(this).attr("id");
     var params = $(this).data("args");
     var url = $(this).data("url");
     for (var i = 0; i < params.length; i++)
     {
         var name=params[i].name;
-        var value = $("#"+getValidId(name)+".arg").val();
+        var value = $("#"+id+"-arg-"+name+".arg").val();
         data[name] = value;
     }
     //Call web command with args
