@@ -62,7 +62,7 @@ function readable(spec) {
     var fun = getReadFunction(url,ra,rb); 
     ra.on("click",function(){});
     rb.on("click",function(){});
-    setInterval(fun,5000);
+    setInterval(fun,50);
     return cont;
 }
 /**

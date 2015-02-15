@@ -31,9 +31,8 @@ class Pin(restful.Resource):
         '''
         try:
             with serial.Serial(self.device, 19200, timeout=1) as self.port:
-                self.port.read(1000)
                 self.port.write(("gpio read "+str(self.pin)+"\r").encode())
-                tmp = self.port.read(250).decode()
+                tmp = self.port.read(17).decode()
         except Exception as e:
             return {"error":"Exception occurred: "+str(e)}
         return {"value":tmp[13] == "1"}
@@ -62,6 +61,6 @@ class Pin(restful.Resource):
         @param value - true to turn pin on, false off
         '''
         cmd = "set" if value else "clear"
-        self.port.read(1000)
-        self.port.write(("gpio "+cmd+" "+str(self.pin)+"\r").encode())
-        self.port.read(1000)
+        bts=("gpio "+cmd+" "+str(self.pin)+"\r").encode()
+        self.port.write(bts)
+        self.port.read(len(bts)+2)

@@ -7,7 +7,7 @@ CONFIG = {
     "PORT" : "/dev/ttyACM0",
     "COMMANDS-PATH":"/commands",
     "PINS-PATH":"/pins",
-    "CYCLE-TIME":0.1
+    "CYCLE-TIME":0.01
 }
 CONFIG.update({
     "COMMANDS" : [
