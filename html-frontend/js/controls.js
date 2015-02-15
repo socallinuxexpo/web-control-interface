@@ -74,6 +74,7 @@ function group(group,cont) {
     {
        res = $("<div></div>").attr("id",id).addClass("controls-group");
        res.addClass("control-element").addClass("ui-corner-all").addClass("ui-widget-content");
+       res.append($("<h4></h4>").text(group));
     }
     return res.append(cont);
 }
