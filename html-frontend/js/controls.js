@@ -33,7 +33,7 @@ function controlable(spec,cont,send) {
     var id = getValidId(spec.name);
     // Add any argument controls
     if ("args" in spec)
-        addArguments(cont,spec.args);
+        args(cont,spec.args);
     var html = $("<button></button>").button().addClass("ctrlButton").addClass("control");
     html.addClass("ctrlbutton").addClass("control").attr("id",id).click(send);
     html.val(spec.name);
@@ -55,11 +55,34 @@ function readable(spec) {
     var lb = $("<label>Side B</label>").attr("for",id+"-b");
     var ll = $("<label></label>").text(spec.name);
     cont.append(ll).append("<br/>").append(ra).append(la).append(rb).append(lb);
-    var fun = getReadFunction(ra,rb,spec.url); 
+    var url = CONFIG["pins-url"]+"/"+spec.url;
+    var fun = getReadFunction(url,ra,rb); 
     ra.on("click",function(){});
     rb.on("click",function(){});
     setInterval(fun,500);
     return cont;
+}
+/**
+ * Returns a function that will read a pin and update
+ * a given div.
+ * @param span - span id to update
+ * @param pin - pin to read
+ * @return function to call and read pin
+ **/
+function getReadFunction(url,ra, rb,fun) {
+    var ret = function() {
+        ajax(url,
+            function(resp) {
+                ra.prop("checked", resp.value);
+                rb.prop("checked", !resp.value);
+            },
+            function() {
+                ra.prop("checked", false);
+                rb.prop("checked", false);
+                error("Failed read pin at: "+url);
+            });
+    };
+    return ret;
 }
 /**
  * Groups controls by name.  If group exists, append control.
@@ -77,4 +100,51 @@ function group(group,cont) {
        res.append($("<h4></h4>").text(group));
     }
     return res.append(cont);
+}
+
+/**
+ * Add argument selections to controls
+ * @param cont - container to add to
+ * @param args - args specification
+ * @return container
+ */
+function args(cont,args) {
+    for (var i = 0; i < args.length; i++)
+    {
+        var arg = args[i];
+        var values = options(arg.name);
+        var item = null;
+        //Hidden args have no input
+        if ("hidden" in arg) {
+            item = $("<input type='hidden' class='arg' name='"+arg.name+"'></input>");
+            item.val(values[0]);
+        }
+        else {
+            item = $("<select></select>").addClass("arg").attr("name",arg.name).attr("id",getValidId(arg.name));
+            item.addClass("ui-widget-content").addClass("rounded-fix-padding");
+            for (var j = 0; j < values.length; j++)
+            {
+                var opt = $("<option></option>").val(values[j]).text(values[j]);
+                item.append(opt);
+            }
+            var label = $("<label></label>").text(arg.label+":").attr("for",getValidId(arg.name));
+            cont.append(label);
+        }
+        cont.append(item.addClass("ui-corner-all"));
+    }
+}
+/**
+ * Returns possible values for an argument based upon its name.
+ * @param name - name of argument
+ * @return - possible values for argument
+ */
+function options(name) {
+    switch(name) {
+        case "room-url":
+            return [decodeURIComponent(window.location.search)];
+        case "camera-url":
+            return ["camera1","camera2","camera3"];
+        default:
+            return [name];
+    }
 }

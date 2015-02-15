@@ -71,7 +71,7 @@ CONFIG = {
          "type" :"button",
          "group": "Scan",
          "args" :[{"name":"cycle","hidden":True}]},
-        {"name" :"KVM Side",
+        {"name" :"Current",
          "url"  :"kvm-read",
          "pin"  :7,
          "type" :"read",

@@ -30,31 +30,8 @@ function setup() {
     }
     $("#room-navigation").buttonset("refresh");
     ajax(CONFIG["url"]+"/config",load)
-
-
-}
-/**
- * Returns a function that will read a pin and update
- * a given div.
- * @param span - span id to update
- * @param pin - pin to read
- * @return function to call and read pin
- **/
-function getReadFunction(ra, rb,pin,fun) {
-    var ret = function() {
-        var url = CONFIG["pins-url"]+"/"+pin;
-        ajax(url,
-            function(resp) {
-                ra.prop("checked", resp.value);
-                rb.prop("checked", !resp.value);
-            },
-            function() {
-                ra.prop("checked", false);
-                rb.prop("checked", false);
-                error("Failed read pin at: "+url);
-            });
-    };
-    return ret;
+    $('input:text, input:password').addClass("ui-widget-content");
+    $("div#messages-content").accordion();
 }
 /**
  * Loads page given configuration
@@ -64,8 +41,12 @@ function load(cfg) {
     for (var i =0; i < cmds.length; i++) {
         add(cmds[i],"system-controls"); 
     }
-    $('input:text, input:password').addClass("ui-widget-content");
-    $("div#content").accordion();
+    var height = 0;
+    $("div.controls-group").each(function() {
+             height = Math.max(height,$(this).height());
+        });
+    $("div.controls-group").height(height);
+    $("div#controls-content").accordion();
 }
 /**
  * Add in a div representing the given control
@@ -81,7 +62,7 @@ function add(spec,section) {
             cont = readable(spec);
             break;
         case "select":
-            cont = select(spec,send);
+            cont = button(spec,send);
             break;
         case "button":
             cont = button(spec,send);
@@ -93,55 +74,6 @@ function add(spec,section) {
     var grp = group(spec.group,cont);    
     //Add in button to submit command
     $("div#"+section).append(grp);
-}
-/**
- * Returns possible values for an argument based upon its name.
- * @param name - name of argument
- * @return - possible values for argument
- */
-function options(name) {
-    switch(name) {
-        case "room-url":
-            return [decodeURIComponent(window.location.search)];
-        case "camera-url":
-            return ["camera1","camera2","camera3"];
-        default:
-            return [name];
-    }
-}
-/**
- * Add argument specification
- */
-function addArguments(div,args) {
-    for (var i = 0; i < args.length; i++)
-    {
-        var arg = args[i];
-        var values = options(arg.name);
-        
-        var item = null;
-        if ("hidden" in arg) {
-            item = $("<input type='hidden' class='arg' name='"+arg.name+"'></input>");
-            item.val(values[0]);
-        }
-        else {
-            item = $("<select class='arg' name='"+arg.name+"'></select>");
-            item.addClass("ui-widget-content").addClass("rounded-fix-padding");
-            for (var j = 0; j < values.length; j++)
-            {
-                var opt = $("<option></option>");
-                opt.val(values[j]);
-                opt.text(values[j]);
-                item.append(opt);
-            }
-        }
-        //Add label, and arg selection
-        if ("label" in arg)
-        {
-        	var label = $("<label>"+arg.label+":</label>");
-        	div.append(label);
-        }
-        div.append(item.addClass("ui-corner-all"));
-    }
 }
 /**
  * Send a command to the control interface.
