@@ -20,5 +20,5 @@
 
 # Start the signs again
 #$(dirname $0)/start-signs
-/usr/bin/sudo /usr/sbin/service slides restart
+/usr/bin/sudo /usr/sbin/service slides restart &
 

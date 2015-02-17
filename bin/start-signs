@@ -7,5 +7,5 @@
 #WEBPAGE="http://signs.expo.socallinuxexpo.org/signs/index.php?room=${ROOM}"
 #CMD="chromium-browser --incognito --kiosk ${WEBPAGE} &"
 #$CMD &
-/usr/bin/sudo /usr/sbin/service slides start
+/usr/bin/sudo /usr/sbin/service slides start &
 

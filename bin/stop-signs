@@ -5,5 +5,5 @@
 #    killall chromium-browser
 #fi
 
-/usr/bin/sudo /usr/sbin/service slides stop
+/usr/bin/sudo /usr/sbin/service slides stop &
 
