@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "Put your record start code here"
+/usr/bin/sudo /usr/sbin/service videosave start
 
