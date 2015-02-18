@@ -9,7 +9,14 @@ CONFIG["rooms"] = [
     {"name":"google",
      "url":"http://google.com"}];
 CONFIG["camera-values"] = [
-    {"name":"Camera1","value":"/home/starchmd/Downloads/radiolab041811.mp3"},
-    {"name":"Camera2","value":"http://localhost/camera"},
-    {"name":"Camera3","value":"http://localhost/camera"},
-    {"name":"Camera4","value":"http://localhost/camera"}];
+    {"name":"Camera1",
+     "value":"/home/starchmd/Downloads/radiolab041811.mp3"},
+    {"name":"Camera2",
+     "value":"http://localhost/camera"},
+    {"name":"Camera3",
+     "value":"http://localhost/camera"},
+    {"name":"Camera4",
+     "value":"http://localhost/camera"}];
+CONFIG["camera-proxy"] = "";///video"
+CONFIG["camera-stream"] = "";
+CONFIG["camera-image"] = "/imgs/image.jpg";//"/x/1/cgi-bin/video.cgi?msubmenu=mjpg&resolution=7";

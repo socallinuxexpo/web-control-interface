@@ -1,9 +1,10 @@
 var CAM_IP = "BLAH";
+var CAM_LOC = CONFIG["camera-proxy"]+CONFIG["camera-control"];
 var PAN_INCREMENT = 5;
 var TILT_INCREMENT = 5;
-var lastValues = [0,0,0];
-var PAN_ID = 0;
-var TILT_ID = 1;
+lastValues = [0,0,0];
+PAN_ID = 0;
+TILT_ID = 1;
 var ZOOM_ID = 2;
 var PAN_MIN = 0;
 var PAN_MAX = 360;
@@ -18,7 +19,7 @@ function logArrayElements(element, index, array) {
 function getptz(cam){
   $.ajax({
     type: "GET",
-    url: "https://"+ CAM_IP +"/x/1/cgi-bin/ptz.cgi?query=ptz",
+    url: CAM_LOC+"?query=ptz",
     success: function(data) {
       ptz = data.trim().split("\n");
       for(i=0; i<ptz.length; i++) {
@@ -37,30 +38,30 @@ function setptz(cam,type,direction,amount){
   value = parseInt($("#" + type + "_" + cam).val(), 10)
   //value = parseInt(document.forms[0].elements[type+"_"+cam].value)
   oldVal = value
-if(amount === undefined){
-	  if(type == 'pan'){
-	    amount = PAN_INCREMENT
-	  }
-	  else if(type == 'tilt'){
-	    amount = TILT_INCREMENT
-	  }
-	  else{
-	    amount = 2
-	  }
+  if(amount === undefined){
+    if(type == 'pan'){
+      amount = PAN_INCREMENT
+    }
+    else if(type == 'tilt'){
+      amount = TILT_INCREMENT
+    }
+    else{
+      amount = 2
+    }
 
-	  if(direction == 'up'){
-	    value += amount;
-	  }
-	  else{
-	    value -= amount;
-	  }
+    if(direction == 'up'){
+      value += amount;
+    }
+    else{
+      value -= amount;
+    }
 }
 else {
-	value = amount
+  value = amount
 }
   console.log("current: " + oldVal + "direction: " + direction + " request: " + value)
   $.get(
-    "https://"+CAM_IP+"/x/1/cgi-bin/ptz.cgi?move"+type+"="+value,
+    CAM_LOC+"?move"+type+"="+value,
     function(data) {
       delay = 1000;
       if(type == 'zoom'){
@@ -71,16 +72,16 @@ else {
   );
 }
 function vidsetup() {
-  $(".up_btn").click(function(){
+  $(".up").click(function(){
     setptz('1', 'tilt', 'down')
   });
-  $(".down_btn").click(function(){
+  $(".downn").click(function(){
     setptz('1', 'tilt', 'up')
   });
-  $(".left_btn").click(function(){
+  $(".left").click(function(){
     setptz('1', 'pan', 'up')
   });
-  $(".right_btn").click(function(){
+  $(".right").click(function(){
     setptz('1', 'pan', 'down')
   });
 
@@ -151,7 +152,7 @@ function vidsetup() {
   });
 
   getptz('1');
-  setTimeout("initSliders()", 1000)
+  setTimeout(initSliders, 1000)
 
 }
 

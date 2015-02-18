@@ -8,6 +8,9 @@ function setup() {
     $("#dpad button").button();
     $("#dpad").dialog({resizable: false});
     $(".ui-dialog-titlebar-close").css("display", "none")
+    //Setup the image.  If we DO NOT use proxy, set camera proxy below to IP of camera
+    $("#video").attr("src",CONFIG["camera-proxy"]+CONFIG["camera-image"]);
+    vidsetup();
     //Setup room navigation
     var set = $("#room-navigation").buttonset();
     for (var i =0; i < CONFIG["rooms"].length; i++)
@@ -33,7 +36,7 @@ function setup() {
     }
     $("#room-navigation").buttonset("refresh");
     ajax(CONFIG["config-url"],load,function() {
-        $("div#controls-content").accordion()
+        //$("div#controls-content").accordion()
     });
     $('input:text, input:password').addClass("ui-widget-content");
     $("div#messages-content").accordion();
@@ -51,7 +54,7 @@ function load(cfg) {
              height = Math.max(height,$(this).height());
         });
     $("div.controls-group").height(height);
-    $("div#controls-content").accordion();
+//    $("div#controls-content").accordion();
 }
 /**
  * Add in a div representing the given control

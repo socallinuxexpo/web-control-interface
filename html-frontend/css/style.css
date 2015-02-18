@@ -1,67 +1,65 @@
 body 
 {
-	background-color: #222222;
+    background-color: #222222;
 }
 .rounded-fix-padding
 {
-	 padding-left: 10px;
-	 padding-right: 10px;
-}
-.rounded-fix-padding-both
-{
-	 padding: 10px;
-}
-.vidcontrol-container
-{
-	display: inline-block;
-	vertical-align: top;
+     padding-left: 10px;
+     padding-right: 10px;
 }
 #system-controls
 {
     margin: 5px 0px;
 }
-img.vidpreview
-{
-    width: 640px;
-    height: 500px;
-    margin-bottom: -500px;
-}
-div.vidoverlay
-{
-    width: 640px;
-    height: 500px;
-    position: relative;
-}
 div.slider-pan
 {
     position: absolute;
-    width: 590px;
-    bottom: 20px;
-    left: 25px;
-    z-index: 5;
+    width: 90%;
+    top: 92.5%;
+    left: 5%;
 }
 div.slider-tilt
 {
     position: absolute;
-    height: 400px;
-    top: 50px;
-    right: 15px;
+    height: 90%;
+    top: 5%;
+    left: 97.5%;
 }
-.vidcontrol-container table
-{
-    width: 640px;
-    height: 100px;
+#messages-content{
+    clear:both;
 }
-#dpad button
-{
-    width: 100%;
+#camera-view {
+    display: inline-block;
+    position: relative;
 }
 
+#dpad button
+{
+    height: 33%;
+    width: 33%;
+    margin: 0 auto;
+}
+
+#dpad .vertical
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
+#dpad button.horizontal {
+    display: block;
+}
+#dpad button.right {
+    float: right;
+}
+#dpad button.left {
+    float: left;
+}
 table th.boolean-table {
     text-align: center;
     colspan: 2;
 }
-
 div#io-pins {
     margin: 5px 0px;
 }
@@ -74,7 +72,7 @@ div.controls-group {
 
 div#system-controls h4 {
     text-align: center;
-    margin: 0em 0em .5em 0em;;
+    margin: 0em 0em .5em 0em;
 }
 
 div#buttons .ui-button {
@@ -82,6 +80,6 @@ div#buttons .ui-button {
    padding: 0em .2em;
 }
 
-div#error {
-   height: 20em;
+.viewable {
+   height: 40em;
 }
