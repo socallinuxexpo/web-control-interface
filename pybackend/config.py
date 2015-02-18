@@ -8,7 +8,7 @@ CONFIG = {
     "COMMANDS-PATH":"/commands",
     "SITEPATH": "/opt/scaleav/web_control/site",
     "PINS-PATH":"/pins",
-    "CYCLE-TIME":0.01
+    "CYCLE-TIME":0.51
 }
 CONFIG.update({
     "COMMANDS" : [
