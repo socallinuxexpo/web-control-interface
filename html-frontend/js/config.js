@@ -8,6 +8,7 @@ CONFIG["camera-values"] = [
 CONFIG["camera-image"]="/mjpeg/mjpeg_stream";
 CONFIG["camera-control"]="/video/cgi-bin/ptz.cgi";
 
+CONFIG["poll-period"] = 500;
 
 CONFIG["pan-min"] = 0;
 CONFIG["pan-max"] = 360;
