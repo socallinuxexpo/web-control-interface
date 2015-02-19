@@ -7,7 +7,7 @@ function setup() {
     //Setup the directional pad
     $("#dpad button").button();
     //$("#dpad").dialog({resizable: false});
-    $(".ui-dialog-titlebar-close").css("display", "none")
+    //$(".ui-dialog-titlebar-close").css("display", "none")
     //Setup the image.  If we DO NOT use proxy, set camera proxy below to IP of camera
     $("#video").attr("src",CONFIG["camera-image"]);
     vidsetup();
@@ -39,7 +39,8 @@ function setup() {
         //$("div#controls-content").accordion()
     });
     $('input:text, input:password').addClass("ui-widget-content");
-    $("div#messages-content").accordion();
+    $("div#messages-content").accordion({active: false,
+         collapsible: true});
 }
 /**
  * Loads page given configuration
