@@ -1,38 +1,27 @@
 server {
-       listen         80;
-       server_name    localhost;
-       return         301 https://$server_name$request_uri;
-}
-#ScaleAV Site running on 443
-server {
-	listen   443;
+	listen   80;
         server_name    localhost;
 	root /http/web-control-interface;
         #error_page 404 /errors/404.html
         
-        #Basic auth for all things
-	auth_basic "Please authenticate:";
-        auth_basic_user_file /http/web-control-interface/auth/htpasswd;
-
-	ssl on;
-	ssl_certificate /http/web-control-interface/auth/cert.pem;
-	ssl_certificate_key /http/web-control-interface/auth/key.pem;
-	ssl_session_timeout 5m;
-
-	ssl_protocols SSLv3 TLSv1;
-	ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
-	ssl_prefer_server_ciphers on;
+       location ~ ^/video {
+           rewrite /video/(.+) /$1 break;
+           proxy_pass http://<camera-ip>;
+           proxy_pass_header Authorization;
+           proxy_redirect off;
+           proxy_buffering off;
+           proxy_set_header Host localhost;
+       }
 
         location = / {
             return 301 /html-frontend/operate.html;
         }
-
-        location = /video {
-            proxy_pass  https://192.168.10.10/image.jpg;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header Authorization "Basic am9objpzY2FsZWF2==";
+        location ~ ^/mjpeg {
+          rewrite /mjpeg/(.+) /$1 break;
+          proxy_pass http://172.16.10.20:8081;
+          proxy_redirect off;
+          proxy_buffering off;
+          proxy_set_header Host 127.0.0.1;
         }
 
 	location ~ ^/control {
