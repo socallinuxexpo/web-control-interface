@@ -5,9 +5,11 @@ function callCam(query,succ) {
     $.ajax({
         type: "GET",
         url: CONFIG["camera-control"]+"?"+query,
-        beforeSend: function(xhr) { 
-            xhr.setRequestHeader("Authorization", "Basic " + btoa("admin:sCalAV13")); 
-        },
+        username: "admin",
+        password: "sCalAV13",
+        //beforeSend: function(xhr) { 
+        //    xhr.setRequestHeader("Authorization", "Basic " + btoa("admin:sCalAV13")); 
+        //},
         success: succ
     });
 }
