@@ -1,181 +1,121 @@
-var CAM_IP = "BLAH";
-var CAM_LOC = CONFIG["camera-proxy"]+CONFIG["camera-control"];
-var PAN_INCREMENT = 5;
-var TILT_INCREMENT = 5;
-lastValues = [0,0,0];
-PAN_ID = 0;
-TILT_ID = 1;
-var ZOOM_ID = 2;
-var PAN_MIN = 0;
-var PAN_MAX = 360;
-var TILT_MIN = 0;
-var TILT_MAX = 45;
-
-function logArrayElements(element, index, array) {
-  parts=element.split(":")
-  return parts
+/**
+ * Calls the Camera
+ */
+function callCam(query,succ) {
+    $.ajax({
+        type: "GET",
+        url: CONFIG["camera-control"]+"?"+query,
+        beforeSend: function(xhr) { 
+            xhr.setRequestHeader("Authorization", "Basic " + btoa("admin:sCalAV13")); 
+        },
+        success: succ
+    });
+}
+/**
+ * Updates the pan tilt and zoom displayed on UI
+ */
+function updateCamUI(pan,tilt,zoom) {
+    $(".slider-tilt").slider("value", tilt);
+    $(".slider-pan").slider("value", pan);
+    $("#pan").val(pan);
+    $("#tilt").val(tilt);
+    $("#zoom").val(zoom);
+}
+/**
+ * Calls camera for PTZ
+*/
+function getPTZ() {
+    // Function to parse ptz response
+    var parse = function(data) {
+        var ptz = data.trim().split("\n");
+        var tmp = {};
+        for(i=0; i<ptz.length; i++) {
+            var parts=ptz[i].split(":");
+            tmp[parts[0]] = parseFloat(parts[1],10);
+        }
+        return tmp;
+    }
+    callCam("query=ptz",function(data) {
+                         var tmp = parse(data);
+                         updateCamUI(tmp["pan"],tmp["tilt"],tmp["zoom"]);
+                     });
+}
+/**
+ * Set PTZ of certain dir.
+ */
+function setPTZ(type,value){
+  if (value > CONFIG[type+"-max"])
+      value = CONFIG[type+"-max"]
+  if (value < CONFIG[type+"-min"])
+      value = CONFIG[type+"-min"];
+  callCam("move"+type+"="+value,function(data) {setTimeout(getPTZ,1500)});
+}
+/**
+ * Zoom level
+ */
+function zoomM(zoom) {
+    return zoom;
 }
 
-function getptz(cam){
-  $.ajax({
-    type: "GET",
-    url: CAM_LOC+"?query=ptz",
-    success: function(data) {
-      ptz = data.trim().split("\n");
-      for(i=0; i<ptz.length; i++) {
-        parts=ptz[i].split(":")
-        $("#" + parts[0] + "_" + cam).val(parts[1]);
-        //document.forms[0].elements[parts[0]+"_"+cam].value = parts[1];
-        console.log("query: " + parts[1]);
-        lastValues[i] = parts[1]
-      }
-      $(".slider-tilt").slider("value", TILT_MAX - lastValues[TILT_ID]);
-      $(".slider-pan").slider("value", PAN_MAX - lastValues[PAN_ID]);
-    }
-  });
+/**
+ * Increments a value
+ */
+function increment(id) {
+    var type = "pan";
+    if (id == "up" || id == "down")
+        type = "tilt";
+    var multiplier = zoomM(parseFloat($("#zoom").val(),10));
+    if (id == "up" || id == "right")
+        multiplier *= -1;
+    var value = parseInt($("#"+type).val(),10) + multiplier*CONFIG[type+"-step"];
+    setPTZ(type,value);
 }
-function setptz(cam,type,direction,amount){
-  value = parseInt($("#" + type + "_" + cam).val(), 10)
-  //value = parseInt(document.forms[0].elements[type+"_"+cam].value)
-  oldVal = value
-  if(amount === undefined){
-    if(type == 'pan'){
-      amount = PAN_INCREMENT
-    }
-    else if(type == 'tilt'){
-      amount = TILT_INCREMENT
-    }
-    else{
-      amount = 2
-    }
 
-    if(direction == 'up'){
-      value += amount;
-    }
-    else{
-      value -= amount;
-    }
+function spinnerSet() {
+    var type = $(this).attr("id");
+    var value = parseFloat($(this).val(),10);
+    setPTZ(type,value);
 }
-else {
-  value = amount
+function sliderSet() {
+    var type = $(this);
+    type = type.attr("id");
+    type = type.replace("slider-","");
+    var value = $(this).slider("option", "value");
+    setPTZ(type,value);
 }
-  console.log("current: " + oldVal + "direction: " + direction + " request: " + value)
-  $.get(
-    CAM_LOC+"?move"+type+"="+value,
-    function(data) {
-      delay = 1000;
-      if(type == 'zoom'){
-        delay = 2000
-      }
-      setTimeout("getptz(1)", 1500);
-    }
-  );
-}
+
+
 function vidsetup() {
-  $(".up").click(function(){
-    setptz('1', 'tilt', 'down')
+  $("#dpad button").click(function(){
+      increment($(this).attr("id"));
   });
-  $(".downn").click(function(){
-    setptz('1', 'tilt', 'up')
-  });
-  $(".left").click(function(){
-    setptz('1', 'pan', 'up')
-  });
-  $(".right").click(function(){
-    setptz('1', 'pan', 'down')
-  });
-
-  $( ".pan" ).spinner({
-    min: PAN_MIN,
-    max: PAN_MAX,
-    step: 5.0,
-    numberFormat: "n"
-  });
-  $( ".tilt" ).spinner({
-    min: 0,
-    max: 180,
-    step: 5.0,
-    numberFormat: "n"
-  });
-  $( ".zoom" ).spinner({
-    min: 0,
-    max: 20,
-    step: 1.0,
-    numberFormat: "n"
-  });
-
-  $(".pan").change(function() {
-    curr = $(".pan").val()
-    diff = curr - lastValues[PAN_ID];
-    direction = ''
-    if(diff > 0){
-      direction = 'up'
-    }
-    else {
-      direction = 'down'
-    }
-    setptz(1,'pan', direction, curr);
-    $(".slider-pan").slider("value", PAN_MAX - curr)
-  });
-
-  $(".tilt").change(function() {
-    curr = $(".tilt").val()
-    diff = curr - lastValues[TILT_ID];
-    direction = ''
-    if(diff > 0){
-      direction = 'up'
-    }
-    else {
-      direction = 'down'
-    }
-    setptz(1,'tilt', direction, curr);
-    $(".slider-tilt").slider("value", TILT_MAX - curr)
-  });
-
-
-  $(".zoom").change(function() {
-    curr = $(".zoom").val()
-    diff = curr - lastValues[ZOOM_ID];
-    direction = ''
-    if(diff > 0){
-      direction = 'in'
-    }
-    else {
-      direction = 'out'
-    }
-    setptz(1,'zoom', direction, curr);
-  });
-
-  // Let input boxes fire change event when spinner used
-  $(".ui-spinner-button").click(function() {
-    $(this).siblings('input').change();
-  });
-
-  getptz('1');
-  setTimeout(initSliders, 1000)
-
+  $(".pan").spinner({ min: CONFIG["pan-min"], max: CONFIG["pan-max"], step: CONFIG["pan-step"], numberFormat: "n" });
+  $(".tilt").spinner({ min: CONFIG["tilt-min"], max: CONFIG["tilt-max"], step: CONFIG["tilt-step"], numberFormat: "n" });
+  $(".zoom").spinner({ min: CONFIG["zoom-min"], max: CONFIG["zoom-max"], step: CONFIG["zoom-step"]/10, numberFormat: "n" });
+  $(".step").spinner({ min: CONFIG["step-min"], max: CONFIG["step-max"], step: 1, numberFormat: "n",
+    change: function() {
+                CONFIG["pan-step"] = parseFloat($(this).val(),10);
+                CONFIG["tilt-step"]= parseFloat($(this).val(),10); 
+            } });
+   $(".step").val(CONFIG["pan-step"]);
+  $(".ptzspinner").spinner({change:spinnerSet}).change(spinnerSet);
+  getPTZ();
+//  initSliders();
 }
-
+/**
+ *
+ */
 function initSliders(){
-  $(".slider-pan").slider({
-    orientation: "horizontal",
-    min: PAN_MIN,
-    max: PAN_MAX,
-    value: lastValues[PAN_ID],
-    slide: function(event, ui) {
-      $(".pan").val(PAN_MAX - ui.value);
-      $(".pan").trigger("change")
-    }
-  });
-
-  $(".slider-tilt").slider({
-    orientation: "vertical",
-    min: TILT_MIN,
-    max: TILT_MAX,
-    value: lastValues[TILT_ID],
-    slide: function(event, ui) {
-      $(".tilt").val(TILT_MAX - ui.value);
-      $(".tilt").trigger("change")
-    }
-  });
+    $(".slider-pan").slider({
+        orientation: "horizontal",
+        min: CONFIG["pan-min"],
+        max: CONFIG["pan-max"],
+        change: sliderSet
+    });
+    $(".slider-tilt").slider({
+        orientation: "vertical",
+        min: CONFIG["tilt-min"],
+        max: CONFIG["tilt-max"],
+        change: sliderSet
+    });
 }

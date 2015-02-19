@@ -11,20 +11,7 @@ body
 {
     margin: 5px 0px;
 }
-div.slider-pan
-{
-    position: absolute;
-    width: 90%;
-    top: 92.5%;
-    left: 5%;
-}
-div.slider-tilt
-{
-    position: absolute;
-    height: 90%;
-    top: 5%;
-    left: 97.5%;
-}
+
 #messages-content{
     clear:both;
 }
@@ -32,7 +19,12 @@ div.slider-tilt
     display: inline-block;
     position: relative;
 }
-
+#dpad {
+    position: absolute;
+    bottom: 20%;
+    width:  20%;
+    left: 2.5%;
+}
 #dpad button
 {
     height: 33%;

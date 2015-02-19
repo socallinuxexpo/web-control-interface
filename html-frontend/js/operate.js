@@ -6,10 +6,10 @@ $(document).ready(setup);
 function setup() {
     //Setup the directional pad
     $("#dpad button").button();
-    $("#dpad").dialog({resizable: false});
+    //$("#dpad").dialog({resizable: false});
     $(".ui-dialog-titlebar-close").css("display", "none")
     //Setup the image.  If we DO NOT use proxy, set camera proxy below to IP of camera
-    $("#video").attr("src",CONFIG["camera-proxy"]+CONFIG["camera-image"]);
+    $("#video").attr("src",CONFIG["camera-image"]);
     vidsetup();
     //Setup room navigation
     var set = $("#room-navigation").buttonset();

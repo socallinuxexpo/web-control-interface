@@ -13,6 +13,8 @@ then
     echo "Error:  DISPLAY not defined"
     exit 2
 fi
-$(dirname $0)/stop-stream
-sleep 2
-cvlc $1 &
+
+
+
+/usr/bin/cvlc $1 &
+ 

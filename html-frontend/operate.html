@@ -25,21 +25,22 @@
                 <div id="camera-view" class="control-element ui-corner-all ui-widget-content" >
                     <img id="video" class="vidpreview viewable" />
                     <div class="vidoverlay">
-                        <div class="slider-pan"></div>
-                        <div class="slider-tilt"></div>
+                        <!--div id="slider-pan" class="slider-pan"></div>
+                        <div id="slider-tilt" class="slider-tilt"></div-->
                         <form class="spinners">
-                            Pan: <input type="text" id="pan" class="pan ptz-spinner" size="5" />
-                            Tilt: <input type="text" id="tilt" class="tilt" size="5" />
-                            Zoom: <input type="text" id="zoom" class="zoom" size="5" />
+                            Pan: <input type="text" id="pan" class="pan ptzspinner" size="5" />
+                            Tilt: <input type="text" id="tilt" class="tilt ptzspinner" size="5" />
+                            Zoom: <input type="text" id="zoom" class="zoom ptzspinner" size="5" />
+                            Step: <input type="text" id="step" class="step" size="5" />
                         </form>
+                        <!-- Handles D-Pad style directional controls -->
+                        <div id="dpad" title="Directional Controls">
+                            <button type="button" id="up" class="up vertical">Up</button>
+                            <button type="button" id="left"  class="left horizontal">Left</button>
+                            <button type="button" id="right" class="right horizontal">Right</button>
+                            <button type="button" id="down" class="down vertical">Down</button>
+                        </div>
                     </div>
-                </div>
-                <!-- Handles D-Pad style directional controls -->
-                <div id="dpad" title="Directional Controls">
-                    <button type="button" id="up" class="up vertical">Up</button>
-                    <button type="button" id="left"  class="left horizontal">Left</button>
-                    <button type="button" id="right" class="right horizontal">Right</button>
-                    <button type="button" id="Down" class="down vertical">Down</button>
                 </div>
                 <div id="system-controls"></div>
             </div>
