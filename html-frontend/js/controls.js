@@ -34,6 +34,8 @@ function controlable(spec,cont,send) {
     // Add any argument controls
     if ("args" in spec) {
         args(cont,id,spec.args);
+    } else {
+        spec.args = [];
     }
     var html = $("<button></button>").button().addClass("ctrlButton").addClass("control");
     html.addClass("ctrlbutton").addClass("control").attr("id",id).click(send);
@@ -128,7 +130,7 @@ function args(cont,cid,args) {
             item.addClass("ui-widget-content").addClass("rounded-fix-padding");
             for (var j = 0; j < values.length; j++)
             {
-                var opt = $("<option></option>").val(values[j].value).text(values[j].name);
+                var opt = $("<option></option>").val(values[j].url).text(values[j].name);
                 item.append(opt);
             }
             var label = $("<label></label>").text(arg.label+":").attr("for",id);
