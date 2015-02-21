@@ -20,10 +20,11 @@ fi
         /usr/bin/vlc --audio-track=1 --fullscreen --play-and-exit $1 &
         echo $! > /tmp/vlc-scale.pid
         wait
-        ret = $?
+        ret="$?"
+        echo "$ret" > /home/starchmd/tmptmp
         if [[ "$ret" == "0" ]]
         then
-             break
+             exit
         fi
         curl=`curl -f -s -I $1 2> /dev/null`
         retval=$?
