@@ -21,7 +21,6 @@ fi
         echo $! > /tmp/vlc-scale.pid
         wait
         ret="$?"
-        echo "$ret" > /home/starchmd/tmptmp
         if [[ "$ret" == "0" ]]
         then
              exit
