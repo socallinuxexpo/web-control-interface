@@ -33,10 +33,10 @@ class ShellCommand(restful.Resource):
         try:
             env = os.environ.copy()
             env["DISPLAY"] = CONFIG["DISPLAY"]
-            proc = subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env)
-            sto,ste = proc.communicate(timeout=100)
-            ret["sto"] = sto.decode()
-            ret["ste"] = ste.decode()
+            proc = subprocess.Popen(args,stdout=None,stderr=None,env=env)
+            #sto,ste = proc.communicate(timeout=100)
+            #ret["sto"] = sto.decode()
+            #ret["ste"] = ste.decode()
             if proc.returncode != 0:
                 ret["error"] = "Program returned error: "+str(proc.returncode)
             ret["ret"] = proc.returncode
