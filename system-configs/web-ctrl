@@ -4,21 +4,21 @@ server {
 	root /http/web-control-interface;
         #error_page 404 /errors/404.html
         
-       location ~ ^/video {
-           rewrite /video/(.+) /$1 break;
-           proxy_pass http://<camera-ip>;
-           proxy_pass_header Authorization;
-           proxy_redirect off;
-           proxy_buffering off;
-           proxy_set_header Host localhost;
-       }
+       #location ~ ^/video {
+       #    rewrite /video/(.+) /$1 break;
+       #    proxy_pass http://<camera-ip>;
+       #    proxy_pass_header Authorization;
+       #    proxy_redirect off;
+       #    proxy_buffering off;
+       #    proxy_set_header Host localhost;
+       #}
 
         location = / {
             return 301 /html-frontend/operate.html;
         }
         location ~ ^/mjpeg {
           rewrite /mjpeg/(.+) /$1 break;
-          proxy_pass http://172.16.10.20:8081;
+          proxy_pass http://<mjpeg-host>:8081;
           proxy_redirect off;
           proxy_buffering off;
           proxy_set_header Host 127.0.0.1;

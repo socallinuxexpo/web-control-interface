@@ -56,8 +56,8 @@ function readable(spec) {
     var cont = $("<div></div>").attr("id",id);
     var ra = $("<input type='radio' />").attr("name",spec.name).attr("id",id+"-a");
     var rb = $("<input type='radio' />").attr("name",spec.name).attr("id",id+"-b");
-    var la = $("<label>Side A</label>").attr("for",id+"-a");
-    var lb = $("<label>Side B</label>").attr("for",id+"-b");
+    var la = $("<label>Slides</label>").attr("for",id+"-a");
+    var lb = $("<label>Speaker</label>").attr("for",id+"-b");
     var ll = $("<label></label>").text(spec.name);
     cont.append(ll).append("<br/>").append(ra).append(la).append(rb).append(lb);
     var url = CONFIG.url+spec.url;
