@@ -20,5 +20,5 @@ CONFIG["step-min"]= 1;
 CONFIG["step-max"]= 30;
 
 CONFIG["pan-step"] = 5;
-CONFIG["tilt-step"]= 5; 
-CONFIG["zoom-step"]= 1; 
+CONFIG["tilt-step"]= 5;
+CONFIG["zoom-step"]= 1;
