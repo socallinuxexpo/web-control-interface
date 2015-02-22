@@ -77,7 +77,7 @@ function vidsetup() {
                 CONFIG["pan-step"] = parseFloat($(this).val(),10);
                 CONFIG["tilt-step"]= parseFloat($(this).val(),10); 
             } });
-   $(".step").val(CONFIG["pan-step"]);
+   $(".step").val(1);
 	//		jQueryUI			jQuery
   $(".ptzspinner").spinner({change:spinnerSet}).change(spinnerSet);
   getPTZ();
