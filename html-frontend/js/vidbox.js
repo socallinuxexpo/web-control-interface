@@ -42,9 +42,9 @@ function getPTZ() {
  * Set PTZ of certain dir.
  */
 function setPTZ(type,value){
-  if (value > CONFIG[type+"-max"])
+  if (type != "pan" && value > CONFIG[type+"-max"])
       value = CONFIG[type+"-max"]
-  if (value < CONFIG[type+"-min"])
+  if (type != "pan" && value < CONFIG[type+"-min"])
       value = CONFIG[type+"-min"];
   callCam("move"+type+"="+value,function(data) {setTimeout(getPTZ,1500)});
 }
