@@ -18,6 +18,8 @@ body
 #camera-view {
     display: inline-block;
     position: relative;
+    padding: 1em 1em 0em 1em;
+    background-color: #98011b;
 }
 #dpad {
     position: absolute;
