@@ -29,9 +29,10 @@ function setup() {
         button.click(closure);
         set.append(button);
         set.append(label);
-        if (room.url.indexOf(window.location.hostname) != -1)
+        if (room.url.toLowerCase().indexOf(window.location.hostname.toLowerCase()) != -1)
         {
-            button.attr("checked","true");
+            button.addClass("ui-state-error");
+            label.addClass("ui-state-error");
         }
     }
     $("#room-navigation").buttonset("refresh");
