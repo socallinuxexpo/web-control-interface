@@ -59,22 +59,22 @@ PTZOpticsCamera.prototype.right = function(panSpeed, successCallback, errorCallb
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
-PTZOpticsCamera.prototype.stop: function(successCallback, errorCallback) {
+PTZOpticsCamera.prototype.stop =  function(successCallback, errorCallback) {
   var query = "ptzcmd&ptzstop&1&1";
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
-PTZOpticsCamera.prototype.zoomIn: function(zoomSpeed, successCallback, errorCallback) {
+PTZOpticsCamera.prototype.zoomIn = function(zoomSpeed, successCallback, errorCallback) {
   var query = "ptzcmd&zoomin&" + zoomSpeed;
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
-PTZOpticsCamera.prototype.zoomOut: function(zoomSpeed, successCallback, errorCallback) {
+PTZOpticsCamera.prototype.zoomOut = function(zoomSpeed, successCallback, errorCallback) {
   var query = "ptzcmd&zoomout&" + zoomSpeed;
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
-PTZOpticsCamera.prototype.zoomStop: function(successCallback, errorCallback) {
+PTZOpticsCamera.prototype.zoomStop = function(successCallback, errorCallback) {
   var query = "ptzcmd&zoomstop&0";
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }

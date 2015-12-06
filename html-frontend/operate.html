@@ -7,6 +7,8 @@
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
         <script src="js/config.js"></script>
+        <script src="js/camera-api/SamsungCamera.js"></script>
+        <script src="js/camera-api/PTZOpticsCamera.js"></script>
         <script src="js/vidbox.js"></script>
         <script src="js/util.js"></script>
         <script src="js/controls.js"></script>
@@ -35,6 +37,12 @@
                         </form>
                         <!-- Handles D-Pad style directional controls -->
                         <div id="dpad" title="Directional Controls">
+                            <button type="button" id="up" class="up vertical">Up</button>
+                            <button type="button" id="left"  class="left horizontal">Left</button>
+                            <button type="button" id="right" class="right horizontal">Right</button>
+                            <button type="button" id="down" class="down vertical">Down</button>
+                        </div>
+                        <div id="zpad" title="Zoom Controls">
                             <button type="button" id="up" class="up vertical">Up</button>
                             <button type="button" id="left"  class="left horizontal">Left</button>
                             <button type="button" id="right" class="right horizontal">Right</button>
