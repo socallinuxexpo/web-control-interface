@@ -13,7 +13,7 @@ var SamsungCamera = function(name, host, username, password, invertY)
     this.username = username;
     this.password = password;
     this.invertY = invertY;
-    this.url = "http://" + host + "/stw-cgi/ptzcontrol.cgi";
+    this.url = "http://" + host + "/stw-cgi/";
 };
 
 //TODO: add comments!
@@ -21,7 +21,7 @@ SamsungCamera.prototype.sendMessage = function(msg, successCallback, errorCallba
 {
     $.ajax({
         type: "GET",
-        url: "" + this.url + "?" + msg,
+        url: "" + this.url + msg,
         username: this.username,
         password: this.password,
         success: function() {},
@@ -31,7 +31,7 @@ SamsungCamera.prototype.sendMessage = function(msg, successCallback, errorCallba
 
 SamsungCamera.prototype.pan = function(speed, successCallback, errorCallback)
 {
-    this.sendMessage("msubmenu=continuous&action=control&Pan=" + speed, 
+    this.sendMessage("ptzcontrol.cgi?msubmenu=continuous&action=control&Pan=" + speed, 
         successCallback, errorCallback);
 };
 
@@ -51,7 +51,7 @@ SamsungCamera.prototype.tilt = function(speed, successCallback, errorCallback)
     {
         speed = -speed;
     }
-    this.sendMessage("msubmenu=continuous&action=control&Tilt=" + speed, 
+    this.sendMessage("ptzcontrol.cgi?msubmenu=continuous&action=control&Tilt=" + speed, 
         successCallback, errorCallback);
 };
 
@@ -67,7 +67,7 @@ SamsungCamera.prototype.down = function(speed, successCallback, errorCallback)
 
 SamsungCamera.prototype.zoom = function(speed, successCallback, errorCallback)
 {
-    this.sendMessage("msubmenu=continuous&action=control&Zoom=" + speed, 
+    this.sendMessage("ptzcontrol.cgi?msubmenu=continuous&action=control&Zoom=" + speed, 
         successCallback, errorCallback);
 };
 
@@ -81,6 +81,18 @@ SamsungCamera.prototype.zoomOut = function(speed, successCallback, errorCallback
     this.zoom(-speed, successCallback, errorCallback);
 };
 
+SamsungCamera.prototype.setHome = function(successCallback, errorCallback)
+{
+    this.sendMessage("ptzconfig.cgi?msubmenu=home&action=set&Channel=0", 
+        successCallback, errorCallback);
+};
+
+SamsungCamera.prototype.moveToHome = function(successCallback, errorCallback)
+{
+    this.sendMessage("ptzcontrol.cgi?msubmenu=home&action=control&Channel=0",
+        successCallback, errorCallback);
+};
+
 /**
  * Stop the camera
  * @param successCallback
@@ -88,6 +100,6 @@ SamsungCamera.prototype.zoomOut = function(speed, successCallback, errorCallback
  */
 SamsungCamera.prototype.stop = function(successCallback, errorCallback)
 {
-    this.sendMessage("msubmenu=stop&action=control&OperationType=All", 
+    this.sendMessage("ptzcontrol.cgi?msubmenu=stop&action=control&OperationType=All", 
         successCallback, errorCallback);
 };

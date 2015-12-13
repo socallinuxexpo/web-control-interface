@@ -78,6 +78,12 @@ CameraControl.prototype.setup = function() {
         self.camera.zoomOut(self.getPanSpeed());
         setTimeout(stopfn,self.config.zoom_delay);
     });
+    $(this.zpad$el).find("button.move_home").click(function() {
+        self.camera.moveToHome();
+    });
+    $(this.zpad$el).find("button.set_home").click(function() {
+        self.camera.setHome();
+    });
     //Attach image source
     $(this.image$el).attr("src",this.config.image);
 };
