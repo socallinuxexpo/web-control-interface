@@ -66,7 +66,9 @@ CONFIG["camera"] = {
             "type":"SamsungCamera"
         }
     },
-    "increment" : 250,
+    "pan_delay" : 250,
+    "tilt_delay" : 250,
+    "zoom_delay" : 500,
     "type" : "SamsungCamera",
     "image":"/mjpeg/mjpeg_stream",
     "control":"localhost/video"

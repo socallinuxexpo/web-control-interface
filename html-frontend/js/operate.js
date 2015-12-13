@@ -6,7 +6,8 @@ $(document).ready(setup);
 function setup() {
     var room = "Lajolla";
     var camcon = new CameraControl(CONFIG["camera"],$("#dpad"),$("#zpad"),$("#video"));
-    camcon.setSpeed(5);
+    camcon.setPanSpeed(5);
+    camcon.setZoomSpeed(5);
     //Setup room navigation
     var setcon = new RoomControl(CONFIG,$("#room-navigation"));
     //Misc setup

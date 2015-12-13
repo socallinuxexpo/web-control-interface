@@ -13,7 +13,6 @@ var SamsungCamera = function(name, host, username, password, invertY)
     this.username = username;
     this.password = password;
     this.invertY = invertY;
-    this.invertY = true;
     this.url = "http://" + host + "/stw-cgi/ptzcontrol.cgi";
 };
 
@@ -71,6 +70,17 @@ SamsungCamera.prototype.zoom = function(speed, successCallback, errorCallback)
     this.sendMessage("msubmenu=continuous&action=control&Zoom=" + speed, 
         successCallback, errorCallback);
 };
+
+SamsungCamera.prototype.zoomIn = function(speed, successCallback, errorCallback)
+{
+    this.zoom(speed, successCallback, errorCallback);
+};
+
+SamsungCamera.prototype.zoomOut = function(speed, successCallback, errorCallback)
+{
+    this.zoom(-speed, successCallback, errorCallback);
+};
+
 /**
  * Stop the camera
  * @param successCallback

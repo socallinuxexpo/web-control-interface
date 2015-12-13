@@ -31,44 +31,52 @@ CameraControl.prototype.setup = function() {
     $(document).keydown(
             function(event) {
                 //Prevent defaults
-                if (event.which <= 37 || event.which >= 40) {
+                if (event.which < 37 || event.which > 40) {
                     return;
                 }
                 event.preventDefault();
                 switch(event.which) {
                     case 37:
-                        self.camera.left(self.getSpeed());
+                        self.camera.left(self.getPanSpeed());
                         break;
                     case 38:
-                        self.camera.up(self.getSpeed());
+                        self.camera.up(self.getPanSpeed());
                         break;
                     case 39:
-                        self.camera.right(self.getSpeed());
+                        self.camera.right(self.getPanSpeed());
                         break;
                     case 40:
-                        self.camera.down(self.getSpeed());
+                        self.camera.down(self.getPanSpeed());
                         break;
                 }
                 //Stop camera after given increment of time
-                setTimeout(stopfn,self.config.increment);
+                setTimeout(stopfn,self.config.pan_delay);
             }        
         );
     //Click bindings for buttons
     $(this.dpad$el).find("button.left").click(function() {
-        self.camera.left(self.getSpeed());
-        setTimeout(stopfn,self.config.increment);
+        self.camera.left(self.getPanSpeed());
+        setTimeout(stopfn,self.config.pan_delay);
     });
     $(this.dpad$el).find("button.right").click(function() {
-        self.camera.right(self.getSpeed());
-        setTimeout(stopfn,self.config.increment);
+        self.camera.right(self.getPanSpeed());
+        setTimeout(stopfn,self.config.pan_delay);
     });
     $(this.dpad$el).find("button.up").click(function() {
-        self.camera.up(self.getSpeed());
-        setTimeout(stopfn,self.config.increment);
+        self.camera.up(self.getPanSpeed());
+        setTimeout(stopfn,self.config.tilt_delay);
     });
     $(this.dpad$el).find("button.down").click(function() {
-        self.camera.down(self.getSpeed());
-        setTimeout(stopfn,self.config.increment);
+        self.camera.down(self.getPanSpeed());
+        setTimeout(stopfn,self.config.tilt_delay);
+    });
+    $(this.zpad$el).find("button.zoom_in").click(function() {
+        self.camera.zoomIn(self.getPanSpeed());
+        setTimeout(stopfn,self.config.zoom_delay);
+    });
+    $(this.zpad$el).find("button.zoom_out").click(function() {
+        self.camera.zoomOut(self.getPanSpeed());
+        setTimeout(stopfn,self.config.zoom_delay);
     });
     //Attach image source
     $(this.image$el).attr("src",this.config.image);
@@ -93,17 +101,35 @@ CameraControl.prototype.makeCamera = function() {
             break;
     }
 };
+
 /**
  * Get the speed for camera movement
  * @returns current speed
  */
-CameraControl.prototype.getSpeed = function() {
+CameraControl.prototype.getPanSpeed = function() {
     return this.speed;
 };
+
 /**
  * Set the speed for camera movement
  * @param speed - speed for camera movement
  */
-CameraControl.prototype.setSpeed = function(speed) {
+CameraControl.prototype.setPanSpeed = function(speed) {
     this.speed = speed;
+};
+
+/**
+ * Get the speed for camera movement
+ * @returns current speed
+ */
+CameraControl.prototype.getZoomSpeed = function() {
+    return this.zoomSpeed;
+};
+
+/**
+ * Set the speed for camera movement
+ * @param speed - speed for camera movement
+ */
+CameraControl.prototype.setZoomSpeed = function(speed) {
+    this.zoomSpeed = speed;
 };
