@@ -4,105 +4,12 @@ $(document).ready(setup);
  * Setup the page by reading configuration
  */
 function setup() {
-    //Setup the directional pad
-    $("#dpad button").button();
-    //Setup the image.  If we DO NOT use proxy, set camera proxy below to IP of camera
-    $("#video").attr("src",CONFIG["camera-image"]);
-    //Setup cameras
-    var camera = null; 
-    try {
-        switch (CONFIG["camera-values"][0]["type"])
-        {
-            case "SamsungCamera":
-                camera = new SamsungCamera("Name","localhost/video","admin","sCalAV13",false);
-                break;
-            //case "PTZOptics":
-            //    camera = new PTZOpticsCamera(CONFIG);
-            //    break;
-            default:
-                throw "Bad camera type: "+CONFIG["camera-values"]["type"]
-                break;
-        }
-    } catch (e) {
-        error(e);
-        throw "Error: Failed to initialize. "+e;
-    }
-    camera.stop();
-    console.log(camera);
-    $(document).keydown(
-        function(event) {
-            switch(event.which) {
-                case 37:
-                    event.preventDefault();
-                    camera.left(5);
-                    break;
-                case 38:
-                    event.preventDefault();
-                    camera.up(5);
-                    break;
-                case 39:
-                    event.preventDefault();
-                    camera.right(5);
-                    break;
-                case 40:
-                    event.preventDefault();
-                    camera.down(5);
-                    break;
-            }
-            setTimeout(function() {camera.stop();},250);
-        }        
-    );
-//    $("#dpad button #up").click(camera.up.bind(5));
-//    $("#dpad button #down").click(camera.down.bind(5));
-    $("#dpad button#left").click(function() {
-        camera.left(5);
-        setTimeout(function() {camera.stop();},250);
-    });
-    $("#dpad button#right").click(function() {
-        camera.right(5);
-        setTimeout(function() {camera.stop();},250);
-    });
-    $("#dpad button#up").click(function() {
-        camera.up(5);
-        setTimeout(function() {camera.stop();},250);
-    });
-    $("#dpad button#down").click(function() {
-        camera.down(5);
-        setTimeout(function() {camera.stop();},250);
-    });
-    /*
-    //Zoom in and out
-    $("#zpad button #left").click(camera.left);
-    $("#zpad button #right").click(camera.right);
-    */
-
-    
-    //vidsetup();
+    var room = "Lajolla";
+    var camcon = new CameraControl(CONFIG["camera"],$("#dpad"),$("#zpad"),$("#video"));
+    camcon.setSpeed(5);
     //Setup room navigation
-    var set = $("#room-navigation").buttonset();
-    for (var i =0; i < CONFIG["rooms"].length; i++)
-    {
-        var room = CONFIG["rooms"][i];
-        //Build a button with a nice label
-        var button = $("<input/>").attr("id","nav-radio-"+room.name).attr("type","radio").attr("name","room-nav").attr("value",room.name);
-        var label = $("<label></label>").attr("for","nav-radio-"+room.name).text(room.name);
-        //Note: Javascript variables are function scoped always, so the variable is overwritten
-        //      with each loop. Thus we need an extra function call to prevent our variables from
-        //      being clobbered within the closure.
-        var closure = function(url) {
-            return function() {
-                window.location.href=url;
-            };}(room.url);
-        button.click(closure);
-        set.append(button);
-        set.append(label);
-        if (room.url.toLowerCase().indexOf(window.location.hostname.toLowerCase()) != -1)
-        {
-            button.addClass("ui-state-error");
-            label.addClass("ui-state-error");
-        }
-    }
-    $("#room-navigation").buttonset("refresh");
+    var setcon = new RoomControl(CONFIG,$("#room-navigation"));
+    //Misc setup
     ajax(CONFIG["config-url"],load,function() {
         //$("div#controls-content").accordion()
     });

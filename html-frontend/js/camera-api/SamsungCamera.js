@@ -1,6 +1,11 @@
 /**
  * "Constructor" for camera
- **/
+ * @param name - name for the camera
+ * @param host - url portion pointing to camera
+ * @param username - username for logging into camera
+ * @param password - password for camera
+ * @param invertY - invert the Y-axis for the camera
+ */
 var SamsungCamera = function(name, host, username, password, invertY)
 {
     this.name = name;
@@ -8,12 +13,10 @@ var SamsungCamera = function(name, host, username, password, invertY)
     this.username = username;
     this.password = password;
     this.invertY = invertY;
-    this.url = "http://" + 
-      host + 
-      "/stw-cgi/ptzcontrol.cgi";
+    this.url = "http://" + host + "/stw-cgi/ptzcontrol.cgi";
 };
 
-//TODO: Error handling.  For Adam
+//TODO: add comments!
 SamsungCamera.prototype.sendMessage = function(msg, successCallback, errorCallback)
 {
     $.ajax({
@@ -22,14 +25,7 @@ SamsungCamera.prototype.sendMessage = function(msg, successCallback, errorCallba
         username: this.username,
         password: this.password,
         success: function() {},
-        error: function(e1,e2,e3) 
-        {
-            console.log(e1);
-            console.log(e2);
-            console.log(e3);
-        }
-        /*success: successCallback,
-        error: errorCallback*/
+        error: GlobalLogger.ajaxError.bind(GlobalLogger,"[SamsungCamera-"+this.name+"]")
     });
 };
 
@@ -70,14 +66,13 @@ SamsungCamera.prototype.zoom = function(speed, successCallback, errorCallback)
     this.sendMessage("msubmenu=continuous&action=control&Zoom=" + speed, 
         successCallback, errorCallback);
 };
-
+/**
+ * Stop the camera
+ * @param successCallback
+ * @param errorCallback
+ */
 SamsungCamera.prototype.stop = function(successCallback, errorCallback)
 {
     this.sendMessage("msubmenu=stop&action=control&OperationType=All", 
         successCallback, errorCallback);
 };
-
-var cam1 = new SamsungCamera("name","localhost/video","admin","sCalAV13",false);
-//           new SamsungCamera("Name",CONFIG["camera-control"],"admin","sCalAV13",false);
-console.log(cam1);
-
