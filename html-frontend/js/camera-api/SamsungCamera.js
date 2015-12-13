@@ -13,6 +13,7 @@ var SamsungCamera = function(name, host, username, password, invertY)
     this.username = username;
     this.password = password;
     this.invertY = invertY;
+    this.invertY = true;
     this.url = "http://" + host + "/stw-cgi/ptzcontrol.cgi";
 };
 
@@ -47,6 +48,10 @@ SamsungCamera.prototype.right = function(speed, successCallback, errorCallback)
 
 SamsungCamera.prototype.tilt = function(speed, successCallback, errorCallback)
 {
+    if(this.invertY)
+    {
+        speed = -speed;
+    }
     this.sendMessage("msubmenu=continuous&action=control&Tilt=" + speed, 
         successCallback, errorCallback);
 };
