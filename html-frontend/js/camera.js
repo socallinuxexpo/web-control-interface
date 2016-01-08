@@ -97,9 +97,9 @@ CameraControl.prototype.makeCamera = function() {
         case "SamsungCamera":
             return new SamsungCamera("Samsung Cam 1","localhost/video","admin","sCalAV13",false);
             break;
-        //case "PTZOptics":
-        //    return new PTZOpticsCamera("PTZ Cam 1","localhost/video","admin","sCalAV13",false);
-        //    break;
+        case "PTZOptics":
+            return new PTZOpticsCamera("PTZ Cam 1","localhost:8000/video","admin","sCalAV13",false);
+            break;
         default:
             var message = "Problem detecting camera type:"+this.config.type;
             GlobalLogger.error(message);

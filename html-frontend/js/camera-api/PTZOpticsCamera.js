@@ -1,8 +1,9 @@
 /**
  * Constructor for PTZOpticsCamera
  */
-function PTZOpticsCamera(host, port, username, password, invertY) {
-  this.url = "http://" + host + ":" + port + "/cgi-bin/ptzctrl.cgi";
+function PTZOpticsCamera(name, host, username, password, invertY) {
+  this.name = name;
+  this.url = "http://" + host + "/cgi-bin/";
   this.invertY = invertY;
   this.username = username;
   this.password = password;
@@ -11,19 +12,19 @@ function PTZOpticsCamera(host, port, username, password, invertY) {
 PTZOpticsCamera.prototype.callPtzOpticsApi = function(query, successCallback, errorCallback) {
   $.ajax({
     type: "GET",
-    url: this.url + "?" + query,
+    url: this.url + query,
     username: this.username,
     password: this.password,
     success: successCallback,
     error: errorCallback
   });
 }
-  
+
 PTZOpticsCamera.prototype.up = function(tiltSpeed, successCallback, errorCallback) {
   if (this.invertY) {
-    var query = "ptzcmd&down&1&" + tiltSpeed;
+    var query = "ptzctrl.cgi?ptzcmd&down&0&" + tiltSpeed;
   } else {
-    var query = "ptzcmd&up&1&" + tiltSpeed;
+    var query = "ptzctrl.cgi?ptzcmd&up&0&" + tiltSpeed;
   }
   
   this.callPtzOpticsApi(query, successCallback, errorCallback);
@@ -31,9 +32,9 @@ PTZOpticsCamera.prototype.up = function(tiltSpeed, successCallback, errorCallbac
 
 PTZOpticsCamera.prototype.down = function(tiltSpeed, successCallback, errorCallback) {
   if (this.invertY) {
-    var query = "ptzcmd&up&1&" + tiltSpeed;
+    var query = "ptzctrl.cgi?ptzcmd&up&0&" + tiltSpeed;
   } else {
-    var query = "ptzcmd&down&1&" + tiltSpeed;
+    var query = "ptzctrl.cgi?ptzcmd&down&0&" + tiltSpeed;
   }
   
   this.callPtzOpticsApi(query, successCallback, errorCallback);
@@ -41,9 +42,9 @@ PTZOpticsCamera.prototype.down = function(tiltSpeed, successCallback, errorCallb
 
 PTZOpticsCamera.prototype.left = function(panSpeed, successCallback, errorCallback) {
   if (this.invertY) {
-    var query = "ptzcmd&right&" + panSpeed + "&1";
+    var query = "ptzctrl.cgi?ptzcmd&right&" + panSpeed + "&0";
   } else {
-    var query = "ptzcmd&left&" + panSpeed + "&1";
+    var query = "ptzctrl.cgi?ptzcmd&left&" + panSpeed + "&0";
   }
   
   this.callPtzOpticsApi(query, successCallback, errorCallback);
@@ -51,30 +52,41 @@ PTZOpticsCamera.prototype.left = function(panSpeed, successCallback, errorCallba
 
 PTZOpticsCamera.prototype.right = function(panSpeed, successCallback, errorCallback) {
   if (this.invertY) {
-    var query = "ptzcmd&left&" + panSpeed + "&1";
+    var query = "ptzctrl.cgi?ptzcmd&left&" + panSpeed + "&0";
   } else {
-    var query = "ptzcmd&right&" + panSpeed + "&1";
+    var query = "ptzctrl.cgi?ptzcmd&right&" + panSpeed + "&0";
   }
   
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.stop =  function(successCallback, errorCallback) {
-  var query = "ptzcmd&ptzstop&1&1";
+  var query = "ptzctrl.cgi?ptzcmd&ptzstop&0&0";
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.zoomIn = function(zoomSpeed, successCallback, errorCallback) {
-  var query = "ptzcmd&zoomin&" + zoomSpeed;
+  var query = "ptzctrl.cgi?ptzcmd&zoomin&" + zoomSpeed;
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.zoomOut = function(zoomSpeed, successCallback, errorCallback) {
-  var query = "ptzcmd&zoomout&" + zoomSpeed;
+  var query = "ptzctrl.cgi?ptzcmd&zoomout&" + zoomSpeed;
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.zoomStop = function(successCallback, errorCallback) {
-  var query = "ptzcmd&zoomstop&0";
+  var query = "ptzctrl.cgi?ptzcmd&zoomstop&0";
   this.callPtzOpticsApi(query, successCallback, errorCallback);
 }
+
+PTZOpticsCamera.prototype.setHome = function(successCallback, errorCallback) {
+  // elect position 0 to be home position by harding code
+  var query = "ptzctrl.cgi?ptzcmd&posset&0";
+  this.callPtzOpticsApi(query, successCallback, errorCallback);
+};
+
+PTZOpticsCamera.prototype.moveToHome = function(successCallback, errorCallback) {
+  var query = "ptzctrl.cgi?ptzcmd&poscall&0";
+  this.callPtzOpticsApi(query, successCallback, errorCallback);
+};
