@@ -17,6 +17,7 @@ var CameraControl = function(config,dpad,zpad,image) {
     this.image$el = image;
     this.camera = this.makeCamera();
     this.camera.stop();
+    
     //Setup the visual elements
     this.setup();
 };
@@ -24,69 +25,86 @@ var CameraControl = function(config,dpad,zpad,image) {
  * Setup the visual and control elements
  */
 CameraControl.prototype.setup = function() {
-    var self = this;
-    var stopfn = self.camera.stop.bind(self.camera);
+    var stopFn = this.camera.stop.bind(this.camera);
+    var upFn = this.camera.up.bind(this.camera);
+    var downFn = this.camera.down.bind(this.camera);
+    var leftFn = this.camera.left.bind(this.camera);
+    var rightFn = this.camera.right.bind(this.camera);
+    var zoomInFn = this.camera.zoomIn.bind(this.camera);
+    var zoomOutFn = this.camera.zoomOut.bind(this.camera);
+    var zoomStopFn = this.camera.zoomStop.bind(this.camera);
+    
     $(this.dpad$el).find("button").button();
-    //Key bindings
-    $(document).keydown(
-            function(event) {
-                //Prevent defaults
-                if (event.which < 37 || event.which > 40) {
-                    return;
-                }
-                event.preventDefault();
-                switch(event.which) {
-                    case 37:
-                        self.camera.left(self.getPanSpeed());
-                        break;
-                    case 38:
-                        self.camera.up(self.getPanSpeed());
-                        break;
-                    case 39:
-                        self.camera.right(self.getPanSpeed());
-                        break;
-                    case 40:
-                        self.camera.down(self.getPanSpeed());
-                        break;
-                }
-                //Stop camera after given increment of time
-                setTimeout(stopfn,self.config.pan_delay);
-            }        
-        );
-    //Click bindings for buttons
-    $(this.dpad$el).find("button.left").click(function() {
-        self.camera.left(self.getPanSpeed());
-        setTimeout(stopfn,self.config.pan_delay);
-    });
-    $(this.dpad$el).find("button.right").click(function() {
-        self.camera.right(self.getPanSpeed());
-        setTimeout(stopfn,self.config.pan_delay);
-    });
-    $(this.dpad$el).find("button.up").click(function() {
-        self.camera.up(self.getPanSpeed());
-        setTimeout(stopfn,self.config.tilt_delay);
-    });
-    $(this.dpad$el).find("button.down").click(function() {
-        self.camera.down(self.getPanSpeed());
-        setTimeout(stopfn,self.config.tilt_delay);
-    });
-    $(this.zpad$el).find("button.zoom_in").click(function() {
-        self.camera.zoomIn(self.getPanSpeed());
-        setTimeout(stopfn,self.config.zoom_delay);
-    });
-    $(this.zpad$el).find("button.zoom_out").click(function() {
-        self.camera.zoomOut(self.getPanSpeed());
-        setTimeout(stopfn,self.config.zoom_delay);
-    });
-    $(this.zpad$el).find("button.move_home").click(function() {
-        self.camera.moveToHome();
-    });
-    $(this.zpad$el).find("button.set_home").click(function() {
-        self.camera.setHome();
-    });
+    $(this.zpad$el).find("button").button();
+
+    this.configureArrowKeys();
+    
+    var panSpeed = this.getPanSpeed.bind(this);
+    var zoomSpeed = this.getZoomSpeed.bind(this);
+    
+    this.configureButton($(this.dpad$el).find("button.left"), leftFn, stopFn, panSpeed);
+    this.configureButton($(this.dpad$el).find("button.right"), rightFn, stopFn, panSpeed);
+    this.configureButton($(this.dpad$el).find("button.up"), upFn, stopFn, panSpeed);
+    this.configureButton($(this.dpad$el).find("button.down"), downFn, stopFn, panSpeed);
+    this.configureButton($(this.zpad$el).find("button.zoom_in"), zoomInFn, zoomStopFn, zoomSpeed);
+    this.configureButton($(this.zpad$el).find("button.zoom_out"), zoomOutFn, zoomStopFn, zoomSpeed);
+
+    $(this.zpad$el).find("button.move_home").click(this.camera.moveToHome.bind(this.camera));
+    $(this.zpad$el).find("button.set_home").click(this.camera.setHome.bind(this.camera));
+    
     //Attach image source
-    $(this.image$el).attr("src",this.config.image);
+    $(this.image$el).attr("src", this.config.image);
 };
+
+CameraControl.prototype.configureArrowKeys = function() {
+  var self = this;
+
+  //Key bindings
+  $(document).keydown(
+      function(event) {
+          //Prevent defaults
+          if (event.which < 37 || event.which > 40) {
+              return;
+          }
+          event.preventDefault();
+          switch(event.which) {
+              case 37:
+                  self.camera.left(self.getPanSpeed());
+                  break;
+              case 38:
+                  self.camera.up(self.getPanSpeed());
+                  break;
+              case 39:
+                  self.camera.right(self.getPanSpeed());
+                  break;
+              case 40:
+                  self.camera.down(self.getPanSpeed());
+                  break;
+          }
+      }
+  );
+  
+  $(document).keydown(
+      function(event) {
+          //Prevent defaults
+          if (event.which < 37 || event.which > 40) {
+              return;
+          }
+          event.preventDefault();
+          
+          stopFn();
+      }
+  );
+};
+
+CameraControl.prototype.configureButton = function(button, moveFn, stopFn, speed) {
+  button.mousedown(function() {
+    moveFn(speed());
+  }).mouseup(function() {
+    stopFn();
+  });
+};
+
 /**
  * Constructs a new camera
  * @returns {SamsungCamera} or {PTZOptics}
@@ -95,10 +113,10 @@ CameraControl.prototype.makeCamera = function() {
     switch (this.config.type)
     {
         case "SamsungCamera":
-            return new SamsungCamera("Samsung Cam 1","localhost/video","admin","sCalAV13",false);
+            return new SamsungCamera("Samsung Cam 1","/video","admin","sCalAV13",false);
             break;
         case "PTZOptics":
-            return new PTZOpticsCamera("PTZ Cam 1","localhost:8000/video","admin","sCalAV13",false);
+            return new PTZOpticsCamera("PTZ Cam 1","/video","admin","sCalAV13",false);
             break;
         default:
             var message = "Problem detecting camera type:"+this.config.type;

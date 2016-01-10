@@ -1,9 +1,9 @@
 /**
  * Constructor for PTZOpticsCamera
  */
-function PTZOpticsCamera(name, host, username, password, invertY) {
+function PTZOpticsCamera(name, path, username, password, invertY) {
   this.name = name;
-  this.url = "http://" + host + "/cgi-bin/";
+  this.url = path + "/cgi-bin/";
   this.invertY = invertY;
   this.username = username;
   this.password = password;

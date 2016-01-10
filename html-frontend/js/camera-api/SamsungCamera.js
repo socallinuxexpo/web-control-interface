@@ -1,19 +1,18 @@
 /**
  * "Constructor" for camera
  * @param name - name for the camera
- * @param host - url portion pointing to camera
+ * @param path - /path portion pointing to camera
  * @param username - username for logging into camera
  * @param password - password for camera
  * @param invertY - invert the Y-axis for the camera
  */
-var SamsungCamera = function(name, host, username, password, invertY)
+var SamsungCamera = function(name, path, username, password, invertY)
 {
     this.name = name;
-    this.host = host;
     this.username = username;
     this.password = password;
     this.invertY = invertY;
-    this.url = "http://" + host + "/stw-cgi/";
+    this.url = path + "/stw-cgi/";
 };
 
 //TODO: add comments!
@@ -79,6 +78,11 @@ SamsungCamera.prototype.zoomIn = function(speed, successCallback, errorCallback)
 SamsungCamera.prototype.zoomOut = function(speed, successCallback, errorCallback)
 {
     this.zoom(-speed, successCallback, errorCallback);
+};
+
+SamsungCamera.prototype.zoomStop = function(successCallback, errorCallback)
+{
+    this.stop(successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.setHome = function(successCallback, errorCallback)
