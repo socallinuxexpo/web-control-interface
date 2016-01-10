@@ -56,6 +56,7 @@ CameraControl.prototype.setup = function() {
     $(this.image$el).attr("src", this.config.image);
 };
 
+// TODO: keyup and keydown is too sensitive
 CameraControl.prototype.configureArrowKeys = function() {
   var self = this;
 
@@ -84,7 +85,7 @@ CameraControl.prototype.configureArrowKeys = function() {
       }
   );
   
-  $(document).keydown(
+  $(document).keyup(
       function(event) {
           //Prevent defaults
           if (event.which < 37 || event.which > 40) {
@@ -113,10 +114,10 @@ CameraControl.prototype.makeCamera = function() {
     switch (this.config.type)
     {
         case "SamsungCamera":
-            return new SamsungCamera("Samsung Cam 1","/video","admin","sCalAV13",false);
+            return new SamsungCamera(this.config.name, this.config.control, this.config.username, this.config.password, false);
             break;
         case "PTZOptics":
-            return new PTZOpticsCamera("PTZ Cam 1","/video","admin","sCalAV13",false);
+            return new PTZOpticsCamera(this.config.name, this.config.control, this.config.username, this.config.password, false);
             break;
         default:
             var message = "Problem detecting camera type:"+this.config.type;
