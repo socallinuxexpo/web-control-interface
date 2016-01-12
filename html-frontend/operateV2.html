@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Linux AV Panel</title>
+    <link rel="stylesheet" href="vendor/font-awesome-4.5.0/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/master.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <h2>Linux Audovisual Operations</h2>
+        <i class="fa fa-camera fa-3x"></i>
+    </nav>
+
+<div class="container" id="host">
+  <h3>Host Control System</h3>
+  <nav>
+      <div class="btn-group" role="group" id="directional-buttons">
+        <button type="button" class="btn btn-default">Camera 1</button>
+        <button type="button" class="btn btn-default">Camera 2</button>
+        <button type="button" class="btn btn-default">Camera 3</button>
+        <button type="button" class="btn btn-default">Camera 4</button>
+        <button type="button" class="btn btn-default">Camera 5</button>
+        <button type="button" class="btn btn-default">Camera 6</button>
+        <button type="button" class="btn btn-default">Camera 7</button>
+      </div>
+  </nav>
+</div> <!-- host Div-->
+
+<hr>
+
+<div class="row" id="projector">
+<div class="col-sm-6 col-md-4">
+  <div class="thumbnail">
+    <h4>Projector Controls</h4>
+    <img src="http://placehold.it/250x400" alt="...">
+    <div class="caption">
+      <nav>
+
+        <ul class="pager">
+        <li><a href="#"><i class="fa fa-arrow-up fa-2x"></i></a></li>
+        </ul>
+
+        <ul class="pager">
+          <li id="arrow-left"><a href="#"><i class="fa fa-arrow-left fa-2x"></i></a></li>
+          <li id="arrow-right"><a href="#"><i class="fa fa-arrow-right fa-2x"></i></a></li>
+        </ul>
+
+        <ul class="pager">
+        <li><a href="#"><i class="fa fa-arrow-down fa-2x"></i></a></li>
+        </ul>
+
+        <div class="row">
+            <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon3">Pan:</span>
+            <input type="text" class="form-control" aria-describedby="basic-addon1">
+            <span class="input-group-addon" id="basic-addon1">Tilt:</span>
+            <input type="text" class="form-control" aria-describedby="basic-addon1">
+            <span class="input-group-addon" id="basic-addon1">Zoom:</span>
+            <input type="text" class="form-control" aria-describedby="basic-addon1">
+            <span class="input-group-addon" id="basic-addon1">Step:</span>
+            <input type="text" class="form-control" aria-describedby="basic-addon1">
+          </div><!-- Input-group Div-->
+        </div>
+
+        <div class="btn-group" role="group" id="directional-buttons">
+          <button type="button" class="btn btn-default">Up</button>
+          <button type="button" class="btn btn-default">Left</button>
+          <button type="button" class="btn btn-default">Right</button>
+          <button type="button" class="btn btn-default">Down</button>
+        </div>
+
+      </nav>
+    </div><!-- Caption Div-->
+  </div><!-- Thumbnail Div-->
+</div><!-- col-sm-6 col-md-4 Div-->
+
+  <div class=".col-xs-12 .col-sm-6 .col-md-8" "placeholder-img">
+    <a href="#">
+      <img src="http://placehold.it/950x745" alt="...">
+    </a>
+  </div>
+
+</div><!-- Projector Div-->
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#messages">Messages</a></li>
+  <li><a data-toggle="tab" href="#errors">Errors</a></li>
+  <li><a data-toggle="tab" href="#help">Help</a></li>
+</ul>
+
+<div class="tab-content">
+
+  <div id="messages" class="tab-pane fade in active">
+    <h3>Messages</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+
+  <div id="errors" class="tab-pane fade">
+    <h3>Errors</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+
+  <div id="help" class="tab-pane fade">
+    <h3>Help</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+</div><!-- tab-content Div-->
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="vendor/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
