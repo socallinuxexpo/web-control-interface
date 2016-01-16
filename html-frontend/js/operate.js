@@ -1,5 +1,5 @@
 $(document).ready(setup);
-
+$(document).tooltip();
 /**
  * Setup the page by reading configuration
  */
