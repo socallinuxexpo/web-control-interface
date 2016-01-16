@@ -9,14 +9,29 @@ function PTZOpticsCamera(name, path, username, password, invertY) {
   this.password = password;
 }
 
-PTZOpticsCamera.prototype.callPtzOpticsApi = function(query, successCallback, errorCallback) {
+PTZOpticsCamera.prototype.callApi = function(query, successCallback, errorCallback) {
+  
+  var start = Date.now();
+  
   $.ajax({
     type: "GET",
     url: this.url + query,
     username: this.username,
     password: this.password,
-    success: successCallback,
-    error: errorCallback
+    success: function(data, text, xhr) {
+      var duration = Date.now() - start;
+      GlobalLogger.info("Ajax query=[" + query + "] response=[" + data + "] have latency=[" + duration + "ms]");
+      if (successCallback) {
+        successCallback();
+      }
+    },
+    error: function(xhr, text, error) {
+      var duration = Date.now() - start;
+      GlobalLogger.info("Ajax query=[" + query + "] error=[" + error + "] have latency=[" + duration + "ms]");
+      if (errorCallback) {
+        errorCallback();
+      }
+    }
   });
 }
 
@@ -27,7 +42,7 @@ PTZOpticsCamera.prototype.up = function(tiltSpeed, successCallback, errorCallbac
     var query = "ptzctrl.cgi?ptzcmd&up&0&" + tiltSpeed;
   }
   
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.down = function(tiltSpeed, successCallback, errorCallback) {
@@ -37,7 +52,7 @@ PTZOpticsCamera.prototype.down = function(tiltSpeed, successCallback, errorCallb
     var query = "ptzctrl.cgi?ptzcmd&down&0&" + tiltSpeed;
   }
   
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.left = function(panSpeed, successCallback, errorCallback) {
@@ -47,7 +62,7 @@ PTZOpticsCamera.prototype.left = function(panSpeed, successCallback, errorCallba
     var query = "ptzctrl.cgi?ptzcmd&left&" + panSpeed + "&0";
   }
   
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.right = function(panSpeed, successCallback, errorCallback) {
@@ -57,36 +72,36 @@ PTZOpticsCamera.prototype.right = function(panSpeed, successCallback, errorCallb
     var query = "ptzctrl.cgi?ptzcmd&right&" + panSpeed + "&0";
   }
   
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.stop =  function(successCallback, errorCallback) {
   var query = "ptzctrl.cgi?ptzcmd&ptzstop&0&0";
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.zoomIn = function(zoomSpeed, successCallback, errorCallback) {
   var query = "ptzctrl.cgi?ptzcmd&zoomin&" + zoomSpeed;
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.zoomOut = function(zoomSpeed, successCallback, errorCallback) {
   var query = "ptzctrl.cgi?ptzcmd&zoomout&" + zoomSpeed;
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.zoomStop = function(successCallback, errorCallback) {
   var query = "ptzctrl.cgi?ptzcmd&zoomstop&0";
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 }
 
 PTZOpticsCamera.prototype.setHome = function(successCallback, errorCallback) {
   // elect position 0 to be home position by harding code
   var query = "ptzctrl.cgi?ptzcmd&posset&0";
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 };
 
 PTZOpticsCamera.prototype.moveToHome = function(successCallback, errorCallback) {
   var query = "ptzctrl.cgi?ptzcmd&poscall&0";
-  this.callPtzOpticsApi(query, successCallback, errorCallback);
+  this.callApi(query, successCallback, errorCallback);
 };
