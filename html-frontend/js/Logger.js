@@ -12,6 +12,7 @@ var Logger = function(messageElement,errorElement) {
     this.messageElement = messageElement;
     this.errorElement = errorElement;
 };
+
 /**
  * Log an info message to the message element
  * @param message - message string to log
@@ -19,6 +20,7 @@ var Logger = function(messageElement,errorElement) {
 Logger.prototype.info = function(message) {
     this.messageElement.append("<em>[INFO]</em> "+message);
 };
+
 /**
  * Log an error message to the error element
  * @param message - message to log
@@ -26,6 +28,7 @@ Logger.prototype.info = function(message) {
 Logger.prototype.error = function(message) {
     this.errorElement.append("<em>[ERROR]</em> "+message);
 };
+
 /**
  * Error helper for ajax
  * @param subsystem - (optional, usually pre-bound) subsystem to print from
@@ -43,5 +46,6 @@ Logger.prototype.ajaxError = function(subsystem, xhr, text, error) {
     }
     this.error(message);
 };
+
 //Global logger
 var GlobalLogger = new Logger($("message"),$("error"));

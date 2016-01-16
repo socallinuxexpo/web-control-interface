@@ -23,17 +23,20 @@ function setup() {
     
     pan.spinner({
       "min": CONFIG["pan-min"],
-      "max": CONFIG["pan-max"]
+      "max": CONFIG["pan-max"],
+      numberFormat: "n"
     }).val(CONFIG["pan-initial"]);
     
     tilt.spinner({
       "min": CONFIG["tilt-min"],
-      "max": CONFIG["tilt-max"]
+      "max": CONFIG["tilt-max"],
+      numberFormat: "n"
     }).val(CONFIG["tilt-initial"]);
     
     zoom.spinner({
       "min": CONFIG["zoom-min"],
-      "max": CONFIG["zoom-max"]
+      "max": CONFIG["zoom-max"],
+      numberFormat: "n"
     }).val(CONFIG["zoom-initial"]);
     
     ajax(CONFIG["config-url"],load,function() {
