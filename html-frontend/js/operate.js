@@ -5,19 +5,45 @@ $(document).ready(setup);
  */
 function setup() {
     var room = "Lajolla";
-    var camcon = new CameraControl(CONFIG["camera"],$("#dpad"),$("#zpad"),$("#video"));
-    camcon.setPanSpeed(5);
-    camcon.setZoomSpeed(5);
+    var dpad = $("#dpad");
+    var zpad = $("#zpad");
+    var pan = $("#pan");
+    var tilt = $("#tilt");
+    var zoom = $("#zoom");
+    
+    var camcon = new CameraControl(CONFIG["camera"], dpad, zpad, 
+        pan.val.bind(pan), tilt.val.bind(tilt), zoom.val.bind(zoom));
+    
     //Setup room navigation
-    var setcon = new RoomControl(CONFIG,$("#room-navigation"));
+    var setcon = new RoomControl(CONFIG, $("#room-navigation"));
     //Misc setup
+    
+    dpad.find("button").button();
+    zpad.find("button").button();
+    
+    pan.spinner({
+      "min": CONFIG["pan-min"],
+      "max": CONFIG["pan-max"]
+    }).val(CONFIG["pan-initial"]);
+    
+    tilt.spinner({
+      "min": CONFIG["tilt-min"],
+      "max": CONFIG["tilt-max"]
+    }).val(CONFIG["tilt-initial"]);
+    
+    zoom.spinner({
+      "min": CONFIG["zoom-min"],
+      "max": CONFIG["zoom-max"]
+    }).val(CONFIG["zoom-initial"]);
+    
     ajax(CONFIG["config-url"],load,function() {
         //$("div#controls-content").accordion()
     });
-    $('input:text, input:password').addClass("ui-widget-content");
-    $("div#messages-content").accordion({active: false,
-         collapsible: true});
+    
+    $("div#messages-content")
+      .accordion({active: false, collapsible: true});
 }
+
 /**
  * Loads page given configuration
  */

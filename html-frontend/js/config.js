@@ -40,24 +40,27 @@ CONFIG["camera"] = {
     "name": "Samsung Cam",
     "username": "admin",
     "password": "sCalAV13",
-    "pan_delay": 250,
-    "tilt_delay": 250,
-    "zoom_delay": 500,
-    "type": "SamsungCamera",
-    "image": "/mjpeg/mjpeg_stream",
-    "control": "/video"
+    "pan-delay": 250,
+    "tilt-delay": 250,
+    "zoom-delay": 500,
+    "type": "PTZOptics",
+    "control": "/video",
+    "pan-scale": 1.0,
+    "tilt-scale": 1.0,
+    "zoom-scale": 1.0
 };
 
 CONFIG["poll-period"] = 500;
+
 CONFIG["pan-min"] = 0;
 CONFIG["pan-max"] = 360;
+
 CONFIG["tilt-min"]= 0;
 CONFIG["tilt-max"]= 90;
+
 CONFIG["zoom-min"]= 1;
 CONFIG["zoom-max"]= 20;
-CONFIG["step-min"]= 1;
-CONFIG["step-max"]= 30;
 
-CONFIG["pan-step"] = 5;
-CONFIG["tilt-step"]= 5;
-CONFIG["zoom-step"]= 1;
+CONFIG["pan-initial"] = 5;
+CONFIG["tilt-initial"]= 5;
+CONFIG["zoom-initial"]= 1;

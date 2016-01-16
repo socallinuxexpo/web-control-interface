@@ -8,17 +8,21 @@
  * @param config - configuration to control the setup
  * @param dpad - directional pad element
  * @param zpad - zoom pad element
- * @param image- image element
+ * @param pan - pan function returns a value when called
+ * @param tilt - tilt function returns a value when called
+ * @param zoom - zoom function returns a value when called
  */
-var CameraControl = function(config,dpad,zpad,image) {
+var CameraControl = function(config, dpad, zpad, pan, tilt, zoom) {
     this.config = config;
     this.dpad$el = dpad;
     this.zpad$el = zpad;
-    this.image$el = image;
+    this.pan = pan;
+    this.tilt = tilt;
+    this.zoom = zoom;
     this.camera = this.makeCamera();
     this.camera.stop();
     
-    //Setup the visual elements
+    // setup control
     this.setup();
 };
 /**
@@ -34,26 +38,17 @@ CameraControl.prototype.setup = function() {
     var zoomOutFn = this.camera.zoomOut.bind(this.camera);
     var zoomStopFn = this.camera.zoomStop.bind(this.camera);
     
-    $(this.dpad$el).find("button").button();
-    $(this.zpad$el).find("button").button();
-
     this.configureArrowKeys();
     
-    var panSpeed = this.getPanSpeed.bind(this);
-    var zoomSpeed = this.getZoomSpeed.bind(this);
-    
-    this.configureButton($(this.dpad$el).find("button.left"), leftFn, stopFn, panSpeed);
-    this.configureButton($(this.dpad$el).find("button.right"), rightFn, stopFn, panSpeed);
-    this.configureButton($(this.dpad$el).find("button.up"), upFn, stopFn, panSpeed);
-    this.configureButton($(this.dpad$el).find("button.down"), downFn, stopFn, panSpeed);
-    this.configureButton($(this.zpad$el).find("button.zoom_in"), zoomInFn, zoomStopFn, zoomSpeed);
-    this.configureButton($(this.zpad$el).find("button.zoom_out"), zoomOutFn, zoomStopFn, zoomSpeed);
+    this.configureButton($(this.dpad$el).find("button.left"), leftFn, stopFn, this.pan);
+    this.configureButton($(this.dpad$el).find("button.right"), rightFn, stopFn, this.pan);
+    this.configureButton($(this.dpad$el).find("button.up"), upFn, stopFn, this.tilt);
+    this.configureButton($(this.dpad$el).find("button.down"), downFn, stopFn, this.tilt);
+    this.configureButton($(this.zpad$el).find("button.zoom_in"), zoomInFn, zoomStopFn, this.zoom);
+    this.configureButton($(this.zpad$el).find("button.zoom_out"), zoomOutFn, zoomStopFn, this.zoom);
 
     $(this.zpad$el).find("button.move_home").click(this.camera.moveToHome.bind(this.camera));
     $(this.zpad$el).find("button.set_home").click(this.camera.setHome.bind(this.camera));
-    
-    //Attach image source
-    $(this.image$el).attr("src", this.config.image);
 };
 
 // TODO: keyup and keydown is too sensitive
@@ -68,32 +63,26 @@ CameraControl.prototype.configureArrowKeys = function() {
               return;
           }
           event.preventDefault();
+          
+          var stopFn = self.camera.stop.bind(self.camera);
           switch(event.which) {
               case 37:
-                  self.camera.left(self.getPanSpeed());
+                  self.camera.left(self.pan());
+                  setTimeout(stopFn, self.config["pan-delay"]);
                   break;
               case 38:
-                  self.camera.up(self.getPanSpeed());
+                  self.camera.up(self.tilt());
+                  setTimeout(stopFn, self.config["tilt-delay"]);
                   break;
               case 39:
-                  self.camera.right(self.getPanSpeed());
+                  self.camera.right(self.pan());
+                  setTimeout(stopFn, self.config["pan-delay"]);
                   break;
               case 40:
-                  self.camera.down(self.getPanSpeed());
+                  self.camera.down(self.tilt());
+                  setTimeout(stopFn, self.config["tilt-delay"]);
                   break;
           }
-      }
-  );
-  
-  $(document).keyup(
-      function(event) {
-          //Prevent defaults
-          if (event.which < 37 || event.which > 40) {
-              return;
-          }
-          event.preventDefault();
-          
-          stopFn();
       }
   );
 };
@@ -125,36 +114,4 @@ CameraControl.prototype.makeCamera = function() {
             throw message;
             break;
     }
-};
-
-/**
- * Get the speed for camera movement
- * @returns current speed
- */
-CameraControl.prototype.getPanSpeed = function() {
-    return this.speed;
-};
-
-/**
- * Set the speed for camera movement
- * @param speed - speed for camera movement
- */
-CameraControl.prototype.setPanSpeed = function(speed) {
-    this.speed = speed;
-};
-
-/**
- * Get the speed for camera movement
- * @returns current speed
- */
-CameraControl.prototype.getZoomSpeed = function() {
-    return this.zoomSpeed;
-};
-
-/**
- * Set the speed for camera movement
- * @param speed - speed for camera movement
- */
-CameraControl.prototype.setZoomSpeed = function(speed) {
-    this.zoomSpeed = speed;
 };
