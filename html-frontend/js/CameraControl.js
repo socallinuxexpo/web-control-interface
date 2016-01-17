@@ -89,7 +89,7 @@ CameraControl.prototype.configureArrowKeys = function() {
 
 CameraControl.prototype.configureButton = function(button, moveFn, stopFn, speed) {
   button.mousedown(function() {
-    moveFn(speed());
+    moveFn(speed);
   }).mouseup(function() {
     stopFn();
   });
