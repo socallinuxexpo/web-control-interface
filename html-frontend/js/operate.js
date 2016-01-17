@@ -4,14 +4,15 @@ $(document).tooltip();
  * Setup the page by reading configuration
  */
 function setup() {
-    var room = "Lajolla";
+    var roomConfig = CONFIG["room"];
+    var cameraConfig = CONFIG[roomConfig["cameraType"]];
     var dpad = $("#dpad");
     var zpad = $("#zpad");
     var pan = $("#pan");
     var tilt = $("#tilt");
     var zoom = $("#zoom");
     
-    var camcon = new CameraControl(CONFIG["camera"], dpad, zpad, 
+    var camcon = new CameraControl(cameraConfig, dpad, zpad, 
         pan.val.bind(pan), tilt.val.bind(tilt), zoom.val.bind(zoom));
     
     //Setup room navigation
