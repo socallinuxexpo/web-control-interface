@@ -20,15 +20,15 @@ PTZOpticsCamera.prototype.callApi = function(query, successCallback, errorCallba
     password: this.password,
     success: function(data, text, xhr) {
       var duration = Date.now() - start;
-      GlobalLogger.info("Ajax query=[" + query + "] response=[" + data + "] have latency=[" + duration + "ms]");
-      if (successCallback) {
+      GlobalLogger.info("Ajax query=[" + query + "] response=[" + data.replace("<","&lt;").replace(">","&gt;") + "] have latency=[" + duration + "ms]");
+      if (typeof(successCallback) === "function") {
         successCallback();
       }
     },
     error: function(xhr, text, error) {
       var duration = Date.now() - start;
-      GlobalLogger.info("Ajax query=[" + query + "] error=[" + error + "] have latency=[" + duration + "ms]");
-      if (errorCallback) {
+      GlobalLogger.info("Ajax query=[" + query + "] error=[" + erro.replace("<","&lt;").replace(">","&gt;") + "] have latency=[" + duration + "ms]");
+      if (typeof(errorCallback) === "function") {
         errorCallback();
       }
     }
