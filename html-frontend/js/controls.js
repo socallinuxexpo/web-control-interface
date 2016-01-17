@@ -84,7 +84,7 @@ function getReadFunction(url,ra, rb,fun) {
             function() {
                 ra.prop("checked", false);
                 rb.prop("checked", false);
-                error("Failed read pin at: "+url);
+                GlobalLogger.error("Failed read pin at: "+url);
             });
     };
     return ret;
@@ -149,7 +149,11 @@ function options(name,value) {
         case "room-url":
             return [window.location.hostname];
         case "camera-url":
-            return CONFIG["camera-values"];
+            var urls = [];
+            for (var i = 0; i < CONFIG["rooms"].length; i++) {
+                urls.push({"name":CONFIG["rooms"][i].name,"url":CONFIG["rooms"][i].camera});
+            }
+            return urls;
         default:
             return [(value===undefined)?name:value];
     }

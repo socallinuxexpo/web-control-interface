@@ -82,7 +82,7 @@ function add(spec,section) {
             cont = button(spec,send);
             break;
         default:
-            error("Invalid control format:"+spec.type);
+            GlobalLogger.error("Invalid control format:"+spec.type);
             break;    
     }
     var grp = group(spec.group,cont);    
@@ -116,7 +116,7 @@ function running() {
 * A command errors out.
 */
 function failed(jqxhr,text,err) {
-    error(err);
+    GlobalLogger.error(err);
     disableControls(false);
 }
 /**
@@ -125,12 +125,12 @@ function failed(jqxhr,text,err) {
 function complete(data,text,jqxhr) {
     //Errors sent
     if ("error" in data)
-        error(data.error);
+        GlobalLogger.error(data.error);
     //Messages printing
     if ("messages" in data)
     {
         for (var i = 0; i < data.messages.length; i++)
-            message(data.messages[i]);
+            GlobalLogger.message(data.messages[i]);
     }
     disableControls(false);
 }

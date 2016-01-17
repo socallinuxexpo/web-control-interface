@@ -22,6 +22,7 @@ var SamsungCamera = function(name, path, username, password, invertY) {
 
 SamsungCamera.prototype.sendMessage = function(msg, successCallback,
     errorCallback) {
+  var start = Date.now();
   $.ajax({
     type : "GET",
     url : "" + this.url + msg,
@@ -29,14 +30,14 @@ SamsungCamera.prototype.sendMessage = function(msg, successCallback,
     password : this.password,
     success : function(data, text, xhr) {
       var duration = Date.now() - start;
-      GlobalLogger.info("Ajax query=[" + query + "] response=[" + data + "] have latency=[" + duration + "ms]");
+      GlobalLogger.info("Ajax query=[" + msg + "] response=[" + data + "] have latency=[" + duration + "ms]");
       if (successCallback) {
         successCallback();
       }
     },
     error : function(xhr, text, error) {
       var duration = Date.now() - start;
-      GlobalLogger.info("Ajax query=[" + query + "] error=[" + error + "] have latency=[" + duration + "ms]");
+      GlobalLogger.info("Ajax query=[" + msg + "] error=[" + error + "] have latency=[" + duration + "ms]");
       if (errorCallback) {
         errorCallback();
       }

@@ -31,9 +31,9 @@ function ajax(loc,suc,err,tpe,data,run) {
                         resp = {};
                     //Print system responces
                     if ("ste" in resp && resp["ste"] != "")
-                        error("Application Standard Error:"+resp["ste"]);
+                        GlobalLogger.error("Application Standard Error:"+resp["ste"]);
                     if ("sto" in resp && resp["sto"] != "")
-                        error("Application Output:"+resp["sto"]);
+                        GlobalLogger.error("Application Output:"+resp["sto"]);
                     if ("error" in resp) {
                         err(resp);
                         GlobalLogger.error(resp["error"]);
