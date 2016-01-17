@@ -54,7 +54,7 @@ CONFIG["camera"] = {
     "pan-delay": 250,
     "tilt-delay": 250,
     "zoom-delay": 500,
-    "type": "PTZOptics",
+    "type": "SamsungCamera",
     "control": "/video",
     "pan-scale": 1.0,
     "tilt-scale": 1.0,

@@ -27,7 +27,7 @@ PTZOpticsCamera.prototype.callApi = function(query, successCallback, errorCallba
     },
     error: function(xhr, text, error) {
       var duration = Date.now() - start;
-      GlobalLogger.info("Ajax query=[" + query + "] error=[" + erro.replace("<","&lt;").replace(">","&gt;") + "] have latency=[" + duration + "ms]");
+      GlobalLogger.info("Ajax query=[" + query + "] error=[" + error.replace("<","&lt;").replace(">","&gt;") + "] have latency=[" + duration + "ms]");
       if (typeof(errorCallback) === "function") {
         errorCallback();
       }
