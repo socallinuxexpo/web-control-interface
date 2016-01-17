@@ -7,12 +7,9 @@ function setup() {
     var room = "Lajolla";
     var dpad = $("#dpad");
     var zpad = $("#zpad");
-    var pan = $("#pan");
-    var tilt = $("#tilt");
-    var zoom = $("#zoom");
     
-    var camcon = new CameraControl(CONFIG["camera"], dpad, zpad, 
-        pan.val.bind(pan), tilt.val.bind(tilt), zoom.val.bind(zoom));
+    
+    var camcon = new CameraControl(CONFIG["camera"], dpad, zpad);
     
     //Setup room navigation
     var setcon = new RoomControl(CONFIG, $("#room-navigation"));
@@ -20,25 +17,7 @@ function setup() {
     
     dpad.find("button").button();
     zpad.find("button").button();
-    
-    pan.spinner({
-      "min": CONFIG["pan-min"],
-      "max": CONFIG["pan-max"],
-      numberFormat: "n"
-    }).val(CONFIG["pan-initial"]);
-    
-    tilt.spinner({
-      "min": CONFIG["tilt-min"],
-      "max": CONFIG["tilt-max"],
-      numberFormat: "n"
-    }).val(CONFIG["tilt-initial"]);
-    
-    zoom.spinner({
-      "min": CONFIG["zoom-min"],
-      "max": CONFIG["zoom-max"],
-      numberFormat: "n"
-    }).val(CONFIG["zoom-initial"]);
-    
+        
     ajax(CONFIG["config-url"],load,function() {
         //$("div#controls-content").accordion()
     });
