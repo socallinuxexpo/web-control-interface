@@ -54,6 +54,7 @@ CameraControl.prototype.setup = function() {
 // TODO: keyup and keydown is too sensitive
 CameraControl.prototype.configureArrowKeys = function() {
   var self = this;
+  var down = {};
 
   //Key bindings
   $(document).keydown(
@@ -65,22 +66,50 @@ CameraControl.prototype.configureArrowKeys = function() {
           event.preventDefault();
           
           var stopFn = self.camera.stop.bind(self.camera);
+          if(down[event.which] == null)
+          {
+              // first press, save and allow
+              down[event.which] = true;
+          }
+          else
+          {
+              // repeat press, abort
+              return;
+          }
+
           switch(event.which) {
               case 37:
-                  self.camera.left(self.pan());
-                  setTimeout(stopFn, self.config["pan-delay"]);
+                  self.camera.left(self.pan);
                   break;
               case 38:
-                  self.camera.up(self.tilt());
-                  setTimeout(stopFn, self.config["tilt-delay"]);
+                  self.camera.up(self.tilt);
                   break;
               case 39:
-                  self.camera.right(self.pan());
-                  setTimeout(stopFn, self.config["pan-delay"]);
+                  self.camera.right(self.pan);
                   break;
               case 40:
-                  self.camera.down(self.tilt());
-                  setTimeout(stopFn, self.config["tilt-delay"]);
+                  self.camera.down(self.tilt);
+                  break;
+          }
+      }
+  );
+  
+  $(document).keyup(
+      function(event) {
+          //Prevent defaults
+          if (event.which < 37 || event.which > 40) {
+              return;
+          }
+          event.preventDefault();
+          
+          down[event.which] = null;
+          var stopFn = self.camera.stop.bind(self.camera);
+          switch(event.which) {
+              case 37:
+              case 38:
+              case 39:
+              case 40:
+                  self.camera.stop();
                   break;
           }
       }
