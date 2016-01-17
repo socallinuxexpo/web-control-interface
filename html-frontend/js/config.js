@@ -93,7 +93,7 @@ CONFIG["PTZOptics"] = {
     "zoom-scale": 1.0,
     "pan-speed": 20,
     "tilt-speed": 20,
-    "zoom-speed": 20
+    "zoom-speed": 7
 };
 
 CONFIG["poll-period"] = 500;
