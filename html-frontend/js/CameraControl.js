@@ -12,13 +12,13 @@
  * @param tilt - tilt function returns a value when called
  * @param zoom - zoom function returns a value when called
  */
-var CameraControl = function(config, dpad, zpad, pan, tilt, zoom) {
+var CameraControl = function(config, dpad, zpad) {
     this.config = config;
     this.dpad$el = dpad;
     this.zpad$el = zpad;
-    this.pan = pan;
-    this.tilt = tilt;
-    this.zoom = zoom;
+    this.pan = config["pan-speed"];
+    this.tilt = config["tilt-speed"];
+    this.zoom = config["zoom-speed"];
     this.camera = this.makeCamera();
     this.camera.stop();
     
