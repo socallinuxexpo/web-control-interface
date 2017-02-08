@@ -13,6 +13,8 @@
  * @param zoom - zoom function returns a value when called
  */
 var CameraControl = function(config, dpad, zpad) {
+    var self = this;
+    this.actions = [];
     this.config = config;
     this.dpad$el = dpad;
     this.zpad$el = zpad;
@@ -24,6 +26,16 @@ var CameraControl = function(config, dpad, zpad) {
     
     // setup control
     this.setup();
+    //Action draining queue
+    function playback() {
+        if (self.actions.length > 0)
+        {
+            var fn = self.actions.shift();
+            fn();
+        }
+    };
+    setInterval(playback,100);
+
 };
 /**
  * Setup the visual and control elements
@@ -88,10 +100,10 @@ CameraControl.prototype.configureArrowKeys = function() {
 };
 
 CameraControl.prototype.configureButton = function(button, moveFn, stopFn, speed) {
-  button.mousedown(function() {
-    moveFn(speed);
-  }).mouseup(function() {
-    stopFn();
+  var self = this;
+  button.click(function() {
+    self.actions.push(moveFn.bind(undefined,speed));
+    self.actions.push(stopFn);
   });
 };
 
