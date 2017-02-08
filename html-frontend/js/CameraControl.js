@@ -34,7 +34,8 @@ var CameraControl = function(config, dpad, zpad) {
             fn();
         }
     };
-    setInterval(playback,100);
+    var steptime = Math.max(200,config.steptime);
+    setInterval(playback,steptime);
 
 };
 /**

@@ -5,61 +5,85 @@ CONFIG["config-url"] = CONFIG["url"] + "/config";
 // This configuration is used by navigator to setup UI
 // and from the controls to list potential streams
 CONFIG["room"] = {
-  "name" : "Lajolla",
+	"name" : "room-104",
   "cameraType" : "PTZOptics",
 };
-
-CONFIG["rooms"] = [ {
-  "name" : "Lajolla",
-  "url" : "http://Lajolla.scaleav.us/",
-  "camera" : "http://Lajolla-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "Carmel",
-  "url" : "http://Carmel.scaleav.us/",
-  "camera" : "http://Carmel-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "LAa",
-  "url" : "http://LAa.scaleav.us/",
-  "camera" : "http://LAa-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "LAb",
-  "url" : "http://LAb.scaleav.us/",
-  "camera" : "http://LAb-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "LAc",
-  "url" : "http://LAc.scaleav.us/",
-  "camera" : "http://LAc-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "Marina",
-  "url" : "http://Marina.scaleav.us/",
-  "camera" : "http://Marina-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "CenturyAB",
-  "url" : "http://CenturyAB.scaleav.us/",
-  "camera" : "http://CenturyAB-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "CenturyCD",
-  "url" : "http://CenturyCD.scaleav.us/",
-  "camera" : "http://CenturyCD-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "PlazaBC",
-  "url" : "http://PlazaBC.scaleav.us/",
-  "camera" : "http://PlazaBC-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-}, {
-  "name" : "plazaD",
-  "url" : "http://plazaD.scaleav.us/",
-  "camera" : "http://plazaD-cam.scaleav.us/",
-  "cameraType" : "SamsungCamera",
-} ];
+CONFIG["rooms"] = [{
+  "name":"room-101",
+  "url":"http://room-101.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-101.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"room-103",
+  "url":"http://room-103.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-103.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"room-104",
+  "url":"http://room-104.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-104.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"room-106",
+  "url":"http://room-106.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-106.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"room-107",
+  "url":"http://room-107.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-107.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"room-209",
+  "url":"http://room-209.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-209.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"room-211",
+  "url":"http://room-211.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-211.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"room-212",
+  "url":"http://room-212.scaleav.us/html-frontend/operate.html",
+  "camera": "http://room-212.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"ballroom-a",
+  "url":"http://ballroom-a.scaleav.us/html-frontend/operate.html",
+  "camera": "http://ballroom-a.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"ballroom-b",
+  "url":"http://ballroom-b.scaleav.us/html-frontend/operate.html",
+  "camera": "http://ballroom-b.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"ballroom-c",
+  "url":"http://ballroom-c.scaleav.us/html-frontend/operate.html",
+  "camera": "http://ballroom-c.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"ballroom-de",
+  "url":"http://ballroom-de.scaleav.us/html-frontend/operate.html",
+  "camera": "http://ballroom-de.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"ballroom-f",
+  "url":"http://ballroom-f.scaleav.us/html-frontend/operate.html",
+  "camera": "http://ballroom-f.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"ballroom-g",
+  "url":"http://ballroom-g.scaleav.us/html-frontend/operate.html",
+  "camera": "http://ballroom-g.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+},{
+  "name":"ballroom-h",
+  "url":"http://ballroom-h.scaleav.us/html-frontend/operate.html",
+  "camera": "http://ballroom-h.scaleav.us:8080/mixed",
+  "cameraType": "SamsungCamera",
+}];
 
 // This configuration is used by camera exclusively
 CONFIG["SamsungCamera"] = {
@@ -76,7 +100,8 @@ CONFIG["SamsungCamera"] = {
     "zoom-scale": 1.0,
     "pan-speed": 5,
     "tilt-speed": 5,
-    "zoom-speed": 5
+    "zoom-speed": 5,
+    "steptime": 400
 };
 
 CONFIG["PTZOptics"] = {
@@ -93,7 +118,8 @@ CONFIG["PTZOptics"] = {
     "zoom-scale": 1.0,
     "pan-speed": 20,
     "tilt-speed": 20,
-    "zoom-speed": 7
+    "zoom-speed": 7,
+    "steptime": 400
 };
 
 CONFIG["poll-period"] = 500;
