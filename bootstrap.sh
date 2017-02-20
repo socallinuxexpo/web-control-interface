@@ -14,5 +14,5 @@ service nginx start
 
 # TODO: What does this do?
 cd /http/web-control-interface/pybackend
-uwsgi --socket /var/run/uwsgi/uwsgi.sock --plugin /usr/lib/uwsgi/plugins/python3 web:app &
+uwsgi --socket /var/run/uwsgi/uwsgi.sock --plugin /usr/lib/uwsgi/plugins/python3 -w web:app &
 
