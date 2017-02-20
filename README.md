@@ -7,11 +7,11 @@ Installation Instructions
 =========================
 
 Install the following packages:
-   
+
      uwsgi
      uwsgi-python-plugin
      python3
-     pip3 flask 
+     pip3 flask
      pip3 flask-restful
      nginx
 
@@ -33,4 +33,25 @@ Setup the website and upstart configuration:
     sudo mv /etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc.bak
     sudo ln -s /http/web-control-interface/system-configs/xinitrc /etc/X11/xinit/xinitrc
 
+Vagrant Dev Environment
+=========================
+A Vagrant development environment has been provided for anyone who wants to run this on their local machine with less work.
+You'll need Vagrant and VirtualBox
+https://www.vagrantup.com/downloads.html
+https://www.virtualbox.org/wiki/Downloads
 
+Vagrant requires 2 files to run:
+
+```
+Vagrantfile
+vagrant-provision.sh
+```
+To run, navigate to the directory where the Vagrantfile is located:
+`vagrant up`
+
+Thats it! When you're done, make sure you run:
+`vagrant destroy`
+otherwise the vm will keep running.
+
+You can ssh into the box without a password by using:
+`vagrant ssh`
