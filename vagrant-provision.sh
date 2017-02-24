@@ -9,7 +9,7 @@ sudo chmod 777 /var/log/uwsgi
 rm -f /etc/nginx/sites-enabled/default
 
 # create some symbolic link for nginx
-sudo ln -s /http/web-control-interface/system-configs/web-ctrl /etc/nginx/sites-enabled/web-ctrl
+sudo ln -s /http/web-control-interface/system-configs/web-ctrl-vagrant /etc/nginx/sites-enabled/web-ctrl-vagrant
 
 # start nginx service
 service nginx start
