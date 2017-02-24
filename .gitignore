@@ -4,3 +4,6 @@
 *~
 **/__pycache__
 .vagrant
+*.pyc
+/logs/nginx
+/logs/uwsgi
