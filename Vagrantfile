@@ -37,7 +37,10 @@ Vagrant.configure("2") do |config|
 	# create:true means that it will create the folder on the guest machine
 	# changes to any file on the host machine will automatically be synced with the
 	# guest vm and vice-versa
-  config.vm.synced_folder ".", "/http/web-control-interface", create:true
+  config.vm.synced_folder ".", "/http/web-control-interface", create:true, owner: "vagrant", group: "www-data", mount_options: ["dmode=775,fmode=644"]
+	# sync uwsgi and nginx logs with host machine for easy access
+	config.vm.synced_folder "logs/nginx", "/var/log/nginx", create: true
+	config.vm.synced_folder "logs/uwsgi", "/var/log/uwsgi", create: true
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provlsider-specific options.
