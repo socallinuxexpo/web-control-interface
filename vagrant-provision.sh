@@ -16,4 +16,4 @@ sudo ln -s /http/web-control-interface/system-configs/web-ctrl.conf /etc/init/we
 service nginx start
 
 # start uwsgi
-sudo uwsgi --socket /var/run/uwsgi/uwsgi.sock --plugin /usr/lib/uwsgi/plugins/python3 -w web:app &
+sudo uwsgi --socket /var/run/uwsgi/uwsgi.sock --plugin /usr/lib/uwsgi/plugins/python3 -w web:app --chmod-socket=666 &
