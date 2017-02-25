@@ -39,4 +39,10 @@ server {
 						uwsgi_pass unix:/var/run/uwsgi/uwsgi.sock;
 	}
 
+	location ~* ^.+\.(js|css)$ {
+    #old style: add_header Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0";
+    #old style: add_header Pragma "no-cache";
+    expires -1;
+    sendfile off; #if you're using virtualbox (it is not about cache, but you will need it) https://www.vagrantup.com/docs/synced-folders/virtualbox.html
+	}
 }
