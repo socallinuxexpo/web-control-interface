@@ -1,7 +1,7 @@
 from flask.ext import restful
 
 CONFIG = {
-    "LOGDIR" :  "../logs/", 
+    "LOGDIR" :  "../logs/",
     "USER" :    "ubuntu",
     "DISPLAY" : ":0",
     "PORT" : "/dev/ttyACM0",
@@ -40,7 +40,7 @@ CONFIG.update({
          "type" :"button"}
     ],
     "PINS" : [
-        {"name" : "Scan Leff",
+        {"name" : "Scan Left",
          "url"  : CONFIG["PINS-PATH"]+"/scan-left",
          "pin"  : 5,
          "type" : "button",
