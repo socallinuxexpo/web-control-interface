@@ -1,62 +1,97 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Linux Audiovisual Regulation System (LCARS)</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.10.4.custom/css/lars/jquery-ui-1.10.4.custom.css" />
-    </head>
-    <body>
-        <h1 class="ui-state-error ui-accordion-header ui-corner-all rounded-fix-padding">Linux Computer Audiovisual Regulation System (LCARS) Operations</h1>
-        <div id="room-navigation"></div>
-        <div class="ui-widget-content ui-corner-all rounded-fix-padding">
-            <h2>Host control system: </h2>
-            System for controling a LCARS host system.
-        </div>
-        <div id="controls-content">
-            <h3 class="ui-state-error ui-accordion-header ui-corner-all rounded-fix-padding">Projector Controls</h3>
-            <div class="control-element ui-corner-all ui-widget-content" >
-                <div id="camera-view" class="control-element ui-corner-all" >
-                    <img id="video" class="vidpreview viewable" src="/mjpeg/mjpeg_stream" alt="Camera Loading..."/>
-                    <div class="vidoverlay">
-                        <!-- Handles D-Pad style directional controls -->
-                        <div id="dpad" title="Directional Controls">
-                            <button type="button" id="up" class="up vertical" title="Press and Hold till you see the camera move and Release accordingly">Up</button>
-                            <button type="button" id="left"  class="left horizontal" title="Press and Hold till you see the camera move and Release accordingly">Left</button>
-                            <button type="button" id="right" class="right horizontal" title="Press and Hold till you see the camera move and Release accordingly">Right</button>
-                            <button type="button" id="down" class="down vertical" title="Press and Hold till you see the camera move and Release accordingly">Down</button>
-                        </div>
-                        <div id="zpad" title="Zoom Controls">
-                            <button type="button" id="zoom_in" class="zoom_in vertical" title="Press and Hold till you see the camera zoom in and Release accordingly">Zoom In</button>
-                            <button type="button" id="zoom_out" class="zoom_out horizontal" title="Press and Hold till you see the camera zoom out and Release accordingly">Zoom Out</button>
-                            <button type="button" id="set_home" class="set_home horizontal" title="Click to set the current position as home">Set Home</button>
-                            <button type="button" id="move_home" class="move_home vertical" title="Click to go back home position">Home</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="system-controls"></div>
-            </div>
-        </div>
-        <div id="messages-content" class="control-element">
-            <h3>Messages</h3>
-            <div id="messages" class="viweable"></div>
-            <h3 class="ui-state-error">Errors</h3>
-            <div id="error" class="viewable"></div>
-            <h3>Help</h3>
-            <div id="help" class="viewable">
-            This is the SCALE AV help section.  It will be replaced by help content at some point in the future.
-            <small>SCALE AV ~ Unparalleled Technical Skills Creating Unparalleled Experience</small></div>
-        </div>
-        
-        <script src="js/jquery-1.10.2.js"></script>
-        <script src="js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
-        <script src="js/config.js"></script>
-        <script src="js/Logger.js"></script>
-        <script src="js/navigation.js"></script>
-        <script src="js/camera-api/SamsungCamera.js"></script>
-        <script src="js/camera-api/PTZOpticsCamera.js"></script>
-        <script src="js/CameraControl.js"></script>
-        <script src="js/util.js"></script>
-        <script src="js/controls.js"></script>
-        <script src="js/operate.js"></script>
-    </body>
+<head>
+    <title>Linux Audiovisual Regulation System (LCARS)</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/master.css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="vendor/font-awesome-4.5.0/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+	<div class="header">
+		<h1 class="lcars">Linux Computer Audiovisual Regulation System (LCARS) Operations</h1>
+		<div class="dropdown">
+			<button class="dropbtn">Rooms</button>
+			<div id="room-navigation" class="dropdown-content"></div>
+		</div>
+	</div>
+  <div id="controls-content">
+		<div class="control-element" >
+    	<div id="camera-view" class="control-element ui-corner-all" >
+				<img id="video" class="vidpreview" src="http://webcam.iowa.uiowa.edu/live/readImage.asp?dummy=1487821895872" alt="Camera Loading..."/>
+						<div id="dpad" class="caption">
+							<nav>
+		            <ul class="pager" title="Directional Controls">
+									<li><button type="button" id="up" class="fa fa-arrow-up fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
+								</ul>
+								<ul class="pager" title="Directional Controls">
+									<li><button type="button" id="left"  class="fa fa-arrow-left fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
+		              <li><button type="button" id="right" class="fa fa-arrow-right fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
+								</ul>
+								<ul class="pager" title="Directional Controls">
+									<li><button type="button" id="down" class="fa fa-arrow-down fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
+		            </ul>
+							</nav>
+							<div id="zpad" title="Zoom Controls">
+								<ul>
+									<li>
+										<button type="button" id="set_home" class="set_home horizontal" title="Click to set the current position as home">Set Home</button>
+									</li>
+									<li>
+										<button type="button" id="move_home" class="move_home vertical" title="Click to go back home position">Home</button>
+									</li>
+								</ul>
+								<ul>
+									<li>
+										<button type="button" id="zoom_in" class="zoom_in vertical" title="Press and Hold till you see the camera zoom in and Release accordingly"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+									</li>
+									<li>
+										<button type="button" id="zoom_out" class="zoom_out horizontal" title="Press and Hold till you see the camera zoom out and Release accordingly"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+			</div>
+    </div>
+	</div>
+    <div id="system-controls"></div>
+  </div>
+
+	<div id="message-container">
+		<ul class="nav nav-tabs">
+		  <li class="active"><a data-toggle="tab" href="#messages">Messages</a></li>
+		  <li><a data-toggle="tab" href="#errors">Errors</a></li>
+		  <li><a data-toggle="tab" href="#help">Help</a></li>
+		</ul>
+		<div id="messages-content" class="tab-content">
+			<div id="messages" class="tab-pane fade in active">
+				<h3>Messages</h3>
+				<div id="messages" class="viweable"></div>
+			</div>
+			<div id="errors" class="tab-pane fade">
+				<h3 class="ui-state-error">Errors</h3>
+				<div id="error" class="viewable"></div>
+			</div>
+			<div id="help" class="tab-pane fade">
+				<h3>Help</h3>
+				<div id="help" class="viewable"></div>
+			</div>
+		</div>
+	</div>
+
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/Logger.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/camera-api/SamsungCamera.js"></script>
+  <script src="js/camera-api/PTZOpticsCamera.js"></script>
+  <script src="js/CameraControl.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/operate.js"></script>
+	<script type="text/javascript" src="vendor/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+</body>
 </html>

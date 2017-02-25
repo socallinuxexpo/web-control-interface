@@ -4,11 +4,6 @@
   float: left;
 }
 
-.dropdown {
-  float: right;
-  padding: 15px 90px 5px 0px;
-}
-
 .thumbnail h4 {
   text-align: center;
 }
@@ -17,10 +12,6 @@
   color: white;
   float: right;
   padding: 15px 15px 0 0;
-}
-
-.dropdown-menu {
-  text-align: center;
 }
 
 #host {
@@ -47,14 +38,7 @@
   margin-left: 30px;
 }
 
-.nav-tabs {
-  padding-left: 10px;
-}
-
 .tab-content h3 {
   padding-left: 10px;
 }
 
-.tab-content p {
- text-align: center;
-}
