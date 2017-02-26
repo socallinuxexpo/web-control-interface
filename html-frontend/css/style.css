@@ -28,6 +28,16 @@ label{
 	.lcars{
 		font-size: 1.3em;
 	}
+	.controls-group{
+		font-size: 2em;
+	}
+	.controls-group input[type=radio]{
+		height: 2em;
+		width: 2em;
+	}
+	#dpad button{
+		font-size: 3em;
+	}
 }
 body{
 	padding: 1vmin;
@@ -119,6 +129,8 @@ div.controls-group {
     margin: 0 0.5vmin 0.5vmin 0.5vmin;
     padding: 0.5vmin;
 		border: 2px solid #B8B8B8;
+		height: auto;
+  	min-height: 100% !important;
 }
 
 div#system-controls h4 {
