@@ -23,7 +23,7 @@ var CameraControl = function(config, dpad, zpad) {
     this.zoom = config["zoom-speed"];
     this.camera = this.makeCamera();
     this.camera.stop();
-    
+
     // setup control
     this.setup();
     //Action draining queue
@@ -50,15 +50,15 @@ CameraControl.prototype.setup = function() {
     var zoomInFn = this.camera.zoomIn.bind(this.camera);
     var zoomOutFn = this.camera.zoomOut.bind(this.camera);
     var zoomStopFn = this.camera.zoomStop.bind(this.camera);
-    
+
     this.configureArrowKeys();
-    
-    this.configureButton($(this.dpad$el).find("button.left"), leftFn, stopFn, this.pan);
-    this.configureButton($(this.dpad$el).find("button.right"), rightFn, stopFn, this.pan);
-    this.configureButton($(this.dpad$el).find("button.up"), upFn, stopFn, this.tilt);
-    this.configureButton($(this.dpad$el).find("button.down"), downFn, stopFn, this.tilt);
-    this.configureButton($(this.zpad$el).find("button.zoom_in"), zoomInFn, zoomStopFn, this.zoom);
-    this.configureButton($(this.zpad$el).find("button.zoom_out"), zoomOutFn, zoomStopFn, this.zoom);
+
+    this.configureButton($(this.dpad$el).find("button#left"), leftFn, stopFn, this.pan);
+    this.configureButton($(this.dpad$el).find("button#right"), rightFn, stopFn, this.pan);
+    this.configureButton($(this.dpad$el).find("button#up"), upFn, stopFn, this.tilt);
+    this.configureButton($(this.dpad$el).find("button#down"), downFn, stopFn, this.tilt);
+    this.configureButton($(this.zpad$el).find("button#zoom_in"), zoomInFn, zoomStopFn, this.zoom);
+    this.configureButton($(this.zpad$el).find("button#zoom_out"), zoomOutFn, zoomStopFn, this.zoom);
 
     $(this.zpad$el).find("button.move_home").click(this.camera.moveToHome.bind(this.camera));
     $(this.zpad$el).find("button.set_home").click(this.camera.setHome.bind(this.camera));
@@ -76,7 +76,7 @@ CameraControl.prototype.configureArrowKeys = function() {
               return;
           }
           event.preventDefault();
-          
+
           var stopFn = self.camera.stop.bind(self.camera);
           switch(event.which) {
               case 37:
@@ -102,10 +102,12 @@ CameraControl.prototype.configureArrowKeys = function() {
 
 CameraControl.prototype.configureButton = function(button, moveFn, stopFn, speed) {
   var self = this;
-  button.click(function() {
+  var fn = function() {
     self.actions.push(moveFn.bind(undefined,speed));
     self.actions.push(stopFn);
-  });
+  };
+	button.click(fn);
+	button.on("tap", fn);
 };
 
 /**
