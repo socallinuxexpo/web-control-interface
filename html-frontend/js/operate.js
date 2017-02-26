@@ -8,20 +8,20 @@ function setup() {
     var cameraConfig = CONFIG[roomConfig["cameraType"]];
     var dpad = $("#dpad");
     var zpad = $("#zpad");
-    
+
     var camcon = new CameraControl(cameraConfig, dpad, zpad);
-    
+
     //Setup room navigation
     var setcon = new RoomControl(CONFIG, $("#room-navigation"));
     //Misc setup
-    
+
     dpad.find("button").button();
     zpad.find("button").button();
-        
+
     ajax(CONFIG["config-url"],load,function() {
         //$("div#controls-content").accordion()
     });
-    
+
     $("div#messages-content")
       .accordion({active: false, collapsible: true});
 }
@@ -32,13 +32,13 @@ function setup() {
 function load(cfg) {
     var cmds = [].concat(cfg["COMMANDS"]).concat(cfg["PINS"]);
     for (var i =0; i < cmds.length; i++) {
-        add(cmds[i],"system-controls"); 
+        add(cmds[i],"system-controls");
     }
-    var height = 0;
-    $("div.controls-group").each(function() {
-             height = Math.max(height,$(this).height());
-        });
-    $("div.controls-group").height(height);
+    // var height = 0;
+    // $("div.controls-group").each(function() {
+    //          height = Math.max(height,$(this).height());
+    //     });
+    // $("div.controls-group").height(height);
 //    $("div#controls-content").accordion();
 }
 /**
@@ -62,9 +62,9 @@ function add(spec,section) {
             break;
         default:
             GlobalLogger.error("Invalid control format:"+spec.type);
-            break;    
+            break;
     }
-    var grp = group(spec.group,cont);    
+    var grp = group(spec.group,cont);
     //Add in button to submit command
     $("div#"+section).append(grp);
 }
