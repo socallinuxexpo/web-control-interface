@@ -101,7 +101,7 @@ CONFIG["SamsungCamera"] = {
     "pan-speed": 5,
     "tilt-speed": 5,
     "zoom-speed": 5,
-    "steptime": 400
+    "steptime": 200
 };
 
 CONFIG["PTZOptics"] = {
@@ -119,7 +119,7 @@ CONFIG["PTZOptics"] = {
     "pan-speed": 20,
     "tilt-speed": 20,
     "zoom-speed": 7,
-    "steptime": 400
+    "steptime": 200
 };
 
 CONFIG["poll-period"] = 500;
