@@ -22,8 +22,9 @@ function setup() {
         //$("div#controls-content").accordion()
     });
 
-    $("div#messages-content")
-      .accordion({active: false, collapsible: true});
+    $("div#messages-content").accordion({active: false, collapsible: true});
+		$("#room_info").html(roomConfig.name);
+		document.title = roomConfig.name;
 }
 
 /**
