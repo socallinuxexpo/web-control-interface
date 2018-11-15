@@ -1,4 +1,4 @@
-from flask.ext import restful
+import flask_restful as restful
 
 CONFIG = {
     "LOGDIR" :  "../logs/",

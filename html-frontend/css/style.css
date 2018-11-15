@@ -1,15 +1,14 @@
 @media only screen and (orientation: landscape){
 	.control-element{
-		width: 100%;
+		display: grid;
+		grid-template-columns: 70% 30%;
 	}
 	#dpad{
-		position: absolute;
 		background-color: rgba(0, 0, 0, 0.7);
 	}
 	#system-controls{
-		float: right;
-		width: 25%;
-		display:inline-block;
+		width: 100%;
+		display: grid;
 	}
 }
 
@@ -20,10 +19,10 @@ label{
 
 @media only screen and (orientation: portrait){
 	.control-element{
-		width: 95vw;
+		width: 100%;
 	}
 	#controls-content{
-		margin-top: 5vmin;
+		margin-top: 2vmin;
 	}
 	.lcars{
 		font-size: 1.3em;
@@ -44,21 +43,22 @@ body{
 }
 .lcars{
 	width: 100%;
-	display: inline;
+	display: grid;
 	height: 100%;
 }
 
 #controls-content{
-	float:left;
-	display:inline-block;
-	width: 75%;
+	display: grid;
+	width: 100%;
+	height: 100%;
 }
 
 .control-element{
-    display: inline-block;
-    position: relative;
+    display: grid;
+    position: center;
     background-color: LightGray;
-		height: auto;
+	height: auto;
+	width: 100%;
 		border: 2px solid #B8B8B8;
 }
 
@@ -80,23 +80,25 @@ body{
 
 .vidpreview{
 	width: 100%;
-  height: auto;
+  	height: 100%;
 }
 
 #dpad {
-    bottom: 0;
-		right: 0;
-		padding-left: 2vmin;
-		padding-right: 2vmin;
-		padding-bottom: 2vmin;
-		border-top: 2px solid #B8B8B8;
-		border-left: 2px solid #B8B8B8;
+	padding-left: 2vmin;
+	padding-right: 2vmin;
+	padding-bottom: 2vmin;
+	border-top: 2px solid #B8B8B8;
+	border-left: 2px solid #B8B8B8;
+}
+#dpad .vertical{
+	margin-left: auto;
+	margin-right: auto;
+	clear: both;
 }
 
 #zpad ul{
 	list-style-type: none;
-	padding: 0;
-  margin: 0 10% 0 0;
+	padding-left: 1vmin;
 	width: auto;
 	float: left;
 }
@@ -105,16 +107,17 @@ body{
 	width: 100%;
 }
 
-#zpad{
-	padding: 0;
+
+#spad ul{
+	list-style-type: none;
+	padding-right: 1vmin;
+	width: auto;
+	float: right;
+}
+#spad button{
+	width : 98%;
 }
 
-#dpad .vertical{
-    //display: block;
-    margin-left: auto;
-    margin-right: auto;
-    clear: both;
-}
 
 table th.boolean-table {
     text-align: center;
@@ -221,7 +224,7 @@ div#buttons .ui-button {
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #000000;
-	background: #98011b url(images/ui-bg_glass_50_98011b_1x400.png) 50% 50% repeat-x;
+	background: #98011b url(images/ui-bg_glass_50_98011b_1x400.png) 80% 30% repeat-x;
 	color: #ffffff;
 }
 
