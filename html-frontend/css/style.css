@@ -1,14 +1,14 @@
+.tab-content h3 {
+	padding-left: 10px;
+}
+
 @media only screen and (orientation: landscape){
 	.control-element{
 		display: grid;
-		grid-template-columns: 70% 30%;
+		grid-template-columns: 90% 10%;
 	}
 	#dpad{
 		background-color: rgba(0, 0, 0, 0.7);
-	}
-	#system-controls{
-		width: 100%;
-		display: grid;
 	}
 }
 
@@ -17,39 +17,12 @@ label{
 	margin-bottom: 0!important;
 }
 
-@media only screen and (orientation: portrait){
-	.control-element{
-		width: 100%;
-	}
-	#controls-content{
-		margin-top: 2vmin;
-	}
-	.lcars{
-		font-size: 1.3em;
-	}
-	.controls-group{
-		font-size: 2em;
-	}
-	.controls-group input[type=radio]{
-		height: 2em;
-		width: 2em;
-	}
-	#dpad button{
-		font-size: 3em;
-	}
-}
 body{
 	padding: 1vmin;
 }
 .lcars{
 	width: 100%;
 	display: grid;
-	height: 100%;
-}
-
-#controls-content{
-	display: grid;
-	width: 100%;
 	height: 100%;
 }
 
@@ -83,76 +56,37 @@ body{
   	height: 100%;
 }
 
-#dpad {
-	padding-left: 2vmin;
-	padding-right: 2vmin;
-	padding-bottom: 2vmin;
-	border-top: 2px solid #B8B8B8;
-	border-left: 2px solid #B8B8B8;
-}
-#dpad .vertical{
-	margin-left: auto;
-	margin-right: auto;
-	clear: both;
-}
-
 #zpad ul{
-	list-style-type: none;
-	padding-left: 1vmin;
-	width: auto;
-	float: left;
-}
+    list-style-type: none;
+    padding: 0% 5% 0% 10%;
+    margin: 10% 10% 0 0;
+    float: left;
 
+}
 #zpad button{
-	width: 100%;
+	width: 130%;
+    margin: 5% 0 7% 0;
 }
-
 
 #spad ul{
 	list-style-type: none;
-	padding-right: 1vmin;
-	width: auto;
-	float: right;
+    padding: 10% 10% 10% 10%;
 }
 #spad button{
-	width : 98%;
+	width : 100%;
+    margin: 8% 0 3% 0;
 }
 
-
-table th.boolean-table {
-    text-align: center;
-    colspan: 2;
-}
 div#io-pins {
     margin: 5px 0px;
 }
 
-div.controls-group {
-    float: left;
-    margin: 0 0.5vmin 0.5vmin 0.5vmin;
-    padding: 0.5vmin;
-		border: 2px solid #B8B8B8;
-		height: auto;
-  	min-height: 100% !important;
-}
-
-div#system-controls h4 {
-    text-align: center;
-    margin: 0em 0em .5em 0em;
-}
-
-div#buttons .ui-button {
-   margin: 0em;
-   padding: 0em .2em;
-}
-
-.viewable {
-   height: 40em;
-}
-
+/* sets the margins for the arrow buttons */
 #left{
 	margin-right: 1em;
 }
+
+/* sets the margins for the arrow buttons */
 #right{
 	margin-left: 1em;
 }
@@ -196,7 +130,8 @@ div#buttons .ui-button {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content label:hover {background-color: #f1f1f1}
+.dropdown-content label:hover {
+	background-color: #f1f1f1}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
@@ -207,46 +142,34 @@ div#buttons .ui-button {
 .dropdown:hover .dropbtn {
 	 background-color: #3e8e41;
 }
-
-/* copied from jquery custom css */
-.ui-helper-hidden-accessible {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-}
-
 .ui-state-error,
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
-	border: 1px solid #000000;
-	background: #98011b url(images/ui-bg_glass_50_98011b_1x400.png) 80% 30% repeat-x;
-	color: #ffffff;
+    border: 1px solid #000000;
+    background: #98011b url(images/ui-bg_glass_50_98011b_1x400.png) 50% 50% repeat-x;
+    color: #ffffff;
 }
 
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-	border: 1px solid #B8B8B8;
-	background: #E6E6E6;
-	font-weight: bold;
-	color: #000000;
+    border: 1px solid #B8B8B8;
+    background: #E6E6E6;
+    font-weight: bold;
+    color: #000000;
 }
 
 .ui-tooltip {
-	padding: 8px;
-	position: absolute;
-	z-index: 9999;
-	max-width: 300px;
-	-webkit-box-shadow: 0 0 5px #aaa;
-	box-shadow: 0 0 5px #aaa;
-	background-color: rgba(0, 0, 0, 0.8);
-	color: white;
+    padding: 8px;
+    position: absolute;
+    z-index: 9999;
+    max-width: 300px;
+    -webkit-box-shadow: 0 0 5px #aaa;
+    box-shadow: 0 0 5px #aaa;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
 }
-body .ui-tooltip {
-	border-width: 2px;
-}
+
+
+
+
