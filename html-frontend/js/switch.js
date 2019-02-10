@@ -27,6 +27,13 @@ Hswitch.onclick = function(event){
     }
 }
 
+function handle_obsList(data, err)
+{
+    alert(data);
+    alert(err);
+
+}
+
 Vswitch.onclick = function(event){
     if(!event.target.matches('layout-dropbtn')) {
         var layout_drpdwns = document.getElementsByClassName("layout-content")
@@ -34,7 +41,7 @@ Vswitch.onclick = function(event){
         const obs = new OBSWebSocket();
         obs.connect({ address: '192.168.0.2:4444', password: 'starchmd1' });
 
-        obs.send('GetSceneList', {} ).then(function(data){alert(data)});
+        obs.send('GetSceneList', {}, handle_obsList); //.then(function(data){alert(data)});
 
 
         for (var j = 0; j < layout_drpdwns.length; j++)
