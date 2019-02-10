@@ -17,6 +17,30 @@
 		</div>
 	</div>
 
+    <div class="hdmi-dropdown">
+        <button class="hdmi-dropbtn" type="button">HDMI</button>
+        <div id = "HDMI" class="hdmi-content">
+            <a href="#">Input 1</a>
+            <a href="#">Input 2</a>
+            <a href="#">Input 3</a>
+            <a href="#">Input 4</a>
+            <a href="#">Output 1</a>
+            <a href="#">Output 2</a>
+            <a href="#">Output 3</a>
+            <a href="#">Output 4</a>
+        </div>
+    </div>
+
+    <div class="layout-dropdown">
+        <button class="layout-dropbtn" type="button">View Switch</button>
+        <div id="layout-view" class="layout-content">
+            <a href="#">View 1</a>
+            <a href="#">View 2</a>
+            <a href="#">View 3</a>
+            <a href="#">View 4</a>
+        </div>
+    </div>
+
     <div id="controls-content">
     	<div id="camera-view" class="control-element ui-corner-all">
             <img id="video" class="vidpreview" src="mjpeg/mjpeg_stream" alt="Camera Loading..."/>
@@ -48,16 +72,6 @@
                         </li>
                         <li>
                             <button type="button" id="zoom_out" class="zoom_out horizontal" title="Press and Hold till you see the camera zoom out and Release accordingly"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-                        </li>
-                    </ul>
-                </div>
-                <div id = "spad" title = "Switch Controls" class = "caption">
-                    <ul>
-                        <li>
-                            <button type = "button" id = "HDMI" class = "switch_hdmi" title = "Click to switch hdmi"> HDMI </button>
-                        </li>
-                        <li>
-                            <button type = "button" id = "slide_view" class = "slideview_switch" title = "Click to switch slide view"> Slide View </button>
                         </li>
                     </ul>
                 </div>
@@ -98,8 +112,9 @@
   <script src="js/util.js"></script>
   <script src="js/controls.js"></script>
   <script src="js/operate.js"></script>
-  <script src= "js/switch.js"></script>
-	<script type="text/javascript" src="vendor/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  <script src="js/switch.js"></script>
+  <script src="bower_components/obs-websocket-js/dist/obs-websocket.js"></script>
+  <script type="text/javascript" src="vendor/bootstrap-3.3.6/js/bootstrap.min.js"></script>
 
 </body>
 </html>

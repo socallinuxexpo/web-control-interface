@@ -1,0 +1,51 @@
+{
+  "name": "obs-websocket-js",
+  "description": "OBS Websocket API in Javascript",
+  "main": "dist/obs-websocket.js",
+  "authors": [
+    "Brendan Hagan (haganbmj)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "obs",
+    "studio",
+    "websocket",
+    "obs-websocket",
+    "obs-remote",
+    "Open Broadcaster Software",
+    "streaming",
+    "stream",
+    "twitch",
+    "twitch.tv"
+  ],
+  "homepage": "https://github.com/haganbmj/obs-websocket-js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/haganbmj/obs-websocket-js.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "es5",
+    "samples",
+    "test",
+    "_config.yml",
+    "Gruntfile.js",
+    "webpack.config.js",
+    "package-lock.json",
+    "README.md"
+  ],
+  "version": "2.0.1",
+  "_release": "2.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.1",
+    "commit": "72061ad1051ccad00ef8ad6ce5fcd89b75c54d05"
+  },
+  "_source": "https://github.com/haganbmj/obs-websocket-js.git",
+  "_target": "^2.0.1",
+  "_originalSource": "obs-websocket-js",
+  "_direct": true
+}
