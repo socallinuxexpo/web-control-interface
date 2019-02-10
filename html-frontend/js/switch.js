@@ -1,4 +1,5 @@
 var Hswitch = document.getElementById("HDMI");
+$(document).ready(setupObs); 
 var Vswitch = document.getElementById("layout-view");
 
 function clicked()
@@ -38,31 +39,6 @@ Vswitch.onclick = function(event){
     if(!event.target.matches('layout-dropbtn')) {
         var layout_drpdwns = document.getElementsByClassName("layout-content")
 
-        const obs = new OBSWebSocket();
-
-        obs.connect({
-            address: '192.168.0.2:4444',
-            password: 'starchmd1'
-        }).catch(err =>
-        {
-            alert(err);
-        }).then(() => {
-          console.log(`Success! We're connected & authenticated.`);
-          return obs.send('GetSceneList');
-
-        }).then(data =>
-            {
-                console.log(`${data.scenes.length} Available Scenes!`);
-                data.scenes.forEach(scene =>
-                {
-                     $("#layout-view").append("<a href=\"#\">"+ scene.name +"</a>")
-                });
-            }).catch(err =>
-            { // Promise convention dicates you have a catch on every chain.
-                console.log(err);
-            });
-
-
         for (var j = 0; j < layout_drpdwns.length; j++)
         {
             var lopen = layout_drpdwns[j];
@@ -78,3 +54,31 @@ Vswitch.onclick = function(event){
         window.alert("VIEW ERROR");
     }
 }
+
+function setupObs()
+{
+    const obs = new OBSWebSocket();
+
+    obs.connect({
+        address: '192.168.0.2:4444',
+        password: 'starchmd1'
+    }).catch(err =>
+    {
+        alert(err);
+    }).then(() => {
+        console.log(`Success! We're connected & authenticated.`);
+        return obs.send('GetSceneList');
+
+    }).then(data =>
+    {
+        console.log(`${data.scenes.length} Available Scenes!`);
+        data.scenes.forEach(scene =>
+        {
+            $("#layout-view").append("<a href=\"#\">"+ scene.name +"</a>")
+        });
+    }).catch(err =>
+    { // Promise convention dicates you have a catch on every chain.
+        console.log(err);
+    });
+}
+
