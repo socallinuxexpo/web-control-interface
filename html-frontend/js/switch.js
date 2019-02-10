@@ -39,9 +39,34 @@ Vswitch.onclick = function(event){
         var layout_drpdwns = document.getElementsByClassName("layout-content")
 
         const obs = new OBSWebSocket();
-        obs.connect({ address: '192.168.0.2:4444', password: 'starchmd1' });
 
-        obs.send('GetSceneList', {}, handle_obsList); //.then(function(data){alert(data)});
+        obs.connect({
+            address: '192.168.0.2:4444',
+            password: 'starchmd1'
+        }).catch(err =>
+        {
+            alert(err);
+        }).then(() => {
+          console.log(`Success! We're connected & authenticated.`);
+          return obs.send('GetSceneList');
+
+        }).then(data =>
+            {
+                console.log(`${data.scenes.length} Available Scenes!`);
+                data.scenes.forEach(scene =>
+                {
+
+                if (scene.name !== data.currentScene)
+                {
+                    console.log(`Found a different scene! Switching to Scene: ${scene.name}`);
+
+                     obs.send('SetCurrentScene', { 'scene-name': scene.name });
+                }
+                });
+            }).catch(err =>
+            { // Promise convention dicates you have a catch on every chain.
+                console.log(err);
+            });
 
 
         for (var j = 0; j < layout_drpdwns.length; j++)
