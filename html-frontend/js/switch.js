@@ -55,13 +55,7 @@ Vswitch.onclick = function(event){
                 console.log(`${data.scenes.length} Available Scenes!`);
                 data.scenes.forEach(scene =>
                 {
-
-                if (scene.name !== data.currentScene)
-                {
-                    console.log(`Found a different scene! Switching to Scene: ${scene.name}`);
-
-                     obs.send('SetCurrentScene', { 'scene-name': scene.name });
-                }
+                     $("#layout-view").append("<a href=\"#\">"+ scene.name +"</a>")
                 });
             }).catch(err =>
             { // Promise convention dicates you have a catch on every chain.
