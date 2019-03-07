@@ -1,5 +1,5 @@
 from flask import Flask
-from flask.ext import restful
+import flask_restful as restful
 #Import config
 from config import CONFIG
 from config import Config
