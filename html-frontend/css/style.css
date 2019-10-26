@@ -82,77 +82,27 @@ div#io-pins {
 	margin-left: 1em;
 }
 
-
-/* Dropdown menu for room navigation */
-.dropbtn {
-	 background-color: #8CADCB;
-	 color: white;
-	 padding: 16px;
-	 font-size: 16px;
-	 border: none;
-	 cursor: pointer;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-	 position: relative;
-	 display: inline-block;
-	 float: right;
-	 margin-right: 1vw;
-	 margin-left: 1vw;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-	 display: none;
-	 position: absolute;
-	 right: 0;
-	 background-color: #f9f9f9;
-	 min-width: 160px;
-	 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	 z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content label {
-	 color: black;
-	 padding: 0.5em;
-	 text-decoration: none;
-	 display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content label:hover {
-	background-color: #f1f1f1}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-	 display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-	 background-color: #66afe9;
-}
-
-/*style of the hdmi drop button*/
-.hdmi-dropbtn{
+/*style of the drop button*/
+.dropbtn{
     background-color: #8CADCB;
     color: white;
-    padding: 16px;
+    padding: 1em;
+    width: 16em;
+    margin-bottom: 1em;
+    margin-right: 0.5em;
     font-size: 16px;
     border: none;
     cursor: pointer;
 }
 
 /*sets the position of the drop down*/
-.hdmi-dropdown{
+.dropdown{
     position: relative;
     display: inline-block;
 }
 
 /* Links inside the dropdown */
-.hdmi-dropdown label {
+.dropdown label {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -160,107 +110,32 @@ div#io-pins {
 }
 
 /* Dropdown Content (Hidden by Default) */
-.hdmi-content {
+.content {
     display: none;
     position: absolute;
     right: 0;
+    padding: 1em;
     background-color: #f9f9f9;
     min-width: 160px;
+    width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
 }
 
 /* Change color of dropdown links on hover */
-.hdmi-dropdown label:hover {
+.dropdown label:hover {
     background-color: #f1f1f1
 }
 
 /* Show the dropdown menu on hover */
-.hdmi-dropdown:hover .hdmi-content {
+.dropdown:hover .content {
     display: block;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.hdmi-dropdown:hover .hdmi-dropbtn {
-    background-color: #66afe9;
-}
-/*style of the hdmi drop button*/
-.layout-dropbtn{
-    background-color: #8CADCB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-/*sets the position of the drop down*/
-.layout-dropdown{
-    position: relative;
-    display: inline-block;
-}
-
-/* Links inside the dropdown */
-.layout-dropdown label {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.layout-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-/* Change color of dropdown links on hover */
-.layout-dropdown label:hover {
+.dropdown:hover .dropbtn {
     background-color: #66afe9;
 }
 
-/* Show the dropdown menu on hover */
-.layout-dropdown:hover .layout-content {
-    display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.layout-dropdown:hover .layout-dropbtn {
-    background-color: #66afe9;
-}
-
-.ui-state-error,
-.ui-widget-content .ui-state-error,
-.ui-widget-header .ui-state-error {
-    border: 1px solid #000000;
-    background: #98011b url(images/ui-bg_glass_50_98011b_1x400.png) 50% 50% repeat-x;
-    color: #ffffff;
-}
-
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-    border: 1px solid #B8B8B8;
-    background: #E6E6E6;
-    font-weight: bold;
-    color: #000000;
-}
-
-.ui-tooltip {
-    padding: 8px;
-    position: absolute;
-    z-index: 9999;
-    max-width: 300px;
-    -webkit-box-shadow: 0 0 5px #aaa;
-    box-shadow: 0 0 5px #aaa;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-}
 
 
 

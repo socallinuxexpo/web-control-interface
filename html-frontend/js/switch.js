@@ -1,5 +1,5 @@
 var Hswitch = document.getElementById("HDMI");
-$(document).ready(setupObs); 
+$(document).ready(setupObs);
 var Vswitch = document.getElementById("layout-view");
 
 function clicked()

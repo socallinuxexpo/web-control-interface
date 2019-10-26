@@ -10,30 +10,46 @@
 <body>
     <div class="header">
 		<h1 class="lcars">Linux Computer Audiovisual Regulation System (LCARS) Operations</h1>
-		<h2 id="room_info"></h2>
-        <div class="dropdown">
-			<button class="dropbtn">Rooms</button>
-			<div id="room-navigation" class="dropdown-content"></div>
-		</div>
 	</div>
 
-    <div class="hdmi-dropdown">
-        <button class="hdmi-dropbtn" type="button">HDMI</button>
-        <div id = "HDMI" class="hdmi-content">
-            <a href="#">Input 1</a>
-            <a href="#">Input 2</a>
-            <a href="#">Input 3</a>
-            <a href="#">Input 4</a>
-            <a href="#">Output 1</a>
-            <a href="#">Output 2</a>
-            <a href="#">Output 3</a>
-            <a href="#">Output 4</a>
+    <div class="dropdown">
+        <button class="dropbtn" type="button">HDMI</button>
+        <div id = "HDMI" class="content">
+            <ul style="list-style-type:none">
+                <li><a href="#" class="btn">Input 1</a></li>
+                <li><a href="#" class="btn">Input 2</a></li>
+                <li><a href="#" class="btn">Input 3</a></li>
+                <li><a href="#" class="btn">Input 4</a></li>
+                <li><a href="#" class="btn">Output 1</a></li>
+                <li><a href="#" class="btn">Output 2</a></li>
+                <li><a href="#" class="btn">Output 3</a></li>
+                <li><a href="#" class="btn">Output 4</a></li>
         </div>
     </div>
 
-    <div class="layout-dropdown">
-        <button class="layout-dropbtn" type="button">View Switch</button>
-        <div id="layout-view" class="layout-content">
+    <div class="dropdown">
+        <button class="dropbtn" type="button">View Switch</button>
+        <div id="switch" class="content">
+            <ul style="list-style-type:none">
+                <li><a href="#" class="btn">Input 1</a></li>
+                <li><a href="#" class="btn">Input 2</a></li>
+                <li><a href="#" class="btn">Input 3</a></li>
+                <li><a href="#" class="btn">Input 4</a></li>
+                <li><a href="#" class="btn">Output 1</a></li>
+                <li><a href="#" class="btn">Output 2</a></li>
+                <li><a href="#" class="btn">Output 3</a></li>
+                <li><a href="#" class="btn">Output 4</a></li>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn" type="button">Rooms</button>
+        <div id="rooms" class="content">
+                <ul style="list-style-type:none">
+                    <li><a href="#" class="btn">Room 101</a></li>
+                    <li><a href="#" class="btn">Room 103</a></li>
+                    <li><a href="#" class="btn">Room 104</a></li>
+            </div>
         </div>
     </div>
 
@@ -42,32 +58,32 @@
             <img id="video" class="vidpreview" src="mjpeg/mjpeg_stream" alt="Camera Loading..."/>
             <div id="dpad" class="caption">
                 <nav>
-                    <ul class="pager" title="Directional Controls">
-                        <li><button type="button" id="up" class="fa fa-arrow-up fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
+                    <ul class="pager">
+                        <li><button type="button" id="up" class="fa fa-arrow-up fa-2x"></button></li>
                     </ul>
-                    <ul class="pager" title="Directional Controls">
-                        <li><button type="button" id="left"  class="fa fa-arrow-left fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
-                        <li><button type="button" id="right" class="fa fa-arrow-right fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
+                    <ul class="pager">
+                        <li><button type="button" id="left"  class="fa fa-arrow-left fa-2x" ></button></li>
+                        <li><button type="button" id="right" class="fa fa-arrow-right fa-2x"></button></li>
                     </ul>
-                    <ul class="pager" title="Directional Controls">
-                        <li><button type="button" id="down" class="fa fa-arrow-down fa-2x" title="Press and Hold till you see the camera move and Release accordingly"></button></li>
+                    <ul class="pager">
+                        <li><button type="button" id="down" class="fa fa-arrow-down fa-2x"></button></li>
 		            </ul>
                 </nav>
-                <div id="zpad" title="Zoom Controls">
+                <div id="zpad">
                     <ul>
                         <li>
-                            <button type="button" id="set_home" class="set_home horizontal" title="Click to set the current position as home">Set Home</button>
+                            <button type="button" id="set_home" class="set_home horizontal">Set Home</button>
                         </li>
                         <li>
-                            <button type="button" id="move_home" class="move_home vertical" title="Click to go back home position">Home</button>
+                            <button type="button" id="move_home" class="move_home vertical">Home</button>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <button type="button" id="zoom_in" class="zoom_in vertical" title="Press and Hold till you see the camera zoom in and Release accordingly"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                            <button type="button" id="zoom_in" class="zoom_in vertical"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                         </li>
                         <li>
-                            <button type="button" id="zoom_out" class="zoom_out horizontal" title="Press and Hold till you see the camera zoom out and Release accordingly"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                            <button type="button" id="zoom_out" class="zoom_out horizontal"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
                         </li>
                     </ul>
                 </div>
