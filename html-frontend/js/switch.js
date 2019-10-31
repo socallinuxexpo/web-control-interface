@@ -1,17 +1,17 @@
-var Hswitch = document.getElementById("HDMI");
+var hSwitch = document.getElementById("HDMI");
 $(document).ready(setupObs);
-var Vswitch = document.getElementById("layout-view");
+var vSwitch = document.getElementById("layout-view");
 
 function clicked()
 {
-    Hswitch.classList.toggle("show");
-    Vswitch.classList.toggle("show");
+    hSwitch.classList.toggle("show");
+    vSwitch.classList.toggle("show");
 }
 
 
-Hswitch.onclick = function(event){
-    if(!event.target.matches('.hdmi-dropbtn')) {
-        var hdmi_drpdwns = document.getElementsByClassName("hdmi-content")
+hSwitch.onclick = function(event){
+    if(!event.target.matches('HDMI')) {
+        var hdmi_drpdwns = document.getElementById("HDMI")
 
         for (var i = 0; i < hdmi_drpdwns.length; i++)
         {
@@ -35,9 +35,9 @@ function handle_obsList(data, err)
 
 }
 
-Vswitch.onclick = function(event){
-    if(!event.target.matches('layout-dropbtn')) {
-        var layout_drpdwns = document.getElementsByClassName("layout-content")
+vSwitch.onclick = function(event){
+    if(!event.target.matches('layout-view')) {
+        var layout_drpdwns = document.getElementsByClassName("layout-view")
 
         for (var j = 0; j < layout_drpdwns.length; j++)
         {
