@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Linux Audiovisual Regulation System (LCARS-II)</title>
+</head>
+<body>
+    <buttons-dropdown></buttons-dropdown>
+    <view-dropdown></view-dropdown>
+    <room-dropdown></room-dropdown>
+    <controls-content></controls-content>
+
+    <div hidden>
+        <template id = "HDMI-dropdown">
+            <div>
+                <button class="dropbtn" type="button">{{HDMI}}</button>
+                <div class="content">
+                    <ul style="list-style-type:none">
+                        <li v-for = "HDMI-buttons">{{HDMI-b}}</li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <div hidden>
+        <template id = "view-dropdown">
+            <div>
+                <button class="dropbtn" type="button">{{switch}}</button>
+                <div class="content">
+                    <ul style="list-style-type:none">
+                        <li v-for = "vswitch-buttons">{{vswitch-b}}</li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <div hidden>
+        <template id = "room-dropdown">
+            <div>
+                <button class="dropbtn" type="button">{{rooms}}</button>
+                <div class="content">
+                    <ul style="list-style-type:none">
+                        <li v-for = "rooms-buttons">{{rooms-b}}</li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <div hidden>
+        <template id = "controls-content">
+            <div>
+                <button class="d-buttons" type="button">{{dpad}}</button>
+                <div class="up arrow">
+                    <ul style="list-style-type:none">
+                        <li v-for = "up-button">{{up}}</li>
+                    </ul>
+                </div>
+                <div class="L/R arrow">
+                    <ul style="list-style-type:none">
+                        <li v-for = "left-button">{{left}}</li>
+                        <li v-for = "right-button">{{right}}</li>
+                    </ul>
+                </div>
+                <div class="down arrow">
+                    <ul style="list-style-type:none">
+                        <li v-for = "down-button">{{down}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <button class="z-buttons" type="button">{{zpad}}</button>
+                <div class="sethome">
+                    <ul style="list-style-type:none">
+                        <li v-for = "sethome-horizontal">{{h-horz}}</li>
+                        <li v-for = "sethome-vertical">{{h-vert}}</li>
+                    </ul>
+                </div>
+                <div class="in-out">
+                    <ul style="list-style-type:none">
+                        <li v-for = "plus">{{plusin}}</li>
+                        <li v-for = "minus">{{minusout}}</li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+    </div>
+
+</body>
+</html>
