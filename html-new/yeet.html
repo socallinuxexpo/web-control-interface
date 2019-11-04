@@ -3,54 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Linux Audiovisual Regulation System (LCARS-II)</title>
+    <script type="module" src="js/app.js"></script>
+    <script src="vendor/vue.js"></script>
+    <script src="vendor/obs-websocket-js-3.1.0/obs-websocket.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" href="vendor/font-awesome-4.5.0/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
-    <buttons-dropdown></buttons-dropdown>
-    <view-dropdown></view-dropdown>
-    <room-dropdown></room-dropdown>
-    <controls-content></controls-content>
+    <div id="app">
+        <dropdown :name="matrix.name"
+                  :items="matrix.inputs"
+                  :selected="matrix.selected"
+                  :clicker="matrix.set">
+        </dropdown>
+        <dropdown :name="obs.name"
+                  :items="obs.scenes"
+                  :selected="obs.selected"
+                  :clicker="obs.set">
+        </dropdown>
+        <dropdown :name="rooms.name"
+                  :items="rooms.list"
+                  :selected="rooms.selected"
+                  :clicker="rooms.go">
+        </dropdown>
+        <!--controls-content></controls-content-->
+    </div>
+
 
     <div hidden>
-        <template id = "HDMI-dropdown">
-            <div>
-                <button class="dropbtn" type="button">{{HDMI}}</button>
+        <template id = "dropdown-template">
+            <div class="dropdown">
+                <button class="dropbtn" type="button">{{ name }}</button>
                 <div class="content">
                     <ul style="list-style-type:none">
-                        <li v-for = "HDMI-buttons">{{HDMI-b}}</li>
+                        <li :id="item" v-for="item in items" v-on:click="onclick">{{ item }}</li>
                     </ul>
                 </div>
             </div>
         </template>
-    </div>
-
-    <div hidden>
-        <template id = "view-dropdown">
-            <div>
-                <button class="dropbtn" type="button">{{switch}}</button>
-                <div class="content">
-                    <ul style="list-style-type:none">
-                        <li v-for = "vswitch-buttons">{{vswitch-b}}</li>
-                    </ul>
-                </div>
-            </div>
-        </template>
-    </div>
-
-    <div hidden>
-        <template id = "room-dropdown">
-            <div>
-                <button class="dropbtn" type="button">{{rooms}}</button>
-                <div class="content">
-                    <ul style="list-style-type:none">
-                        <li v-for = "rooms-buttons">{{rooms-b}}</li>
-                    </ul>
-                </div>
-            </div>
-        </template>
-    </div>
-
-    <div hidden>
-        <template id = "controls-content">
+        <template id = "controls-content-template">
             <div>
                 <button class="d-buttons" type="button">{{dpad}}</button>
                 <div class="up arrow">

@@ -1,0 +1,4 @@
+[submodule "hdmi_matrix_control"]
+	path = hdmi_matrix_control
+	url = git@github.com:socallinuxexpo/hdmi_matrix_control.git
+	submodule = true
