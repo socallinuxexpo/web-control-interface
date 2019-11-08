@@ -11,11 +11,22 @@ Vue.component("dropdown", {
     /**
      * Component is composed of two properties: a list of names, and a selected name.
      */
-    props: ["name", "items", "selected", "clicker"],
+    props: ["name", "items", "updater", "clicker", "selected"],
+    //data: function() { return {"selected": null} },
     methods: {
         onclick: function (event) {
             let clicked = event.currentTarget.id;
             this.clicker(clicked);
+            let later = this.update.bind(this);
+            setTimeout(later, 500);
+        },
+        update: function () {
+            let _self = this;
+            this.updater().then(new_val => {
+                _self.selected = new_val;
+            }).catch(() => {
+                _self.selected = null;
+            });
         }
     },
     // Read from this element to template

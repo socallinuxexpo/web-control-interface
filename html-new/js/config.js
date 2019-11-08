@@ -24,4 +24,4 @@ export const matconf = {
 /**
  * A list of room-names. These will be fed to the links for moving to different rooms.
  */
-export const rooms = ["room1", "room2", "room3"];
+export const rooms = ["localhost", "room1", "room2", "room3"];

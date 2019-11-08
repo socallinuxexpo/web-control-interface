@@ -15,11 +15,13 @@
         <dropdown :name="matrix.name"
                   :items="matrix.inputs"
                   :selected="matrix.selected"
+                  :updater="matrix.get"
                   :clicker="matrix.set">
         </dropdown>
         <dropdown :name="obs.name"
                   :items="obs.scenes"
                   :selected="obs.selected"
+                  :updater="obs.get"
                   :clicker="obs.set">
         </dropdown>
         <dropdown :name="rooms.name"
@@ -27,6 +29,7 @@
                   :selected="rooms.selected"
                   :clicker="rooms.go">
         </dropdown>
+        <img id="video" class="vidpreview" src="mjpeg/mjpeg_stream" alt="Camera Loading..."/>
         <!--controls-content></controls-content-->
     </div>
 
@@ -37,7 +40,7 @@
                 <button class="dropbtn" type="button">{{ name }}</button>
                 <div class="content">
                     <ul style="list-style-type:none">
-                        <li :id="item" v-for="item in items" v-on:click="onclick">{{ item }}</li>
+                        <li :id="item" v-for="item in items" v-on:click="onclick">{{ item }} <span v-if="item == selected">--</span></li>
                     </ul>
                 </div>
             </div>

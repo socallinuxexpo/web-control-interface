@@ -19,20 +19,24 @@ function onload() {
         obs: {
             name: "Select Scene",
             scenes: [],
-            selected: "Unknown",
-            set: obswrap.set
+            get: obswrap.get,
+            set: obswrap.set,
+            selected: "none"
         },
         matrix: {
             name: "HDMI Input",
             inputs: [],
-            selected: "Unkmown",
-            set: matwrap.set
+            get: matwrap.get,
+            set: matwrap.set,
+            selected: "none"
         },
         rooms:{
             name: "Room Selection",
             list: rooms,
             selected: location.hostname.split(".")[0],
-            go: (data) => {alert(data);}
+            go: (data) => {
+                setTimeout(() => window.location.href = "http://" + data + ".scaleav.us", 10);
+            }
         }
     };
     // Vue application
@@ -43,7 +47,10 @@ function onload() {
     });
 
     // Setup obs, and matrix
-    obswrap.setup().then((scenes) => {data.obs.scenes = scenes});
+    obswrap.setup().then((scenes) => {
+        data.obs.scenes = scenes;
+        obswrap.get().then((selected) => {data.obs.selected = selected;});
+    });
     matwrap.list().then((inputs) => {
         data.matrix.inputs = inputs;
         matwrap.get().then((selected) => {data.matrix.selected = selected;});

@@ -57,10 +57,8 @@ export let matwrap = {
             ajax(matconf.endpoint + "/inputs")
                 // Handle results of the call
                 .then((data) => {
-                    // Return data filtered down to max allowed count
-                    resolve(data.filter((item, index) => {
-                        return index < matconf.maxinputs;
-                    }));
+                    // Return list of inputs determined from max inputs, and actual inputs
+                    resolve([...Array(Math.min(data, matconf.maxinputs)).keys()]);
                 })
                 .catch((err) => {
                     logger.error(err);

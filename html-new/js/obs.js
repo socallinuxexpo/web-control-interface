@@ -66,5 +66,19 @@ export let obswrap = {
      */
     set: function (name) {
         return obs.send("SetCurrentScene", {"scene-name": name});
+    },
+    /**
+     * Gets the active scene by name. This will send out the OBS call to get the active scene. This
+     * returns a promise that represents the action.
+     *
+     * ```
+     * obswrap.get().then(() => console.log("All done"));
+     * ```
+     * @return: promise of action completion
+     */
+    get: function () {
+        return new Promise((resolve, reject) => {
+            obs.send("GetCurrentScene").then((item) => resolve(item.name)).catch(reason => reject(reason));
+        });
     }
 };
