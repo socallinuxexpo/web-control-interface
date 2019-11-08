@@ -30,7 +30,8 @@
                   :clicker="rooms.go">
         </dropdown>
         <img id="video" class="vidpreview" src="mjpeg/mjpeg_stream" alt="Camera Loading..."/>
-        <!--controls-content></controls-content-->
+        <camera-controls :controller="camera.controller">
+        </camera-controls>
     </div>
 
 
@@ -45,40 +46,16 @@
                 </div>
             </div>
         </template>
-        <template id = "controls-content-template">
+        <template id = "camera-controls-template">
             <div>
-                <button class="d-buttons" type="button">{{dpad}}</button>
-                <div class="up arrow">
-                    <ul style="list-style-type:none">
-                        <li v-for = "up-button">{{up}}</li>
-                    </ul>
-                </div>
-                <div class="L/R arrow">
-                    <ul style="list-style-type:none">
-                        <li v-for = "left-button">{{left}}</li>
-                        <li v-for = "right-button">{{right}}</li>
-                    </ul>
-                </div>
-                <div class="down arrow">
-                    <ul style="list-style-type:none">
-                        <li v-for = "down-button">{{down}}</li>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <button class="z-buttons" type="button">{{zpad}}</button>
-                <div class="sethome">
-                    <ul style="list-style-type:none">
-                        <li v-for = "sethome-horizontal">{{h-horz}}</li>
-                        <li v-for = "sethome-vertical">{{h-vert}}</li>
-                    </ul>
-                </div>
-                <div class="in-out">
-                    <ul style="list-style-type:none">
-                        <li v-for = "plus">{{plusin}}</li>
-                        <li v-for = "minus">{{minusout}}</li>
-                    </ul>
-                </div>
+                <button v-on:click="onclick" id="dpad-up">UP</button>
+                <button v-on:click="onclick" id="dpad-down">DW</button>
+                <button v-on:click="onclick" id="dpad-left">LF</button>
+                <button v-on:click="onclick" id="dpad-right">RG</button>
+                <button v-on:click="onclick" id="dpad-zoomin">In</button>
+                <button v-on:click="onclick" id="dpad-zoomout">Out</button>
+                <button v-on:click="onclick" id="dpad-sethome">Set Home</button>
+                <button v-on:click="onclick" id="dpad-returnhome">Return Home</button>
             </div>
         </template>
     </div>

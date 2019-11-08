@@ -32,8 +32,14 @@ Vue.component("dropdown", {
     // Read from this element to template
     template: "#dropdown-template"
 });
-
-Vue.component("controls-content", {
+Vue.component("camera-controls", {
+    props: ["controller"],
+    methods: {
+        onclick: function(event) {
+            let clicked = event.currentTarget.id.replace("dpad-", "");
+            this.controller[clicked]();
+        }
+    },
     // Read from this element to template
-    template: "#controls-content-template"
+    template: "#camera-controls-template"
 });

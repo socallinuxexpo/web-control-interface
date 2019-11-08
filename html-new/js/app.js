@@ -9,6 +9,7 @@
 import {logger} from "./logger.js";
 import {matwrap} from "./matrix.js";
 import {obswrap} from "./obs.js";
+import {camctrl} from "./camera.js";
 import {rooms} from "./config.js";
 import "./vuewrap.js" // Must import to get registrations
 
@@ -37,6 +38,9 @@ function onload() {
             go: (data) => {
                 setTimeout(() => window.location.href = "http://" + data + ".scaleav.us", 10);
             }
+        },
+        camera: {
+            controller: camctrl
         }
     };
     // Vue application
