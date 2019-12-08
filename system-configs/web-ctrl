@@ -15,7 +15,7 @@ server {
        }
 
         location = / {
-            return 301 /html-frontend/operate.html;
+            return 301 /html/yeet.html;
         }
         location ~ ^/mjpeg {
           rewrite /mjpeg/(.+) /$1 break;
@@ -26,8 +26,7 @@ server {
           proxy_set_header Host 127.0.0.1;
         }
 
-	location ~ ^/control {
-            rewrite /control/(.+) /$1 break;
+	location ~ ^/matrix {
             #proxy_pass  http://localhost:5000;
             #proxy_set_header Host $host;
             #proxy_set_header X-Real-IP $remote_addr;
