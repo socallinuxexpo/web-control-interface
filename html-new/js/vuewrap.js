@@ -17,16 +17,8 @@ Vue.component("dropdown", {
         onclick: function (event) {
             let clicked = event.currentTarget.id;
             this.clicker(clicked);
-            let later = this.update.bind(this);
+            let later = this.updater.bind(this);
             setTimeout(later, 500);
-        },
-        update: function () {
-            let _self = this;
-            this.updater().then(new_val => {
-                _self.selected = new_val;
-            }).catch(() => {
-                _self.selected = null;
-            });
         }
     },
     // Read from this element to template

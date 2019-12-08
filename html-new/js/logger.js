@@ -8,5 +8,6 @@
  */
 export let logger = {
     error: (msg) => { console.error("[LCARS-II ERROR] " + msg); },
-    log: (msg) => { console.log("[LCARS-II INFO] " + msg); }
+    log: (msg) => { console.log("[LCARS-II INFO] " + msg); },
+    info: (msg) => { console.log("[LCARS-II INFO] " + msg); }
 };

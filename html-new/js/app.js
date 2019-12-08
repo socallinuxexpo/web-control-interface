@@ -20,14 +20,14 @@ function onload() {
         obs: {
             name: "Select Scene",
             scenes: [],
-            get: obswrap.get,
+            get: () => {obswrap.get().then((new_val) => { data["obs"]["selected"] = new_val})},
             set: obswrap.set,
             selected: "none"
         },
         matrix: {
             name: "HDMI Input",
             inputs: [],
-            get: matwrap.get,
+            get: () => {matwrap.get().then((new_val) => { data["matrix"]["selected"] = new_val})},
             set: matwrap.set,
             selected: "none"
         },
