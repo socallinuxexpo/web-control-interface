@@ -1,7 +1,11 @@
 web-control-interface
 =====================
 
-Volunteer web-control interfaces for ScaleAV 13x.
+Volunteer web-control interfaces for ScaleAV 18x. This code allows volunteers to control the HDMI matrix switch,
+camera, and OBS server, which compose the software stack capturing ScaleAV 18x speakers. The HDMI matrix switch
+controls the input to the system allowing for both a speaker laptop and an internal projection. The camera controls
+the room camera allowing the operator to point the in-room PTZ camera for better image recording. The OBS server
+controls the recording scene composition allowing for more than just one static scene.
 
 Installation Instructions
 =========================
@@ -14,6 +18,8 @@ Install the following packages:
      pip3 flask
      pip3 flask-restful
      nginx
+     obs-studio (ppa:obsproject/obs-studio)
+     obs-websocket
 
 Make the following directory, usable by ubuntu:
 
@@ -26,32 +32,10 @@ Checkout the git repository into that directory:
     cd /http
     git clone git@github.com:scale-av/web-control-interface.git
 
-Setup the website and upstart configuration:
+Setup the website and upstart configuration. **Note:** these are sample configurations, and not fully flushed out.
 
     sudo ln -s /http/web-control-interface/system-configs/web-ctrl /etc/nginx/sites-available/web-ctrl
     sudo ln -s /http/web-control-interface/system-configs/web-ctrl.conf /etc/init/web-ctrl.conf
     sudo mv /etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc.bak
     sudo ln -s /http/web-control-interface/system-configs/xinitrc /etc/X11/xinit/xinitrc
 
-Vagrant Dev Environment
-=========================
-A Vagrant development environment has been provided for anyone who wants to run this on their local machine with less work.
-You'll need Vagrant and VirtualBox
-https://www.vagrantup.com/downloads.html
-https://www.virtualbox.org/wiki/Downloads
-
-Vagrant requires 2 files to run:
-
-```
-Vagrantfile
-vagrant-provision.sh
-```
-To run, navigate to the directory where the Vagrantfile is located:
-`vagrant up`
-
-Thats it! When you're done, make sure you run:
-`vagrant destroy`
-otherwise the vm will keep running.
-
-You can ssh into the box without a password by using:
-`vagrant ssh`

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Linux Audiovisual Regulation System (LCARS-II)</title>
+    <script src="js/camera-api/SamsungCamera.js"></script>
+    <script src="vendor/obs-websocket-js-3.1.0/obs-websocket.min.js"></script>
+    <script src="vendor/jquery-1.11.3.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script src="vendor/vue.js"></script>
+    <script src="vendor/obs-websocket-js-3.1.0/obs-websocket.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" href="vendor/font-awesome-4.5.0/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+    <div id="app">
+        <dropdown :name="matrix.name"
+                  :items="matrix.inputs"
+                  :selected="matrix.selected"
+                  :updater="matrix.get"
+                  :clicker="matrix.set">
+        </dropdown>
+        <dropdown :name="obs.name"
+                  :items="obs.scenes"
+                  :selected="obs.selected"
+                  :updater="obs.get"
+                  :clicker="obs.set">
+        </dropdown>
+        <dropdown :name="rooms.name"
+                  :items="rooms.list"
+                  :selected="rooms.selected"
+                  :clicker="rooms.go">
+        </dropdown>
+        <img id="video" class="vidpreview" src="mjpeg/mjpeg_stream" alt="Camera Loading..."/>
+        <camera-controls :controller="camera.controller">
+        </camera-controls>
+    </div>
+
+
+    <div hidden>
+        <template id = "dropdown-template">
+            <div class="dropdown">
+                <button class="dropbtn" type="button">{{ name }}</button>
+                <div class="content">
+                    <ul style="list-style-type:none">
+                        <li :id="item" v-for="item in items" v-on:click="onclick">{{ item }} <span v-if="item == selected">--</span></li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+        <template id = "camera-controls-template">
+            <div>
+                <button v-on:click="onclick" id="dpad-up">UP</button>
+                <button v-on:click="onclick" id="dpad-down">DW</button>
+                <button v-on:click="onclick" id="dpad-left">LF</button>
+                <button v-on:click="onclick" id="dpad-right">RG</button>
+                <button v-on:click="onclick" id="dpad-zoomin">In</button>
+                <button v-on:click="onclick" id="dpad-zoomout">Out</button>
+                <button v-on:click="onclick" id="dpad-sethome">Set Home</button>
+                <button v-on:click="onclick" id="dpad-returnhome">Return Home</button>
+            </div>
+        </template>
+    </div>
+
+</body>
+</html>

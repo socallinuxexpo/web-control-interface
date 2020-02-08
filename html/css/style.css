@@ -1,0 +1,142 @@
+.tab-content h3 {
+	padding-left: 10px;
+}
+
+@media only screen and (orientation: landscape){
+	.control-element{
+		display: grid;
+		grid-template-columns: 80% 20%
+	}
+	#dpad{
+		background-color: rgba(0, 0, 0, 0.7);
+	}
+}
+
+/*override bootstrap default label margin*/
+label{
+	margin-bottom: 0!important;
+}
+
+body{
+	padding: 1vmin;
+}
+.lcars{
+	width: 100%;
+	display: grid;
+	height: 100%;
+}
+
+.control-element{
+    display: grid;
+    position: center;
+    background-color: LightGray;
+	width: 100%;
+	height: auto;
+
+	border: 2px solid #B8B8B8;
+}
+
+.header{
+	height: auto;
+	margin-bottom: 5vmin;
+}
+
+.rounded-fix-padding{
+     padding-left: 10px;
+     padding-right: 10px;
+}
+
+#message-container{
+    width: 100%;
+	float: left;
+		margin-top: 2vmin;
+}
+
+.vidpreview{
+	width: auto;
+  	height: auto;
+}
+
+#zpad ul{
+    list-style-type: none;
+    padding: 10% 0% 7% 20%;
+    float: left;
+
+}
+#zpad button{
+	width: 100%;
+    margin: 0% 0% 10% 0%;
+}
+
+div#io-pins {
+    margin: 5px 5px;
+}
+
+/* sets the margins for the arrow buttons */
+#left{
+	margin-right: 1em;
+}
+
+/* sets the margins for the arrow buttons */
+#right{
+	margin-left: 1em;
+}
+
+/*style of the drop button*/
+.dropbtn{
+    background-color: #8CADCB;
+    color: white;
+    padding: 1em;
+    width: 16em;
+    margin-bottom: 1em;
+    margin-right: 0.5em;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/*sets the position of the drop down*/
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+/* Links inside the dropdown */
+.dropdown label {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.content {
+    display: none;
+    position: absolute;
+    right: 0;
+    padding: 1em;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Change color of dropdown links on hover */
+.dropdown label:hover {
+    background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #66afe9;
+}
+
+
+
+
+
