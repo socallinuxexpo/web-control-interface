@@ -1,7 +1,7 @@
 server {
 	listen   80;
         server_name    localhost;
-	root /http/web-control-interface;
+	root /opt/web-control-interface;
         #error_page 404 /errors/404.html
         
        location ~ ^/video {
