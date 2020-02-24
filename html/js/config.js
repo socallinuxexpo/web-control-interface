@@ -17,7 +17,7 @@ export const obsconf = {
  * Matrix switch configuration. Sets the primary output, and how many inputs are allowed.
  */
 export const matconf = {
-    output: 0, // Output configuration
+    output: 1, // Output configuration
     maxinputs: 2, // Limit to the maximum number of inputs displayed
     endpoint: "/matrix"
 };
