@@ -19,6 +19,9 @@ Vue.component("dropdown", {
             this.clicker(clicked);
             let later = this.updater.bind(this);
             setTimeout(later, 500);
+        },
+        onhover: function (event) {
+            this.updater();
         }
     },
     // Read from this element to template

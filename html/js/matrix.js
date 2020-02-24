@@ -25,7 +25,7 @@ export let matwrap = {
                 // Handle results of the call
                 .then((data) => {
                     // Return list of inputs determined from max inputs, and actual inputs
-                    resolve([...Array(Math.min(data, matconf.maxinputs)).keys()]);
+                    resolve(Array.map(x => x +1, Array(Math.min(data, matconf.maxinputs)).keys()));
                 })
                 .catch((err) => {
                     logger.error(err);
@@ -38,13 +38,13 @@ export let matwrap = {
      * @return: promise input number
      */
     get: function () {
-        return ajax(matconf.endpoint +"/output/" + matconf.output);
+        return ajax(matconf.endpoint +"/output/" + matconf.output) + 1;
     },
     /**
      * Set the ouput to the specified input.
      * @return: promise of action completion
      */
     set: function (input) {
-        return ajax(matconf.endpoint +"/output/" + matconf.output, {"input": input});
+        return ajax(matconf.endpoint +"/output/" + matconf.output, {"input": input - 1});
     }
 };

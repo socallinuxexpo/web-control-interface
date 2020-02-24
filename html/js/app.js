@@ -53,11 +53,11 @@ function onload() {
     // Setup obs, and matrix
     obswrap.setup().then((scenes) => {
         data.obs.scenes = scenes;
-        obswrap.get().then((selected) => {data.obs.selected = selected;});
+        data.obs.get();
     });
     matwrap.list().then((inputs) => {
         data.matrix.inputs = inputs;
-        matwrap.get().then((selected) => {data.matrix.selected = selected;});
+        data.matrix.get();
     });
 }
 // Setup the on-load function

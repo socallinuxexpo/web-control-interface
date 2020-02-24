@@ -48,7 +48,7 @@
     <div hidden>
         <template id = "dropdown-template">
             <div class="dropdown">
-                <button class="btn btn-primary" type="button">{{ name }}</button>
+                <button class="btn btn-primary" type="button" v-on:mouseover="onhover">{{ name }}</button>
                 <div class="content">
                     <div :id="item" v-for="item in items" v-on:click="onclick"
                     class="btn" v-bind:class="['fill', 'btn', (item == selected)? 'btn-success' : 'btn-secondary']">
