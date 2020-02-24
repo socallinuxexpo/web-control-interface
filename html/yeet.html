@@ -11,54 +11,82 @@
     <script src="vendor/obs-websocket-js-3.1.0/obs-websocket.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" href="vendor/font-awesome-4.5.0/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="vendor/bootstrap-4.0.0/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
-    <div id="app">
-        <dropdown :name="matrix.name"
-                  :items="matrix.inputs"
-                  :selected="matrix.selected"
-                  :updater="matrix.get"
-                  :clicker="matrix.set">
-        </dropdown>
-        <dropdown :name="obs.name"
-                  :items="obs.scenes"
-                  :selected="obs.selected"
-                  :updater="obs.get"
-                  :clicker="obs.set">
-        </dropdown>
-        <dropdown :name="rooms.name"
-                  :items="rooms.list"
-                  :selected="rooms.selected"
-                  :clicker="rooms.go">
-        </dropdown>
-        <img id="video" class="vidpreview" src="/mjpeg/mjpeg_stream" alt="Camera Loading..."/>
-        <camera-controls :controller="camera.controller">
-        </camera-controls>
+    <div id="app" class="container-fluid">
+        <div class="row">
+            <dropdown :name="matrix.name"
+                      :items="matrix.inputs"
+                      :selected="matrix.selected"
+                      :updater="matrix.get"
+                      :clicker="matrix.set">
+            </dropdown>
+            <dropdown :name="obs.name"
+                      :items="obs.scenes"
+                      :selected="obs.selected"
+                      :updater="obs.get"
+                      :clicker="obs.set">
+            </dropdown>
+            <dropdown :name="rooms.name"
+                      :items="rooms.list"
+                      :selected="rooms.selected"
+                      :clicker="rooms.go">
+            </dropdown>
+        </div>
+        <div class="row">
+            <div class="col-9 controls">
+                <img id="video" class="fill vidpreview" src="/mjpeg/mjpeg_stream" alt="Camera Loading..."/>
+            </div>
+            <div class="col-3 fill controls">
+                <camera-controls :controller="camera.controller"></camera-controls>
+            </div>
+        </div>
     </div>
 
 
     <div hidden>
         <template id = "dropdown-template">
             <div class="dropdown">
-                <button class="dropbtn" type="button">{{ name }}</button>
+                <button class="btn btn-primary" type="button">{{ name }}</button>
                 <div class="content">
-                    <ul style="list-style-type:none">
-                        <li :id="item" v-for="item in items" v-on:click="onclick">{{ item }} <span v-if="item == selected">--</span></li>
-                    </ul>
+                    <div :id="item" v-for="item in items" v-on:click="onclick"
+                    class="btn" v-bind:class="['fill', 'btn', (item == selected)? 'btn-success' : 'btn-secondary']">
+                        {{ item }}
+                    </div>
                 </div>
             </div>
         </template>
         <template id = "camera-controls-template">
             <div>
-                <button v-on:click="onclick" id="dpad-up">UP</button>
-                <button v-on:click="onclick" id="dpad-down">DW</button>
-                <button v-on:click="onclick" id="dpad-left">LF</button>
-                <button v-on:click="onclick" id="dpad-right">RG</button>
-                <button v-on:click="onclick" id="dpad-zoomin">In</button>
-                <button v-on:click="onclick" id="dpad-zoomout">Out</button>
-                <button v-on:click="onclick" id="dpad-sethome">Set Home</button>
-                <button v-on:click="onclick" id="dpad-returnhome">Return Home</button>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div v-on:click="onclick" id="dpad-up" class="col-4 btn btn-secondary fa fa-chevron-up"></div>
+                    <div class="col-4"></div>
+                </div>
+                <div class="row">
+                    <div v-on:click="onclick" id="dpad-left" class="col-4 btn btn-secondary fa fa-chevron-left"></div>
+                    <div class="col-4"></div>
+                    <div v-on:click="onclick" id="dpad-right" class="col-4 btn btn-secondary fa fa-chevron-right"></div>
+                </div>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div v-on:click="onclick" id="dpad-doen" class="col-4 btn btn-secondary fa fa-chevron-down"></div>
+                    <div class="col-4"></div>
+                </div>
+                <div class="row">
+                    <div v-on:click="onclick" id="dpad-zoomin" class="col-6 btn btn-secondary fa fa-plus-circle"></div>
+                    <div v-on:click="onclick" id="dpad-zoomout" class="col-6 btn btn-secondary fa fa-minus-circle"></div>
+                </div>
+                <div class="row">
+                    <button v-on:click="onclick" id="dpad-sethome" class="col-6 btn btn-secondary">Set Home</button>
+                    <button v-on:click="onclick" id="dpad-returnhome" class="col-6 btn btn-secondary">Return Home</button>
+                </div>
+                <div class="row">
+                    <h4>Camera Controls:</h4>
+                    <p>Controls used to frame the upper-left camera feed. <em>Camera movements have substantial delay.
+                    Please click sparingly.</em></p>
+                </div>
             </div>
         </template>
     </div>
