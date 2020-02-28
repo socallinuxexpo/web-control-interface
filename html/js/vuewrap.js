@@ -21,7 +21,9 @@ Vue.component("dropdown", {
             setTimeout(later, 500);
         },
         onhover: function (event) {
-            this.updater();
+            if (typeof(this.updater) !== "undefined") {
+                this.updater();
+            }
         }
     },
     // Read from this element to template

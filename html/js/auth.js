@@ -37,8 +37,8 @@ export function ajax(url, data, json, username, password, timeout) {
                 }
             }
         };
-        // Open and send request
-        xhttp.open(method, url, true);
+        // Open and send request, without caching
+        xhttp.open(method, url + "?_=" + new Date().getTime(), true);
         if(typeof (username) !== "undefined" && typeof (password) !== "undefined")
         {
             let tok = username + ':' + password;
