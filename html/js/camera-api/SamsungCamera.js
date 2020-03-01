@@ -18,17 +18,24 @@ var SamsungCamera = function(name, path, username, password, invertY) {
   this.password = password;
   this.invertY = invertY;
   this.url = path + "/stw-cgi/";
+  this.lock = false;
 };
+SamsungCamera.prototype.busy = function() {
+    return this.lock;
+}
 
 SamsungCamera.prototype.sendMessage = function(msg, successCallback,
     errorCallback) {
   var start = Date.now();
+  var _self = this;
+  this.lock = true;
   $.ajax({
     type : "GET",
     url : "" + this.url + msg,
     username : this.username,
     password : this.password,
     success : function(data, text, xhr) {
+      _self.lock = false;
       var duration = Date.now() - start;
       console.log("Ajax query=[" + msg + "] response=[" + data.replace("<","&lt;").replace(">","&gt;") + "] have latency=[" + duration + "ms]");
       if (typeof(successCallback) === "function") {
@@ -36,6 +43,7 @@ SamsungCamera.prototype.sendMessage = function(msg, successCallback,
       }
     },
     error : function(xhr, text, error) {
+      _self.lock = false;
       var duration = Date.now() - start;
       console.log("Ajax query=[" + msg + "] error=[" + error.replace("<","&lt;").replace(">","&gt;") + "] have latency=[" + duration + "ms]");
       if (typeof(errorCallback) === "function") {

@@ -4,7 +4,7 @@ import {DispatchingQueue} from "./camera-api/dispatch.js";
 import {PTZOpticsCamera} from "./camera-api/PTZOpticsCamera.js";
 
 let caminst = null;
-if (camera.type == "Samsung") {
+if (camera.type == "SamsungCamera") {
     caminst = new SamsungCamera(camera.name, camera.control,
         camera.username, camera.password, false);
 } else {
