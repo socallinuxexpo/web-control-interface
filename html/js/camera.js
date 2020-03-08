@@ -11,7 +11,7 @@ if (camera.type == "SamsungCamera") {
     caminst = new PTZOpticsCamera(camera.name, camera.control,
         camera.username, camera.password, false);
 }
-let dispatcher = new DispatchingQueue(caminst);
+let dispatcher = new DispatchingQueue(caminst, camera);
 // Maps the camctrl UI functions to the camera instance functions below
 export let camctrl = {
     up: dispatcher.enqueue.bind(dispatcher, "up", camera["tilt-speed"]),

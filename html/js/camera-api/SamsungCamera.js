@@ -55,15 +55,15 @@ SamsungCamera.prototype.sendMessage = function(msg, successCallback,
 
 SamsungCamera.prototype.pan = function(speed, successCallback, errorCallback) {
   this.sendMessage("ptzcontrol.cgi?msubmenu=continuous&action=control&Pan="
-      + speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+      + speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.left = function(speed, successCallback, errorCallback) {
-  this.pan(-speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+  this.pan(-speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.right = function(speed, successCallback, errorCallback) {
-  this.pan(speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+  this.pan(speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.tilt = function(speed, successCallback, errorCallback) {
@@ -71,20 +71,20 @@ SamsungCamera.prototype.tilt = function(speed, successCallback, errorCallback) {
     speed = -speed;
   }
   this.sendMessage("ptzcontrol.cgi?msubmenu=continuous&action=control&Tilt="
-      + speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+      + speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.up = function(speed, successCallback, errorCallback) {
-  this.tilt(speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+  this.tilt(speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.down = function(speed, successCallback, errorCallback) {
-  this.tilt(-speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+  this.tilt(-speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.zoom = function(speed, successCallback, errorCallback) {
   this.sendMessage("ptzcontrol.cgi?msubmenu=continuous&action=control&Zoom="
-      + speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+      + speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.zoomIn = function(speed, successCallback, errorCallback) {
@@ -93,7 +93,7 @@ SamsungCamera.prototype.zoomIn = function(speed, successCallback, errorCallback)
 
 SamsungCamera.prototype.zoomOut = function(speed, successCallback,
     errorCallback) {
-  this.zoom(-speed, this.stop.bind(this, successCallback, errorCallback), errorCallback);
+  this.zoom(-speed, successCallback, errorCallback);
 };
 
 SamsungCamera.prototype.zoomStop = function(successCallback, errorCallback) {
