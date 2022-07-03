@@ -52,5 +52,22 @@ export let matwrap = {
      */
     set: function (input) {
         return ajax(matconf.endpoint +"/output/" + matconf.output, {"input": input - 1});
-    }
+    },
+    
+    startStream: function (room) {
+        return ajax(matconf.endpoint +"/stream", {"stream": room});
+    },
+
+    reportStream: function () {
+        return new Promise((resolve, reject) => 
+	    ajax(matconf.endpoint +"/stream").then(data => {
+                    resolve(data);
+                }
+	    ).catch(e => reject(e)));
+    },
+
+    stopStream: function () {
+        return ajax(matconf.endpoint +"/stream", "DELETE");
+    },
+    
 };

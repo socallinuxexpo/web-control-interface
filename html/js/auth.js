@@ -11,13 +11,15 @@ export let obsauth = {
  * ajax("http://example.com").then((data) => {console.log(data)});
  * ```
  * @param url: URL to access
- * @param data: (optional) PUT data to send. Default: no data, GET request.
+ * @param data: (optional) PUT data to send, DELETE. Default: no data, GET request.
  * @return: promise of data to come
  */
 export function ajax(url, data, json, username, password, timeout) {
     // Default params code
     let method = "GET";
-    if (typeof(data) !== "undefined") {
+    if (data == "DELETE") {
+        method = "DELETE";
+    } else if (typeof(data) !== "undefined") {
         method = "PUT";
     }
     // Create a promise to return data for the request

@@ -7,6 +7,26 @@
  *
  * @author lestarch, pelmini
  */
+import {matwrap} from "./matrix.js";
+
+Vue.component("streams", {
+    props: ["streams"],
+    data: () => { return {"selected": ""}; },
+    methods: {
+        start(data) {
+            let _self = this;
+            matwrap.startStream(data).then((new_val) => { _self.selected = data;})
+        },
+        stop() {
+            let _self = this;
+            matwrap.stopStream().then((new_val) => { _self.selected = "";})
+        },
+        update() {}
+    },
+    template: "#streams-template"
+});
+
+
 Vue.component("dropdown", {
     /**
      * Component is composed of two properties: a list of names, and a selected name.

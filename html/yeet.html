@@ -33,6 +33,7 @@
                       :selected="rooms.selected"
                       :clicker="rooms.go">
             </dropdown>
+	    <streams :streams="rooms.list">
         </div>
         <div class="row">
             <div class="col-9 controls">
@@ -46,6 +47,14 @@
 
 
     <div hidden>
+        <template id = "streams-template">
+	    <div>
+                <dropdown :name="'Start Steam'" :items="streams"
+                          :selected="selected" :clicker="start" :updater="update">
+                 </dropdown>
+	         <button class="btn btn-primary" @click="stop" >Stop Stream</button>
+            </div>
+        </template>
         <template id = "dropdown-template">
             <div class="dropdown">
                 <button class="btn btn-primary" type="button" v-on:mouseover="onhover">{{ name }}</button>
