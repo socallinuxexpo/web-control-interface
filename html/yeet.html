@@ -16,24 +16,29 @@
 <body>
     <div id="app" class="container-fluid">
         <div class="row">
-            <dropdown :name="matrix.name"
-                      :items="matrix.inputs"
-                      :selected="matrix.selected"
-                      :updater="matrix.get"
-                      :clicker="matrix.set">
-            </dropdown>
-            <dropdown :name="obs.name"
-                      :items="obs.scenes"
-                      :selected="obs.selected"
-                      :updater="obs.get"
-                      :clicker="obs.set">
-            </dropdown>
-            <dropdown :name="rooms.name"
-                      :items="rooms.list"
-                      :selected="rooms.selected"
-                      :clicker="rooms.go">
-            </dropdown>
-	    <streams :streams="rooms.list">
+            <div class="col-4">
+                <dropdown :name="matrix.name"
+                          :items="matrix.inputs"
+                          :selected="matrix.selected"
+                          :updater="matrix.get"
+                          :clicker="matrix.set">
+                </dropdown>
+                <dropdown :name="obs.name"
+                          :items="obs.scenes"
+                          :selected="obs.selected"
+                          :updater="obs.get"
+                          :clicker="obs.set">
+                </dropdown>
+            </div>
+	   <div class="col-4"></div>
+	   <div class="col-4">
+                <dropdown :name="rooms.name"
+                          :items="rooms.list"
+                          :selected="rooms.selected"
+                          :clicker="rooms.go">
+                </dropdown>
+                <streams :streams="rooms.list">
+	   </div>
         </div>
         <div class="row">
             <div class="col-9 controls">
