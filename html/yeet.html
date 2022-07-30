@@ -16,7 +16,7 @@
 <body>
     <div id="app" class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-6">
                 <dropdown :name="matrix.name"
                           :items="matrix.inputs"
                           :selected="matrix.selected"
@@ -29,14 +29,14 @@
                           :updater="obs.get"
                           :clicker="obs.set">
                 </dropdown>
-            </div>
-	   <div class="col-4"></div>
-	   <div class="col-4">
                 <dropdown :name="rooms.name"
                           :items="rooms.list"
                           :selected="rooms.selected"
                           :clicker="rooms.go">
                 </dropdown>
+            </div>
+	   <div class="col-2"></div>
+	   <div class="col-4">
                 <streams :streams="rooms.list">
 	   </div>
         </div>
