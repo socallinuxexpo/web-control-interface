@@ -35,10 +35,11 @@
                           :clicker="rooms.go">
                 </dropdown>
             </div>
-	   <div class="col-2"></div>
-	   <div class="col-4">
+           <div class="col-2"></div>
+           <div class="col-4">
+                <span><em>Use only with approval</em></span>
                 <streams :streams="rooms.list">
-	   </div>
+           </div>
         </div>
         <div class="row">
             <div class="col-9 controls">
@@ -53,11 +54,11 @@
 
     <div hidden>
         <template id = "streams-template">
-	    <div>
+            <div>
                 <dropdown :name="'Start Steam'" :items="streams"
                           :selected="selected" :clicker="start" :updater="update">
                  </dropdown>
-	         <button class="btn btn-primary" @click="stop" >Stop Stream</button>
+                 <button class="btn btn-primary" @click="stop" >Stop Stream</button>
             </div>
         </template>
         <template id = "dropdown-template">
