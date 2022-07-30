@@ -1,5 +1,6 @@
 #!/bin/bash
-
+CURRENT_DIRECTORY="$(cd $(dirname $BASH_SOURCE); pwd)"
+${CURRENT_DIRECTORY}/stop-stream
 # This script should be called with the complete URL of the stream source
 if (( $# != 1 ))
 then
