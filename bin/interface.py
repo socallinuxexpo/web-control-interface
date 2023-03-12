@@ -61,7 +61,7 @@ sub print_html {
         mixer.src = "http://" + room + "-mixer.$domain/$config->{'parameters'}->{'audio_mixer_uri'}";
 
         /* Highlight the selected button */
-        buttons = document.getElementById("tabs_frame");
+        buttons = document.getElementById("tabs");
         for (child = buttons.firstChild; child !== null; child = child.nextSibling) {
             if (child.name == room) {
             } else {
@@ -91,9 +91,10 @@ button {
 td {
 	font-size: 2.0em;
 }
-button.hover {
+button.room_button {
     cursor: pointer;
-    font-size: 3em;
+    font-size: 4em;
+    margin: 20px;
 }
 body {
     height: 100%;
@@ -104,15 +105,51 @@ div.content {
     gap: 20px;
     width: 100%;
     height: 100vh;
+    background-color: grey;
 }
 div.tabs {
+    display: flex;
+    flex-direction: column;
     flex-grow: 0;       /* do not grow */
     flex-shrink: 0;     /* do not shrink */
+    flex-basis: 250px;
 }
 div.controls {
+    display: flex;
+    flex-direction: column;
     flex-grow: 0;       /* do not grow */
     flex-shrink: 0;     /* do not shrink */
     flex-basis: 25%;
+    background-color: orange;
+}
+div.controls_camera {
+    flex-grow: 0;       /* do not grow */
+    flex-shrink: 0;     /* do not shrink */
+    background-color: yellow;
+}
+div.controls_camera_and_system {
+    display: flex;
+    flex-direction: row;
+    background-color: cyan;
+}
+div.controls_camera_control {
+    display: flex;
+    flex-grow: 1;       /* do grow */
+    background-color: blue;
+}
+div.controls_system_status {
+    flex-grow: 0;       /* do not grow */
+    flex-shrink: 0;     /* do not shrink */
+    background-color: green;
+}
+div.controls_slides {
+    flex-grow: 0;       /* do not grow */
+    flex-shrink: 0;     /* do not shrink */
+    background-color: red;
+}
+div.controls_audio_mixer {
+    display: flex;
+    flex-grow: 1;       /* do grow */
 }
 div.rooms {
     display: grid;
@@ -125,14 +162,6 @@ div.room {
     background-color: lightblue;
     padding: 1rem;
 }
-div.camera_controls {
-    display: flex;
-    flex-grow: 1;       /* do grow */
-}
-div.Audio_mixer {
-    display: flex;
-    flex-grow: 1;       /* do grow */
-}
 iframe {
     display: flex;
     flex-grow: 1;       /* do grow */
@@ -142,14 +171,12 @@ iframe {
 <body onload="startUp()">
 EOF
 
-    # Scale LOGO
-    print "<img src=\"/opt/scaleav-web/img/19x_logo_sm.png\"/>\n";
-
-    # TODO grey out audio mixer unless unlocked
+    # TODO clear overlay over audio mixer unless unlocked
     # TODO Button to bruing up show scheduled
-    # TODO Room active API feed
+    # TODO Room active API feed auto-greys out unused rooms
+    #   Include override button in the upper right to toggle grey
     #   If the room is active show time remaining
-    #   If the room is inactive grey it out and show time to next show
+    #   If the room is inactive grey it out and show time 'til next show
 
     # Content area
     print <<EOF;
@@ -158,10 +185,13 @@ EOF
 
     # Tabs column
     print <<EOF;
-  <div id="tabs_frame" class="tabs" style="display: flex; flex-direction: column;">
+  <div id="tabs" class="tabs" ">
 EOF
+    # Scale LOGO
+    print "<img src=\"/opt/scaleav-web/img/scale_logo_sm.png\"/>\n";
+
     foreach my $room (sort keys %{$config->{'rooms'}}) {
-        print "    <button class=\"hover\" name=\"$room\" onclick=\"setRoom('$room')\">$room</button>\n";
+        print "    <button class=\"room_button\" name=\"$room\" onclick=\"setRoom('$room')\">$room</button>\n";
     }
 print "  </div>\n";
 
@@ -171,7 +201,20 @@ print "  </div>\n";
     <div class="camera_controls" id="load_camera_controls">
       <iframe id="camera_controls_frame"></iframe> 
     </div>
-    <div class="audio_mixer">
+    <div class="controls_camera">
+    </div>
+    <div class="controls_camera_and_system">
+        <div class="controls_camera_control">
+camera controls
+        </div>
+        <div class="controls_system_status">
+system status
+        </div>
+    </div>
+    <div class="controls_slides">
+slides
+    </div>
+    <div class="controls_audio_mixer">
       <iframe id="audio_mixer_frame"></iframe> 
     </div>
   </div>
