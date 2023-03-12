@@ -1,0 +1,34 @@
+---
+parameters:
+    domain:           'scaleav.us'
+    controls_uri:     'html/yeet.html'
+    audio_mixer_uri:  "mixer.html"
+    camera_uri:       ':1935/scale/mixed'
+
+rooms:
+    ballroom-a:
+        nemonic: a
+    ballroom-b:
+        nemonic: b
+    ballroom-c:
+        nemonic: c
+    ballroom-de:
+        nemonic: d
+    ballroom-f:
+        nemonic: f
+    ballroom-g:
+        nemonic: g
+    ballroom-h:
+        nemonic: h
+    room-101:
+        nemonic: 1
+    room-103:
+        nemonic: 3
+    room-105:
+        nemonic: 5
+    room-106:
+        nemonic: 6
+    room-107:
+        nemonic: 7
+    room-211:
+        nemonic: 2
